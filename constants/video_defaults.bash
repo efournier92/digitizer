@@ -1,3 +1,5 @@
+#!/bin/bash
+
 video_size() {
   echo "640x480"
 }
