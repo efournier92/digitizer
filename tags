@@ -1,0 +1,107 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+EOF	bin/shunit2	/^    command cat <<EOF >"${_shunit_file_}"$/;"	h
+_shunit_assertFail	bin/shunit2	/^_shunit_assertFail() {$/;"	f
+_shunit_assertPass	bin/shunit2	/^_shunit_assertPass() {$/;"	f
+_shunit_assertSkip	bin/shunit2	/^_shunit_assertSkip() {$/;"	f
+_shunit_cleanup	bin/shunit2	/^_shunit_cleanup() {$/;"	f
+_shunit_colors	bin/shunit2	/^_shunit_colors() {$/;"	f
+_shunit_configureColor	bin/shunit2	/^_shunit_configureColor() {$/;"	f
+_shunit_error	bin/shunit2	/^_shunit_error() {$/;"	f
+_shunit_escapeCharInStr	bin/shunit2	/^_shunit_escapeCharInStr() {$/;"	f
+_shunit_escapeCharactersInString	bin/shunit2	/^_shunit_escapeCharactersInString() {$/;"	f
+_shunit_execSuite	bin/shunit2	/^_shunit_execSuite() {$/;"	f
+_shunit_extractTestFunctions	bin/shunit2	/^_shunit_extractTestFunctions() {$/;"	f
+_shunit_fatal	bin/shunit2	/^_shunit_fatal() {$/;"	f
+_shunit_generateReport	bin/shunit2	/^_shunit_generateReport() {$/;"	f
+_shunit_incFailedCount	bin/shunit2	/^_shunit_incFailedCount() {$/;"	f
+_shunit_metrics	bin/shunit2	/^_shunit_metrics() {$/;"	f
+_shunit_mktempDir	bin/shunit2	/^_shunit_mktempDir() {$/;"	f
+_shunit_mktempFunc	bin/shunit2	/^_shunit_mktempFunc() {$/;"	f
+_shunit_prepForSourcing	bin/shunit2	/^_shunit_prepForSourcing() {$/;"	f
+_shunit_shouldSkip	bin/shunit2	/^_shunit_shouldSkip() {$/;"	f
+_shunit_warn	bin/shunit2	/^_shunit_warn() {$/;"	f
+assertContains	bin/shunit2	/^assertContains() {$/;"	f
+assertEquals	bin/shunit2	/^assertEquals() {$/;"	f
+assertFalse	bin/shunit2	/^assertFalse() {$/;"	f
+assertNotContains	bin/shunit2	/^assertNotContains() {$/;"	f
+assertNotEquals	bin/shunit2	/^assertNotEquals() {$/;"	f
+assertNotNull	bin/shunit2	/^assertNotNull() {$/;"	f
+assertNotSame	bin/shunit2	/^assertNotSame() {$/;"	f
+assertNull	bin/shunit2	/^assertNull() {$/;"	f
+assertSame	bin/shunit2	/^assertSame() {$/;"	f
+assertTrue	bin/shunit2	/^assertTrue() {$/;"	f
+detect_audio_devices	utilities/devices.bash	/^detect_audio_devices() {$/;"	f
+detect_video_devices	utilities/devices.bash	/^detect_video_devices() {$/;"	f
+endSkipping	bin/shunit2	/^endSkipping() { __shunit_skip=${SHUNIT_FALSE}; }$/;"	f
+fail	bin/shunit2	/^fail() {$/;"	f
+failFound	bin/shunit2	/^failFound() {$/;"	f
+failNotEquals	bin/shunit2	/^failNotEquals() {$/;"	f
+failNotFound	bin/shunit2	/^failNotFound() {$/;"	f
+failNotSame	bin/shunit2	/^failNotSame() {$/;"	f
+failSame	bin/shunit2	/^failSame() {$/;"	f
+get_audio_device_selection	__tests/input/arguments/read_command_arguments_tests.bash	/^get_audio_device_selection() { $/;"	f
+get_audio_device_selection	input/selection/select_device.bash	/^get_audio_device_selection() {$/;"	f
+get_configs	main.bash	/^get_configs() {$/;"	f
+get_output_file	utilities/fs.bash	/^get_output_file() {$/;"	f
+get_time_right_now	__tests/input/arguments/read_command_arguments_tests.bash	/^get_time_right_now() { $/;"	f
+get_time_right_now	utilities/time.bash	/^get_time_right_now() {$/;"	f
+get_user_selection	input/selection/select_device.bash	/^get_user_selection() {$/;"	f
+get_video_device_selection	__tests/input/arguments/read_command_arguments_tests.bash	/^get_video_device_selection() { $/;"	f
+get_video_device_selection	input/selection/select_device.bash	/^get_video_device_selection() {$/;"	f
+input_audio_format	constants/video_defaults.bash	/^input_audio_format() {$/;"	f
+input_video_format	constants/video_defaults.bash	/^input_video_format() {$/;"	f
+isSkipping	bin/shunit2	/^isSkipping() { return ${__shunit_skip}; }$/;"	f
+ls	__tests/utilities/devices_tests.bash	/^  ls() { echo "\/dev\/snd\/pcmC7D7c \/dev\/snd\/pcmC8D8c \/dev\/snd\/pcmC9D9c" ; }$/;"	f
+ls	__tests/utilities/devices_tests.bash	/^  ls() { echo "\/dev\/snd\/pcmC8D8c" ; }$/;"	f
+ls	__tests/utilities/devices_tests.bash	/^  ls() { echo "\/dev\/video8 \/dev\/video9" ; }$/;"	f
+main	main.bash	/^main() {$/;"	f
+max_capture_duration	constants/video_defaults.bash	/^max_capture_duration() {$/;"	f
+output_crf	constants/video_defaults.bash	/^output_crf() {$/;"	f
+output_extension	constants/video_defaults.bash	/^output_extension() {$/;"	f
+output_format	constants/video_defaults.bash	/^output_format() {$/;"	f
+output_max_threads	constants/video_defaults.bash	/^output_max_threads() {$/;"	f
+output_speed_preset	constants/video_defaults.bash	/^output_speed_preset() {$/;"	f
+output_tuning	constants/video_defaults.bash	/^output_tuning() {$/;"	f
+output_video_codec	constants/video_defaults.bash	/^output_video_codec() {$/;"	f
+print_debugging_info	logging/print_video_details.bash	/^print_debugging_info() {$/;"	f
+read_command_arguments	input/arguments/read_command_arguments.bash	/^read_command_arguments() {$/;"	f
+run_capture_process	ffmpeg/capture_video.bash	/^run_capture_process() {$/;"	f
+startSkipping	bin/shunit2	/^startSkipping() { __shunit_skip=${SHUNIT_TRUE}; }$/;"	f
+suite	__tests/run_tests.bash	/^suite()$/;"	f
+suite_addTest	bin/shunit2	/^suite_addTest() {$/;"	f
+test_detect_audio_devices_with_multiple_devices	__tests/utilities/devices_tests.bash	/^test_detect_audio_devices_with_multiple_devices() {$/;"	f
+test_detect_audio_devices_with_single_device	__tests/utilities/devices_tests.bash	/^test_detect_audio_devices_with_single_device() {$/;"	f
+test_detect_video_devices	__tests/utilities/devices_tests.bash	/^test_detect_video_devices() {$/;"	f
+test_get_output_file_should_return_a_properly_formatted_path	__tests/utilities/fs_tests.bash	/^test_get_output_file_should_return_a_properly_formatted_path() {$/;"	f
+test_message	__tests/logging/print_video_details_tests.bash	/^test_message() {$/;"	f
+test_result_with_all_long_form_configuration_arguments	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_all_long_form_configuration_arguments() {$/;"	f
+test_result_with_all_long_form_configuration_arguments_plus_help	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_all_long_form_configuration_arguments_plus_help() {$/;"	f
+test_result_with_all_short_form_configuration_arguments	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_all_short_form_configuration_arguments() {$/;"	f
+test_result_with_all_short_form_configuration_arguments_plus_help	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_all_short_form_configuration_arguments_plus_help() {$/;"	f
+test_result_with_audio_input_argument	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_audio_input_argument() {$/;"	f
+test_result_with_help_argument	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_help_argument() {$/;"	f
+test_result_with_no_arguments	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_no_arguments() {$/;"	f
+test_result_with_output_duration_argument	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_output_duration_argument() {$/;"	f
+test_result_with_output_name_argument	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_output_name_argument() {$/;"	f
+test_result_with_video_input_argument	__tests/input/arguments/read_command_arguments_tests.bash	/^test_result_with_video_input_argument() {$/;"	f
+test_return_input_audio_format	__tests/constants/video_defaults_tests.bash	/^test_return_input_audio_format() {$/;"	f
+test_return_input_video_codec	__tests/constants/video_defaults_tests.bash	/^test_return_input_video_codec() {$/;"	f
+test_return_input_video_format	__tests/constants/video_defaults_tests.bash	/^test_return_input_video_format() {$/;"	f
+test_return_max_capture_duration	__tests/constants/video_defaults_tests.bash	/^test_return_max_capture_duration() {$/;"	f
+test_return_output_crf	__tests/constants/video_defaults_tests.bash	/^test_return_output_crf() {$/;"	f
+test_return_output_extension	__tests/constants/video_defaults_tests.bash	/^test_return_output_extension() {$/;"	f
+test_return_output_format	__tests/constants/video_defaults_tests.bash	/^test_return_output_format() {$/;"	f
+test_return_output_max_threads	__tests/constants/video_defaults_tests.bash	/^test_return_output_max_threads() {$/;"	f
+test_return_output_speed_preset	__tests/constants/video_defaults_tests.bash	/^test_return_output_speed_preset() {$/;"	f
+test_return_output_tuning	__tests/constants/video_defaults_tests.bash	/^test_return_output_tuning() {$/;"	f
+test_return_video_size	__tests/constants/video_defaults_tests.bash	/^test_return_video_size() {$/;"	f
+test_time_right_now_return_value	__tests/utilities/time_tests.bash	/^test_time_right_now_return_value() {$/;"	f
+usage	input/arguments/read_command_arguments.bash	/^usage() {$/;"	f
+video_size	constants/video_defaults.bash	/^video_size() {$/;"	f

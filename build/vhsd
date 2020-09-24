@@ -1,0 +1,341 @@
+video_size() {
+  echo "640x480"
+}
+
+get_default_start_time() {
+  echo "00:00:00"
+}
+
+get_default_end_time() {
+  echo "06:00:00"
+}
+
+get_default_output_dir() {
+  echo "./"
+}
+
+get_default_size() {
+  echo "720:540"
+}
+
+get_default_crf() {
+  echo "28"
+}
+
+get_default_preset() {
+  echo "slow"
+}
+
+get_default_crop() {
+  echo "20:20:20:20"
+}
+
+get_default_video_codec() {
+  echo "libx264"
+}
+
+input_video_format() {
+  echo "v4l2"
+}
+
+input_audio_format() {
+  echo "alsa"
+}
+
+output_video_codec() {
+  echo "libx264"
+}
+
+output_format() {
+  echo "mpeg"
+}
+
+output_extension() {
+  echo "mp4"
+}
+
+output_tuning() {
+  echo "zerolatency"
+}
+
+output_crf() {
+  echo "16"
+}
+
+output_max_threads() {
+  echo "512"
+}
+
+output_speed_preset() {
+  echo "fast"
+}
+
+### Begin capture process using FFmpeg
+run_capture_process() {
+  input_stream_standard="${1}"
+  input_video_format="${2}"
+  output_video_size="${3}"
+  output_max_threads="${4}"
+  input_video_device="${5}"
+  input_audio_device="${6}"
+  input_audio_device="${7}"
+  output_video_codec="${8}"
+  output_tuning="${9}"
+  output_speed_preset="${10}"
+  output_constant_rate_factor="${11}"
+  output_duration="${12}"
+  output_format="${13}"
+
+  ffmpeg \
+    -standard "${input_stream_standard}" \
+    -f "${input_video_format}" -video_size "${output_video_size}" -thread_queue_size "${output_max_threads}" \
+    -i "${input_video_device}" \
+    -f "${input_audio_format}" -thread_queue_size "${output_max_threads}" -i "${input_audio_device}" \
+    -c:v "${output_video_codec}" -tune "${output_tuning}" -preset "${output_speed_preset}" -crf "${output_constant_rate_factor}" \
+    -t "${output_duration}" -f "${output_format}" - | \
+    ffmpeg -i - -c copy `output_file` \
+      -c copy -f s32le pipe:play | \
+      ffplay -i pipe:play -nodisp
+}
+#!/bin/bash
+
+# DEFAULTS
+in_file="$1"
+out_name="$2"
+in_start_time="00:00:00"
+out_end_time="04:00:00"
+video_codec="libx264"
+out_dir="OUT"
+crf="28"
+tuning="film"
+preset="slow"
+yadif=""
+out_max_queue="400"
+out_ext="mp4"
+out_crop="600:440:20:20"
+out_dimensions="720:540"
+
+get_ffmpeg_command() {
+  local in_file="$1"
+  local in_start_time="$2"
+  local video_codec="$3"
+  local crf="$4"
+  local tuning="$5"
+  local preset="$5"
+  local yadif="$6"
+  local out_crop="$7"
+  local out_dimensions="$8"
+  local out_end_time="$9"
+  local out_max_queue="$10"
+
+  echo "ffmpeg
+    -i $in_file -ss $in_start_time
+    -c:v $video_codec -crf $crf -tune $tuning -preset $preset
+    -vf \"yadif $yadif,crop=$out_crop,scale=$out_dimensions\"
+    -profile:v baseline -level 3.0 -pix_fmt yuv420p
+    -c:a aac -ac 2 -b:a 128k
+    -t $out_end_time
+    -max_muxing_queue_size $out_max_queue
+    -movflags faststart
+    `out_file`"
+}
+
+main() {
+  local params=`read_command_arguments "$@"`
+  
+  if [[ mode == "capture" ]]; ther
+
+  elif [[ mode == "trim" ]]; then
+  elif [[ mode == "convert" ]]; then
+  fi
+  exec `get_ffmpeg_command `
+}
+
+main "$@"
+source ../input/selection/select_device.bash
+source ../constants/video_defaults.bash
+source ../utilities/time.bash
+
+usage() {
+  echo "Usage"
+}
+
+read_command_arguments() {
+  local i=0
+  while [ "$1" != "" ]; do
+    case $1 in
+      -i | --input | --video_device )
+        shift
+        local input="${1}"
+        ;;
+
+      -a | --audio_input )
+        shift
+        local audio_input="${1}"
+        ;;
+
+      -ss | --start_time )
+        shift
+        local start_time="${1}"
+        ;;
+
+      -t | --end_time )
+        shift
+        local end_time="${1}"
+        ;;
+
+      -d | --output_dir )
+        shift
+        local output_dir="${1}"
+        ;;
+
+      -o | --output_name )
+        shift
+        local output_name="${1}"
+        ;;
+
+      --size )
+        shift
+        local size="${1}"
+        ;;
+
+      --crf )
+        shift
+        local crf="${1}"
+        ;;
+
+      --preset )
+        shift
+        local preset="${1}"
+        ;;
+
+      --crop )
+        shift
+        local crop="${1}"
+        ;;
+
+      -h | --help )
+        usage
+        exit
+        ;;
+
+      * )
+        #usage
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$input" ]] && local video_device=`get_video_device_selection`
+  [[ -z "$audio_input" ]] && local audio_input=`get_audio_input_selection`
+  [[ -z "$start_time" ]] && local start_time=`get_default_start_time`
+  [[ -z "$end_time" ]] && local end_time=`get_default_end_time`
+  [[ -z "$size" ]] && local size=`get_default_size`
+  [[ -z "$crf" ]] && local crf=`get_default_crf`
+  [[ -z "$preset" ]] && local preset=`get_default_preset`
+  [[ -z "$crop" ]] && local crop=`get_default_crop`
+  [[ -z "$output_dir" ]] && local output_dir=`get_default_output_dir`
+  [[ -z "$output_name" ]] && local output_name=`get_time_right_now`
+
+  echo "$input" "$audio_input" "$start_time" "$end_time" "$size" "$crf" "$preset" "$preset" "$crop" "$output_dir" "$output_name"
+}
+
+source ../utilities/devices.bash
+
+get_user_selection() {
+  list_options="${1}"
+  prompt_header="${2}"
+  
+  echo prompt_header
+  select selection in `${list_options}`; do
+    echo "${selection}"
+  done
+} 
+
+#### Video input device
+get_video_device_selection() {
+while [[ "${available_video_devices[@]}" =~ "${input_video_device}" ]]; do
+  get_user_selection detect_video_devices "------\nSELECT VIDEO DEVICE\n------"
+done
+}
+
+#### Audio input device
+get_audio_device_selection() {
+  while [[ "${available_audio_devices[@]}" =~ "$input_audio_device" ]]; do
+    get_user_selection detect_audio_devices "------\nSELECT AUDIO DEVICE\n------"
+  done
+}
+
+source ../utilities/fs.bash
+
+## Print debugging info
+print_debugging_info() {
+  local input_video_device="${1}"
+  local input_audio_device="${2}"
+  local output_file_name="${3}"
+  local output_duration="${4}"
+  local output_video_size="${5}"
+
+  local sb=""
+  sb="${sb}-------------------------\n"
+  sb="${sb}Video Input Device      : ${input_video_device}\n"
+  sb="${sb}Audio Input Device      : ${input_audio_device}\n"
+  sb="${sb}Output File Name        : ${output_file_name}\n"
+  sb="${sb}Output Maximum Duration : ${output_duration}\n"
+  sb="${sb}Output Video Dimensions : ${output_video_size}\n"
+  sb="${sb}Output Video Dimensions : ${output_video_size}\n"
+  sb="${sb}Output Video To         : `get_output_file`\n"
+  sb="${sb}-------------------------"
+  
+  echo "${sb}"
+}
+
+#!/bin/bash
+
+#----------------
+# Name          : video-stream-capture.bash
+# Description   : Converts raw video/audio input stream to a video file
+# Author        : E Fournier
+# Dependencies  : ffmpeg, ffplay
+# Arguments     : -v ${input_video_device} -a ${input_audio_device} -t ${output_duration} -s ${output_video_size} -o ${output_file_name}
+# Example Usage : bash video-capture.bash -v /dev/video0 -a hw:2,0 -t 04:00:00 -s 640x480 -o output_file
+#----------------
+
+## Functions
+source ./capture_video
+source ./debugging_info
+source ./device_selection
+source ./get_override_arguments
+
+## Configurtion
+
+main() {
+  local configs=`read_command_arguments "$@"`
+  
+  if [[ mode == "capture" ]]; then
+
+  elif [[ mode == "trim" ]]; then
+  elif [[ mode == "convert" ]]; then
+  fi
+  exec `get_ffmpeg_command `
+
+
+  print_debugging_info
+
+  run_capture_process "${configs}"
+}
+
+get_configs() {
+  local arguments="${1}"
+
+  get_override_arguments "${arguments}"
+  get_video_device_selection
+  get_audio_device_selection
+}
+
+
+### Ensure required arguments are valid
+
+## Capture video from input stream
+
