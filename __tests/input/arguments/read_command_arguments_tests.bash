@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../input/arguments/read_command_arguments.bash
+source $(dirname $0)/input/arguments/read_command_arguments.bash
 
 # Mocks
 get_video_device_selection() { 
@@ -14,8 +14,9 @@ get_time_right_now() {
 }
 
 test_result_with_no_arguments() {
+get_time_right_now() { echo "200909185525" ; }
   local message="It should return the default list of configuration values"
-  local expected_result="/dev/video0 hw:2,0 06:00:00 640x480 200909185525"
+  local expected_result="/dev/video0 hw:2,0 00:00:00 06:00:00 640x480 28 720x540   20:20:20:20 ./ 200909185525"
 
   local result=`read_command_arguments`
 
@@ -24,34 +25,34 @@ test_result_with_no_arguments() {
 
 test_result_with_video_input_argument() {
   local message="It should return the configured video_input"
-  local expected_result="/dev/video9 hw:2,0 06:00:00 640x480 200909185525"
+  local expected_result="/dev/video9 hw:2,0 00:00:00 06:00:00 640x480 28 720x540   20:20:20:20 ./ 200909185525"
 
-  local result=`read_command_arguments -v /dev/video9`
+  local result=`read_command_arguments -i /dev/video9`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
 test_result_with_audio_input_argument() {
   local message="It should return the configured audio_input"
-  local expected_result="/dev/video0 hw:9,9 06:00:00 640x480 200909185525"
+  local expected_result="/dev/video0 hw:9,9 00:00:00 06:00:00 640x480 28 720x540   20:20:20:20 ./ 200909185525"
 
   local result=`read_command_arguments -a hw:9,9`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-test_result_with_output_duration_argument() {
-  local message="It should return the configured output_duration"
-  local expected_result="/dev/video0 hw:2,0 99:99:99 640x480 200909185525"
+test_result_with_end_time_argument() {
+  local message="It should return the configured end_time"
+  local expected_result="/dev/video0 hw:2,0 00:00:00 99:99:99 640x480 28 720x540   20:20:20:20 ./ 200909185525"
 
-  local result=`read_command_arguments -d 99:99:99`
+  local result=`read_command_arguments -t 99:99:99`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
 test_result_with_output_name_argument() {
   local message="It should return the configured output_name"
-  local expected_result="/dev/video0 hw:2,0 06:00:00 640x480 MyVideo"
+  local expected_result="/dev/video0 hw:2,0 00:00:00 06:00:00 640x480 28 720x540   20:20:20:20 ./ MyVideo"
 
   local result=`read_command_arguments -o MyVideo`
 
@@ -69,18 +70,18 @@ test_result_with_help_argument() {
 
 test_result_with_all_short_form_configuration_arguments() {
   local message="It should return all values as configured"
-  local expected_result="/dev/video9 hw:9,9 99:99:99 999x999 MyVideo"
+  local expected_result="/dev/video9 hw:9,9 00:00:00 06:00:00 999x999 28 720x540   20:20:20:20 99:99:99 MyVideo"
 
-  local result=`read_command_arguments -v /dev/video9 -a hw:9,9 -d 99:99:99 -s 999x999 -o MyVideo`
+  local result=`read_command_arguments -i /dev/video9 -a hw:9,9 -d 99:99:99 --size 999x999 -o MyVideo`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
 test_result_with_all_long_form_configuration_arguments() {
   local message="It should return all values as configured"
-  local expected_result="/dev/video9 hw:9,9 99:99:99 999x999 MyVideo"
+  local expected_result="/dev/video9 hw:9,9 00:00:00 99:99:99 999x999 28 720x540   20:20:20:20 ./ MyVideo"
 
-  local result=`read_command_arguments --video_device /dev/video9 --audio_device hw:9,9 --output_duration 99:99:99 --output_size 999x999 --output_name MyVideo`
+  local result=`read_command_arguments --input /dev/video9 --audio_input hw:9,9 --end_time 99:99:99 --size 999x999 --output_name MyVideo`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
@@ -106,7 +107,7 @@ test_result_with_all_long_form_configuration_arguments_plus_help() {
 suite_addTest test_result_with_no_arguments
 suite_addTest test_result_with_video_input_argument
 suite_addTest test_result_with_audio_input_argument
-suite_addTest test_result_with_output_duration_argument
+suite_addTest test_result_with_end_time_argument
 suite_addTest test_result_with_output_name_argument
 suite_addTest test_result_with_help_argument
 suite_addTest test_result_with_all_short_form_configuration_arguments

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../logging/print_video_details.bash
+source $(dirname $0)/logging/print_video_details.bash
 
 test_message() {
   local message="It should return a list of available arguments"

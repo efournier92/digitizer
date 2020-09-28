@@ -1,6 +1,11 @@
 #!/bin/bash
 
-video_size() {
+#----------------
+# Name          : video_defaults
+# Description   : Returns contstants
+#----------------
+
+get_video_size() {
   echo "640x480"
 }
 
@@ -13,11 +18,19 @@ get_default_end_time() {
 }
 
 get_default_output_dir() {
-  echo "./"
+  echo "./+OUT"
+}
+
+get_video_output_dir() {
+  echo "/mnt/bnk/hle/VHS"
+}
+
+get_pending_commands_file() {
+  echo "/home/misigno/Desktop/vshd_pending_commands.txt"
 }
 
 get_default_size() {
-  echo "720:540"
+  echo "720x540"
 }
 
 get_default_crf() {
@@ -28,47 +41,65 @@ get_default_preset() {
   echo "slow"
 }
 
+get_default_yadif() {
+  echo ""
+}
+
+get_default_dimensions() {
+  echo "720x540"
+}
+
 get_default_crop() {
-  echo "20:20:20:20"
+  local crop=in_w-2*20:in_h-2*20
+
+  echo "$crop"
 }
 
 get_default_video_codec() {
   echo "libx264"
 }
 
-input_video_format() {
+get_default_tuning() {
+  echo "film"
+}
+
+get_default_max_queue() {
+  echo "400"
+}
+
+get_input_video_format() {
   echo "v4l2"
 }
 
-input_audio_format() {
+get_input_audio_format() {
   echo "alsa"
 }
 
-output_video_codec() {
+get_output_video_codec() {
   echo "libx264"
 }
 
-output_format() {
+get_output_format() {
   echo "mpeg"
 }
 
-output_extension() {
+get_output_extension() {
   echo "mp4"
 }
 
-output_tuning() {
+get_output_tuning() {
   echo "zerolatency"
 }
 
-output_crf() {
+get_output_crf() {
   echo "16"
 }
 
-output_max_threads() {
+get_output_max_threads() {
   echo "512"
 }
 
-output_speed_preset() {
+get_output_speed_preset() {
   echo "fast"
 }
 

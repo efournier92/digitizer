@@ -1,3 +1,6 @@
+#!/bin/bash
+
+source $(dirname $0)/utilities/time.bash
 
 test_time_right_now_return_value() {
   local message="It should return the current time formatted as an integer"
@@ -6,3 +9,4 @@ test_time_right_now_return_value() {
 
   assertEquals "${expected_result}" "${result}"
 }
+

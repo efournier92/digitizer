@@ -62,15 +62,47 @@ create_binary() {
   ./bin/shc -f "$concat_file_location" -o "$binary_location"
 }
 
+remove_line() {
+  local output_name="$1"
+  local line_number="$2"
+
+  local file=`get_concat_file_location "$output_name"`
+
+  sed -i "${line_number}d" $file
+}
+
+delete_comments() {
+  local output_name="$1" 
+
+  sed -i '/^\s*#/d' `get_concat_file_location $output_name`
+}
+
+delete_sources() {
+  local output_name="$1" 
+
+  sed -i '/^\s*source/d' `get_concat_file_location $output_name`
+}
+
+add_shebang() {
+  local output_name="$1" 
+
+  sed -i '1s;^;#!/bin/bash\n\n;' `get_concat_file_location $output_name`
+}
+
 concatenate_files() {
   local output_name="$1"
 
   cat \
+    utilities/devices.bash \
+    utilities/fs.bash \
+    utilities/time.bash \
     constants/video_defaults.bash \
     ffmpeg/capture_video.bash \
     ffmpeg/convert_capture.bash \
     input/arguments/read_command_arguments.bash \
+    input/arguments/read_convert_mode_arguments.bash \
     input/selection/select_device.bash \
+    cut/cut_segments.bash \
     logging/print_video_details.bash \
     main.bash \
       >> `get_concat_file_location "$output_name"`
@@ -81,6 +113,9 @@ main() {
   
   make_build_dir
   concatenate_files  "$output_name"
+  delete_comments    "$output_name"
+  delete_sources     "$output_name"
+  add_shebang        "$output_name"
   create_binary      "$output_name"  
   cleanup_temp_files "$output_name"
   echo "Compiled binary to `get_binary_file_location $output_name`"

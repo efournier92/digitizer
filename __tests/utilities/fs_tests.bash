@@ -1,4 +1,4 @@
-source ../utilities/fs.bash
+source $(dirname $0)/utilities/fs.bash
 
 ### 
 test_get_output_file_should_return_a_properly_formatted_path() {

@@ -1,4 +1,4 @@
-source ../utilities/fs.bash
+source $(dirname $0)/utilities/fs.bash
 
 ## Print debugging info
 print_debugging_info() {

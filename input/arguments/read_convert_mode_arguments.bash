@@ -6,7 +6,7 @@ usage() {
   echo "Usage"
 }
 
-read_command_arguments() {
+read_convert_mode_arguments() {
   local i=0
   while [ "$1" != "" ]; do
     case $1 in
@@ -25,16 +25,6 @@ read_command_arguments() {
         local audio_input="$1"
         ;;
 
-      -ss | --start_time )
-        shift
-        local start_time="$1"
-        ;;
-
-      -t | --end_time )
-        shift
-        local end_time="$1"
-        ;;
-
       -d | --output_dir )
         shift
         local output_dir="$1"
@@ -47,7 +37,7 @@ read_command_arguments() {
 
       --size )
         shift
-        local size="$1"
+        local dimensions="$1"
         ;;
 
       --crf )
@@ -85,18 +75,17 @@ read_command_arguments() {
 
   [[ -z "$mode" ]] && local mode="test"
   [[ -z "$input" ]] && local input=`get_video_device_selection`
-  [[ -z "$audio_input" ]] && local audio_input=`get_audio_device_selection`
-  [[ -z "$start_time" ]] && local start_time=`get_default_start_time`
-  [[ -z "$end_time" ]] && local end_time=`get_default_end_time`
-  [[ -z "$size" ]] && local size=`get_video_size`
+  [[ -z "$dimensions" ]] && local dimensions=`get_default_dimensions`
   [[ -z "$crf" ]] && local crf=`get_default_crf`
   [[ -z "$preset" ]] && local preset=`get_default_preset`
-  [[ -z "$yadif" ]] && local preset=`get_default_yadif`
-  [[ -z "$dimensions" ]] && local preset=`get_default_dimensions`
   [[ -z "$crop" ]] && local crop=`get_default_crop`
-  [[ -z "$output_dir" ]] && local output_dir=`get_default_output_dir`
-  [[ -z "$output_name" ]] && local output_name=`get_time_right_now`
+  [[ -z "$output_dir" ]] && local output_dir="`get_default_output_dir`"
+  [[ -z "$output_name" ]] && local output_name="$input"
+  
+  local output_location="$output_dir/$output_name"
 
-  echo "$mode" "$input" "$audio_input" "$start_time" "$end_time" "$size" "$crf" "$preset" "$yadif" "$dimensions" "$crop" "$output_dir" "$output_name"
+  mkdir -p "$output_dir"
+
+  echo "$mode" "$input" "$dimensions" "$crf" "$preset" "$crop" "$output_location"
 }
 

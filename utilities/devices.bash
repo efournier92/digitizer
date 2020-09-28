@@ -18,3 +18,4 @@ detect_audio_devices() {
 
   echo "${available_audio_devices}"
 }
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../utilities/devices.bash
+source $(dirname $0)/utilities/devices.bash
 
 ### 
 test_detect_video_devices() {
