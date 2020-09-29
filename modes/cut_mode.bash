@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #----------------
-# Name          : cut_segments
-# Description   : Cuts sections from $input_file by start and end timestamps
+# Name          : cut_mode
+# Description   : Run cut process to output ffmpeg commands to a file for batch conversion
 # Arguments     : $input_file
 #----------------
 
@@ -74,15 +74,29 @@ subtract_timestamps() {
   echo $(correct_negatives "$duration_hours" "$duration_minutes" "$duration_seconds" "$duration_ms")
 }
 
-run_ffmpeg() {
-  time_start="$1"
-  time_end="$2"
-  file_input="$3"
-  file_output="$4"
+get_ffmpeg_command() {
+  input_file="$1"
+  start_time="$2"
+  duration="$3"
+  codec="$4"
+  dimensions="$5"
+  tune="$6"
+  preset="$7"
+  crop="$8"
+  queue_size="$9"
+  crf="${10}"
+  output_directory="${11}"
+  output_file_name="${12}"
+
+  echo "ffmpeg -i $(pwd)/$input_file -ss $start_time -c:v $codec -crf $crf -tune $tune -preset $preset -vf yadif=0:0:0,crop=$crop,scale=$dimensions -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -max_muxing_queue_size $queue_size -t $duration -movflags faststart $output_directory/$output_file_name.mp4"
+}
+
+save_ffmpeg_command() {
+  ffmpeg_command="$1"
 
   touch `get_pending_commands_file`
 
-  echo "ffmpeg -i $(pwd)/$file_input -ss $time_start -c:v `get_default_video_codec` -crf `get_default_crf` -tune `get_default_tuning` -preset `get_default_preset` -vf 'yadif=0:0:0,crop=`get_default_crop`,scale=`get_default_dimensions`' -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -max_muxing_queue_size `get_default_max_queue` -t $time_end -movflags faststart `get_video_output_dir`/${file_output}.mp4" >> `get_pending_commands_file`
+  echo "$ffmpeg_command" >> `get_pending_commands_file`
 }
 
 get_output_folder() {
@@ -100,27 +114,35 @@ get_output_file() {
   echo "${output_folder}/${output_file_name}.mp4"
 }
 
-capture_segment() {
-  local input_file="$1"
-  local start_time=""
-  local end_time=""
-  local output_file=""
-  local timestamp_regex="[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
-  
+get_duration() {
+  local start_time="$1"
+  local end_time="$2"
+
+  local duration=`subtract_timestamps "$start_time" "$end_time"`
+
+  echo "$duration"
+} 
+
+get_start_time() {
   until [[ "$start_time" =~ $timestamp_regex ]]; do
     read -p "START [hh:mm:ss.mss] >> " start_time
   done
 
+  echo "$start_time"
+}
+
+get_end_time() {
   until [[ "$end_time" =~ $timestamp_regex ]]; do
     read -p "END   [hh:mm:ss.mss] >> " end_time
   done
+  
+  echo "$end_time"
+}
 
-  local duration=`subtract_timestamps "$start_time" "$end_time"`
-
+get_segment_name() {
   read -p "NAME >> " output_file_name
-
-  run_ffmpeg "$start_time" "$duration" "$input_file" "$output_file_name"
-} 
+  echo "$output_file_name"
+}
 
 open_ffplay() {
   local input_file="$1"
@@ -131,15 +153,34 @@ open_ffplay() {
     "$input_file" &
 }
 
-cut_segments() {
+cut_mode() {
   local input_file="$1"
+  local start_time="$2"
+  local stop_time="$3"
+  local codec="$4"
+  local dimensions="$5"
+  local tune="$6"
+  local preset="$7"
+  local crop="$8"
+  local queue_size="$9"
+  local crf="${10}"
+  local output_directory="${11}"
 
   mkdir -p `get_output_folder "$input_file"`
   open_ffplay "$input_file"
   sleep 1
 
   while true; do
-    capture_segment "$input_file"
+    local start_time=`get_start_time`
+    local end_time=`get_end_time`
+    local duration=`get_duration "$start_time" "$end_time"`
+
+    local name=`get_segment_name "$input_file"`
+    local output_file_name=`get_output_file "$input_file" "$name"`
+
+    local ffmpeg_command=`get_ffmpeg_command "$input_file" "$start_time" "$duration" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_directory" "$output_file_name"`
+
+    save_ffmpeg_command "$ffmpeg_command"
   done
 }
 

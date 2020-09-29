@@ -6,7 +6,7 @@
 # Arguments     : $batch_file
 #----------------
 
-batch_convert() {
+batch_mode() {
   local batch_file="$1"
 
   while IFS= read -r command
