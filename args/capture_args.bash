@@ -29,14 +29,14 @@ read_capture_args() {
         local codec="$1"
         ;;
 
-      -d | --output_directory )
-        shift
-        local output_directory="$1"
-        ;;
-
       -t | --stop_time )
         shift
         local stop_time="$1"
+        ;;
+
+      -d | --output_dir )
+        shift
+        local output_dir="$1"
         ;;
 
       -o | --output_name )
@@ -47,11 +47,6 @@ read_capture_args() {
       --video_format )
         shift
         local video_format="$1"
-        ;;
-
-      --audio_format )
-        shift
-        local audio_format="$1"
         ;;
 
       --crf )
@@ -101,10 +96,10 @@ read_capture_args() {
   [[ -z "$threads" ]] && local threads=`default_max_threads`
   [[ -z "$tune" ]] && local tune=`default_tune`
   [[ -z "$output_format" ]] && local output_format=`default_format`
-  [[ -z "$output_directory" ]] && local output_directory=`default_output_directory`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_directory`
   [[ -z "$output_name" ]] && local output_name=`time_now`
   
-  local output_location="${output_directory}/${output_name}.mp4"
+  local output_location="${output_dir}/${output_name}.mp4"
 
   echo "$video_device" "$audio_device" "$codec" "$crf" "$video_format" "$audio_format" "$preset" "$size" "$standard" "$stop_time" "$threads" "$tune" "$output_format" "$output_location"
 }

@@ -10,44 +10,35 @@
 #----------------
 
 ## Functions
-source $(dirname $0)/input/args/general_args.bash
-source $(dirname $0)/input/args/batch_args.bash
-source $(dirname $0)/input/args/capture_args.bash
-source $(dirname $0)/input/args/cut_args.bash
-source $(dirname $0)/input/args/join_args.bash
+source $(dirname $0)/args/general_args.bash
+source $(dirname $0)/args/batch_args.bash
+source $(dirname $0)/args/capture_args.bash
+source $(dirname $0)/args/cut_args.bash
+source $(dirname $0)/args/join_args.bash
 source $(dirname $0)/modes/batch_mode.bash
 source $(dirname $0)/modes/capture_mode.bash
-source $(dirname $0)/modes/convert_mode.bash
 source $(dirname $0)/modes/cut_mode.bash
 source $(dirname $0)/modes/join_mode.bash
-source $(dirname $0)/utilities/print_help_info.bash
+source $(dirname $0)/messages/help.bash
 
 run_capture_mode() {
-  local configs=`read_capture_arguments "$@"`
-  
-  capture_mode "$configs"
+  capture_mode `read_capture_args "$@"`
 }
 
 run_cut_mode() {
-  local configs=`read_cut_arguments "$@"`
-
-  cut_mode "$configs"
+  cut_mode `read_cut_args "$@"`
 }
 
 run_batch_mode() {
-  local configs=`read_batch_arguments "$@"`
-  
-  batch_mode "$configs"
+  batch_mode `read_batch_args "$@"`
 }
 
 run_join_mode() {
-  local configs=`read_join_arguments "$@"`
-  
-  join_mode "$configs"
+  join_mode `read_join_args "$@"`
 }
 
 main() {
-  local mode=`read_general_command_arguments "$@"`
+  local mode=`read_general_args "$@"`
 
   if [[ "$mode" == "capture" ]]; then
     run_capture_mode "$@"

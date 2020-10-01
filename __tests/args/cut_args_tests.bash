@@ -5,7 +5,7 @@
 # Description   : Unit test cut-mode functionality
 #----------------
 
-source ./help/help.bash
+source ./messages/help.bash
 source ./args/cut_args.bash
 
 test_reading_with_no_args() {

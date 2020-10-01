@@ -6,10 +6,7 @@
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/input/selection/select_device.bash
-source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/utilities/time.bash
-source $(dirname $0)/help/help.bash
+source $(dirname $0)/messages/help.bash
 
 read_general_args() {
   while [ "$1" != "" ]; do
@@ -27,8 +24,20 @@ read_general_args() {
     esac
     shift
   done
-  
-  [[ -z "$mode" ]] && print_help_info
+ 
+  [[ -z "$mode" ]] && show_help
+
+  if [[ ! -z "$help" ]]; then
+    if [[ "$mode" == `capture_mode_name` ]]; then
+      show_help `capture_mode_name`
+    elif [[ "$mode" == `cut_mode_name` ]]; then
+      show_help `cut_mode_name`
+    elif [[ "$mode" == `batch_mode_name` ]]; then
+      show_help `batch_mode_name`
+    elif [[ "$mode" == `join_mode_name` ]]; then
+      show_help `join_mode_name`
+    fi
+  fi
 
   echo "$mode"
 }

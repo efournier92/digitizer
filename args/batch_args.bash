@@ -7,7 +7,7 @@
 #----------------
 
 source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/help/help.bash
+source $(dirname $0)/messages/help.bash
 
 read_batch_args() {
   while [ "$1" != "" ]; do
@@ -22,7 +22,7 @@ read_batch_args() {
     shift
   done
 
-  [[ -z "$input" ]] && print_help_info
+  [[ -z "$input" ]] && show_help `batch_mode_name`
 
   echo "$input"
 }

@@ -5,7 +5,23 @@
 # Description   : Returns contstants
 #----------------
 
-source ./utilities/time.bash
+source $(dirname $0)/utilities/time.bash
+
+capture_mode_name() {
+  echo "capture"
+}
+
+cut_mode_name() {
+  echo "cut"
+}
+
+batch_mode_name() {
+  echo "batch"
+}
+
+join_mode_name() {
+  echo "join"
+}
 
 timestamp_regex() {
   echo "[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
@@ -19,8 +35,12 @@ default_output_file() {
   echo "`default_output_directory`/`time_now`.mp4"
 }
 
-default_batch_file() {
-  echo "`default_output_directory`/vhsd_batch.txt"
+default_batch_file_name() {
+  echo "vhsd_batch_file.txt"
+}
+
+default_concat_file_name() {
+  echo "vhsd_concat_file.txt"
 }
 
 default_input_video_size() {

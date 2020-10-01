@@ -1,3 +1,13 @@
+#!/bin/bash
+
+#----------------
+# Name          : 
+# Description   : 
+# Author        : E Fournier
+# Dependencies  : 
+# Arguments     : 
+# Example Usage : 
+#----------------
 
 suite()
 {
@@ -12,9 +22,12 @@ suite()
   #. ./__tests/utilities/devices_tests.bash
 
   #. ./__tests/args/capture_args_tests.bash
-  . ./__tests/args/general_args_tests.bash
-  . ./__tests/args/batch_args_tests.bash
-  . ./__tests/args/cut_args_tests.bash
+  #. ./__tests/args/general_args_tests.bash
+  #. ./__tests/args/batch_args_tests.bash
+  #. ./__tests/args/cut_args_tests.bash
+  #. ./__tests/args/join_args_tests.bash
+  #. ./__tests/modes/join_mode_tests.bash
+  . ./__tests/messages/help_tests.bash
 }
 
 # Load testing framework

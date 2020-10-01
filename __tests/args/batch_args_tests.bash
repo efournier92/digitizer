@@ -6,7 +6,7 @@
 #----------------
 
 source ./args/batch_args.bash
-source ./help/help.bash
+source ./messages/help.bash
 
 test_reading_with_no_args() {
   local message="It should print the help menu"

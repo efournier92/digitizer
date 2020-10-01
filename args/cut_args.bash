@@ -19,24 +19,9 @@ read_cut_args() {
         local input_file="$1"
         ;;
 
-      -ss | --start_time )
-        shift
-        local start_time="$1"
-        ;;
-
-      -t | --stop_time )
-        shift
-        local queue_size="$1"
-        ;;
-
       -c | --codec )
         shift
         local codec="$1"
-        ;;
-
-      -d | --dimensions )
-        shift
-        local demensions="$1"
         ;;
 
       -d | --output_directory )
@@ -49,14 +34,9 @@ read_cut_args() {
         local output_name="$1"
         ;;
 
-      --tune )
+      --crf )
         shift
-        local tune="$1"
-        ;;
-
-      --preset )
-        shift
-        local preset="$1"
+        local crf="$1"
         ;;
 
       --crop )
@@ -64,23 +44,31 @@ read_cut_args() {
         local crop="$1"
         ;;
 
+      --dimensions )
+        shift
+        local demensions="$1"
+        ;;
+
+      --preset )
+        shift
+        local preset="$1"
+        ;;
+
       --queue_size )
         shift
         local queue_size="$1"
         ;;
 
-      --crf )
+      --tune )
         shift
-        local crf="$1"
+        local tune="$1"
         ;;
 
     esac
     shift
   done
 
-  [[ -z "$input_file" ]] && print_help_info && exit
-  [[ -z "$start_time" ]] && local start_time=`default_start_time`
-  [[ -z "$stop_time" ]] && local stop_time=`default_stop_time`
+  [[ -z "$input_file" ]] && show_help `cut_mode_name`
   [[ -z "$codec" ]] && local codec=`default_video_codec`
   [[ -z "$dimensions" ]] && local dimensions=`default_dimensions`
   [[ -z "$tune" ]] && local tune=`default_tune`
@@ -89,13 +77,7 @@ read_cut_args() {
   [[ -z "$queue_size" ]] && local queue_size=`default_max_queue`
   [[ -z "$crf" ]] && local crf=`default_crf`
   [[ -z "$output_directory" ]] && local output_directory=`default_output_directory`
-  [[ -z "$output_name" ]] && local output_name=`time_now`
-  
-  local output_location="${output_directory}/${output_name}.mp4"
-  
-  # TODO: Move
-  #mkdir -p "$output_directory"
 
-  echo "$input_file" "$start_time" "$stop_time" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_location"
+  echo "$input_file" "$start_time" "$stop_time" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_directory"
 }
 
