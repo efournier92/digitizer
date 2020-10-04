@@ -1,14 +1,13 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Arguments     : 
+# Name          : join_mode_tests.bash
+# Description   : Unit test join-mode funcionality
 #----------------
 
-source ./modes/join_mode.bash
-source ./messages/help.bash
-source ./messages/errors.bash
+source ./__source/modes/join_mode.bash
+source ./__source/messages/help.bash
+source ./__source/messages/errors.bash
 
 test_get_ffmpeg_command_with_all_args() {
   local message="It should "

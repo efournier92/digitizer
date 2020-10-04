@@ -1,5 +1,13 @@
 #!/bin/bash
 
+#----------------
+# Name          : run_build.bash
+# Description   : Runs the build process for vhsd, outputting a compiled binary to the build directory.
+# Author        : E Fournier
+# Dependencies  : shc
+# Example Usage : bash run_build.bash
+#----------------
+
 make_build_dir() {
   mkdir -p `get_output_dir`
 }
@@ -93,27 +101,27 @@ concatenate_files() {
   local output_name="$1"
 
   cat \
-    messages/logs.bash \
-    messages/errors.bash \
-    messages/help.bash \
-    utilities/devices.bash \
-    utilities/fs.bash \
-    utilities/time.bash \
-    constants/defaults.bash \
-    input/selection/select_device.bash \
-    args/batch_args.bash \
-    args/capture_args.bash \
-    args/cut_args.bash \
-    args/general_args.bash \
-    args/join_args.bash \
-    args/verbose_args.bash \
-    args/watch_mode.bash \
-    modes/batch_mode.bash \
-    modes/capture_mode.bash \
-    modes/cut_mode.bash \
-    modes/join_mode.bash \
-    modes/watch_mode.bash \
-    main.bash \
+    __source/messages/logs.bash \
+    __source/messages/errors.bash \
+    __source/messages/help.bash \
+    __source/utilities/devices.bash \
+    __source/utilities/fs.bash \
+    __source/utilities/time.bash \
+    __source/constants/defaults.bash \
+    __source/input/selection/select_device.bash \
+    __source/args/batch_args.bash \
+    __source/args/capture_args.bash \
+    __source/args/cut_args.bash \
+    __source/args/general_args.bash \
+    __source/args/join_args.bash \
+    __source/args/verbose_args.bash \
+    __source/args/watch_mode.bash \
+    __source/modes/batch_mode.bash \
+    __source/modes/capture_mode.bash \
+    __source/modes/cut_mode.bash \
+    __source/modes/join_mode.bash \
+    __source/modes/watch_mode.bash \
+    __source/main.bash \
       >> `get_concat_file_location "$output_name"`
 }
 

@@ -1,15 +1,15 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
+# Name          : modes_tests.bash
+# Description   : Unit test modes utility functions
 #----------------
 
-source ./utilities/modes.bash
-source ./messages/errors.bash
+source ./__source/utilities/modes.bash
+source ./__source/messages/errors.bash
 
 test_is_mode_known_with_no_args() {
-  local message="It should throw a missing-function-args error"
+  local message="It should throw a missing-function-args error."
   local expected_result=`error_missing_function_args "is_mode_known"`
   
   local result=`is_mode_known`
@@ -18,7 +18,7 @@ test_is_mode_known_with_no_args() {
 }
 
 test_is_mode_known_with_unknown_mode() {
-  local message="It should "
+  local message="It should return false."
   local mode="fake_mode"
   local expected_result="false"
   
@@ -28,7 +28,7 @@ test_is_mode_known_with_unknown_mode() {
 }
 
 test_is_mode_known_with_capture_mode() {
-  local message="It should "
+  local message="It should return true."
   local mode="capture"
   local expected_result="true"
   
@@ -38,7 +38,7 @@ test_is_mode_known_with_capture_mode() {
 }
 
 test_is_mode_known_with_cut_mode() {
-  local message="It should "
+  local message="It should return true."
   local mode="cut"
   local expected_result="true"
   
@@ -48,7 +48,7 @@ test_is_mode_known_with_cut_mode() {
 }
 
 test_is_mode_known_with_batch_mode() {
-  local message="It should "
+  local message="It should return true."
   local mode="batch"
   local expected_result="true"
   
@@ -58,7 +58,7 @@ test_is_mode_known_with_batch_mode() {
 }
 
 test_is_mode_known_with_join_mode() {
-  local message="It should "
+  local message="It should return true."
   local mode="join"
   local expected_result="true"
   
@@ -68,7 +68,7 @@ test_is_mode_known_with_join_mode() {
 }
 
 test_is_mode_known_with_watch_mode() {
-  local message="It should "
+  local message="It should return true."
   local mode="watch"
   local expected_result="true"
   

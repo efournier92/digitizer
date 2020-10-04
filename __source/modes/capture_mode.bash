@@ -1,10 +1,8 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Arguments     : 
-# Example Usage : 
+# Name          : capture_mode.bash
+# Description   : Run capture process to collect input from a stream
 #----------------
 
 get_capture_command() {

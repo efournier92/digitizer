@@ -1,15 +1,15 @@
 #!/bin/bash
 
 #----------------
-# Name          : read_command_arguments
+# Name          : read_command_arguments.bash
 # Description   : Interprets general command arguments
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/messages/help.bash
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
-source $(dirname $0)/utilities/modes.bash
+source $(dirname $0)/__source/messages/help.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
+source $(dirname $0)/__source/utilities/modes.bash
 
 read_general_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

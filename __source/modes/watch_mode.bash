@@ -1,16 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Author        : E Fournier
-# Dependencies  : 
-# Arguments     : 
-# Example Usage : 
+# Name          : watch_mode.bash
+# Description   : Run watch process to view an input stream in an ffplay window
 #----------------
 
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 get_ffplay_command() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

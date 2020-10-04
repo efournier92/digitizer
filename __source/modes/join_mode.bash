@@ -1,13 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Arguments     : 
+# Name          : join_mode.bash
+# Description   : Run join process to combine multiple inputs into a single video
 #----------------
 
-source $(dirname $0)/messages/errors.bash
-source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
+source $(dirname $0)/__source/messages/logs.bash
 
 create_concat_file() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

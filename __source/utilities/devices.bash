@@ -1,13 +1,14 @@
-#!/bin/bash 
+#!/bin/bash
 
-### Detects available video devices
-#### Sets array of devices to a global variable: $available_video_devices
+#----------------
+# Name          : devices.bash
+# Description   : Utility functions for detecting available audio and video devices
+#----------------
+
 detect_video_devices() {
   echo `ls -d /dev/video*`
 }
 
-### Detects available ALSA devices
-#### Sets array of devices to a global variable: $available_audio_devices
 detect_audio_devices() {
   devices_path="/dev/snd/"
   available_device_builder="$(echo `ls -d ${devices_path}pcmC*D*c`)"

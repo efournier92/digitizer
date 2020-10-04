@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #----------------
-# Name          : video_defaults
-# Description   : Returns contstants
+# Name          : defaults.bash
+# Description   : Library of functions to return default values
 #----------------
 
-source $(dirname $0)/utilities/time.bash
+source $(dirname $0)/__source/utilities/time.bash
 
 capture_mode_name() {
   echo "capture"

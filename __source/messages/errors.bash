@@ -1,12 +1,8 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Author        : E Fournier
-# Dependencies  : 
-# Arguments     : 
-# Example Usage : 
+# Name          : errors.bash
+# Description   : Library of functions for throwing runtime errors
 #----------------
 
 error_missing_function_args() {

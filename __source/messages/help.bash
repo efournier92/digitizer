@@ -1,3 +1,10 @@
+#!/bin/bash
+
+#----------------
+# Name          : help.bash
+# Description   : Library of functions for printing help info
+#----------------
+
 help_header() {
 cat << EOF
 VHSD | VHS Digitizer

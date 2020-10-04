@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
+# Name          : devices_tests.bash
+# Description   : Unit test device utilties
 #----------------
 
-source $(dirname $0)/utilities/devices.bash
+source ./__sources/utilities/devices.bash
 
 test_detect_video_devices() {
-  local message="It should use ls to find video devices"
+  local message="It should use ls to find video devices."
   ls() { echo "/dev/video8 /dev/video9" ; }
   local expected_result="/dev/video8 /dev/video9"
 
@@ -18,7 +18,7 @@ test_detect_video_devices() {
 }
 
 test_detect_audio_devices_with_single_device() {
-  local message="It should return a properly formatted transformation of device returned from ls"
+  local message="It should return a properly formatted transformation of device returned from ls."
   ls() { echo "/dev/snd/pcmC8D8c" ; }
   expected_result="hw:8,8"
 
@@ -28,7 +28,7 @@ test_detect_audio_devices_with_single_device() {
 }
 
 test_detect_audio_devices_with_multiple_devices() {
-  local message="It should return properly formatted transformations of devices returned from ls"
+  local message="It should return properly formatted transformations of devices returned from ls."
   ls() { echo "/dev/snd/pcmC7D7c /dev/snd/pcmC8D8c /dev/snd/pcmC9D9c" ; }
   expected_result="hw:7,7 hw:8,8 hw:9,9"
 

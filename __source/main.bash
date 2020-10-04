@@ -1,26 +1,23 @@
 #!/bin/bash
 
 #----------------
-# Name          : video-stream-capture.bash
-# Description   : Converts raw video/audio input stream to a video file
+# Name          : main.bash
+# Description   : Executes vhsd to perform vhs-digitization functions based on mode.
 # Author        : E Fournier
-# Dependencies  : ffmpeg, ffplay
-# Arguments     : -v ${input_video_device} -a ${input_audio_device} -t ${output_duration} -s ${output_video_size} -o ${output_file_name}
-# Example Usage : bash video-capture.bash -v /dev/video0 -a hw:2,0 -t 04:00:00 -s 640x480 -o output_file
+# Dependencies  : ffmpeg
 #----------------
 
-## Functions
-source $(dirname $0)/args/general_args.bash
-source $(dirname $0)/args/batch_args.bash
-source $(dirname $0)/args/capture_args.bash
-source $(dirname $0)/args/cut_args.bash
-source $(dirname $0)/args/join_args.bash
-source $(dirname $0)/args/watch_args.bash
-source $(dirname $0)/modes/batch_mode.bash
-source $(dirname $0)/modes/capture_mode.bash
-source $(dirname $0)/modes/cut_mode.bash
-source $(dirname $0)/modes/join_mode.bash
-source $(dirname $0)/messages/help.bash
+source $(dirname $0)/__source/args/general_args.bash
+source $(dirname $0)/__source/args/batch_args.bash
+source $(dirname $0)/__source/args/capture_args.bash
+source $(dirname $0)/__source/args/cut_args.bash
+source $(dirname $0)/__source/args/join_args.bash
+source $(dirname $0)/__source/args/watch_args.bash
+source $(dirname $0)/__source/modes/batch_mode.bash
+source $(dirname $0)/__source/modes/capture_mode.bash
+source $(dirname $0)/__source/modes/cut_mode.bash
+source $(dirname $0)/__source/modes/join_mode.bash
+source $(dirname $0)/__source/messages/help.bash
 
 run_capture_mode() {
   capture_mode `read_capture_args "$@"`

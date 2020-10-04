@@ -1,12 +1,11 @@
 #!/bin/bash
 
 #----------------
-# Name          : batch_convert
+# Name          : batch_mode.bash
 # Description   : Run batch process to convert raw captures from ffmpeg commands in $batch_file
-# Arguments     : $batch_file
 #----------------
 
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 batch_mode() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

@@ -1,16 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Author        : E Fournier
-# Dependencies  : 
-# Arguments     : 
-# Example Usage : 
+# Name          : modes.bash
+# Description   : Utility functions for mode detection
 #----------------
 
-source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/constants/defaults.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 is_mode_known() {
   local selected_mode="$1"

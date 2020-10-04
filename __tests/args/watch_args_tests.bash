@@ -1,18 +1,14 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Author        : E Fournier
-# Dependencies  : 
-# Arguments     : 
-# Example Usage : 
+# Name          : watch_args_tests.bash
+# Description   : Unit test reading arguments for watch mode
 #----------------
 
-source ./args/watch_mode.bash
+source ./__source/args/watch_args.bash
 
-test_read_watch_args_with_no_args() {
-  local message="It should return the user-inputed devices"
+test_reading_watch_args_with_no_args() {
+  local message="It should the video and audio devices as inputed by the user."
   local test_video_device="/dev/video9"
   local test_audio_device="hw:9,9"
   get_video_device_selection() { echo "$test_video_device" ; }
@@ -24,8 +20,8 @@ test_read_watch_args_with_no_args() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_read_watch_args_with_video_device_short_arg() {
-  local message="It should return the user-inputed devices"
+test_reading_watch_args_with_video_device_short_arg() {
+  local message="Result should include the configured video_device."
   local test_video_device="/dev/video7"
   local test_audio_device="hw:9,9"
   get_video_device_selection() { echo "" ; }
@@ -37,8 +33,8 @@ test_read_watch_args_with_video_device_short_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_read_watch_args_with_video_device_first_long_arg() {
-  local message="It should return the user-inputed devices"
+test_reading_watch_args_with_video_device_first_long_arg() {
+  local message="Result should include the configured video_device."
   local test_video_device="/dev/video7"
   local test_audio_device="hw:9,9"
   get_video_device_selection() { echo "" ; }
@@ -50,8 +46,8 @@ test_read_watch_args_with_video_device_first_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_read_watch_args_with_video_device_second_long_arg() {
-  local message="It should return the user-inputed devices"
+test_reading_watch_args_with_video_device_second_long_arg() {
+  local message="Result should include the configured video_device."
   local test_video_device="/dev/video7"
   local test_audio_device="hw:9,9"
   get_video_device_selection() { echo "" ; }
@@ -63,8 +59,8 @@ test_read_watch_args_with_video_device_second_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_read_watch_args_with_audio_device_short_arg() {
-  local message="It should return the user-inputed devices"
+test_reading_watch_args_with_audio_device_short_arg() {
+  local message="Result should include the configured audio_device."
   local test_video_device="/dev/video7"
   local test_audio_device="hw:9,9"
   get_video_device_selection() { echo "$test_video_device" ; }
@@ -76,8 +72,8 @@ test_read_watch_args_with_audio_device_short_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_read_watch_args_with_audio_device_long_arg() {
-  local message="It should return the user-inputed devices"
+test_reading_watch_args_with_audio_device_long_arg() {
+  local message="Result should include the configured audio_device."
   local test_video_device="/dev/video7"
   local test_audio_device="hw:9,9"
   get_video_device_selection() { echo "$test_video_device" ; }
@@ -89,10 +85,10 @@ test_read_watch_args_with_audio_device_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_read_watch_args_with_no_args
-suite_addTest test_read_watch_args_with_video_device_short_arg
-suite_addTest test_read_watch_args_with_video_device_first_long_arg
-suite_addTest test_read_watch_args_with_video_device_second_long_arg
-suite_addTest test_read_watch_args_with_audio_device_short_arg
-suite_addTest test_read_watch_args_with_audio_device_long_arg
+suite_addTest test_reading_watch_args_with_no_args
+suite_addTest test_reading_watch_args_with_video_device_short_arg
+suite_addTest test_reading_watch_args_with_video_device_first_long_arg
+suite_addTest test_reading_watch_args_with_video_device_second_long_arg
+suite_addTest test_reading_watch_args_with_audio_device_short_arg
+suite_addTest test_reading_watch_args_with_audio_device_long_arg
 

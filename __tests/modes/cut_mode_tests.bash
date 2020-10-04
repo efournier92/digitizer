@@ -1,8 +1,12 @@
-#! /bin/sh
-# file: examples/equality_test.sh
+#!/bin/bash
 
-source $(dirname $0)/modes/cut_mode.bash
-source $(dirname $0)/messages/errors.bash
+#----------------
+# Name          : cut_mode_tests.bash
+# Description   : Unit test cut-mode funcionality
+#----------------
+
+source ./__source/modes/cut_mode.bash
+source ./__source/messages/errors.bash
 
 test_correct_negatives_with_value_carrying() {
   local message="It should "

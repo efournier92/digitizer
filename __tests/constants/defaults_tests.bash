@@ -1,9 +1,14 @@
 #!/bin/bash
 
-source $(dirname $0)/constants/defaults.bash
+#----------------
+# Name          : defaults_tests.bash
+# Description   : Unit tests for reading default constant values
+#----------------
+
+source ./__source/constants/defaults.bash
 
 test_capture_mode_name() {
-  local message="It should return the default capture_mode_name value"
+  local message="Result should contain the default name of capture_mode."
   local expected_result="capture"
 
   local result=`capture_mode_name`
@@ -12,7 +17,7 @@ test_capture_mode_name() {
 }
 
 test_cut_mode_name() {
-  local message="It should return the default cut_mode_name value"
+  local message="Result should contain the default name of cut_mode."
   local expected_result="cut"
 
   local result=`cut_mode_name`
@@ -21,7 +26,7 @@ test_cut_mode_name() {
 }
 
 test_batch_mode_name() {
-  local message="It should return the default batch_mode_name value"
+  local message="Result should contain the default name of batch_mode."
   local expected_result="batch"
 
   local result=`batch_mode_name`
@@ -30,7 +35,7 @@ test_batch_mode_name() {
 }
 
 test_join_mode_name() {
-  local message="It should return the default join_mode_name value"
+  local message="Result should contain the default name of join_mode."
   local expected_result="join"
 
   local result=`join_mode_name`
@@ -39,7 +44,7 @@ test_join_mode_name() {
 }
 
 test_watch_mode_name() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default name of watch_mode."
   local expected_result="watch"
 
   local result=`watch_mode_name`
@@ -48,7 +53,7 @@ test_watch_mode_name() {
 }
 
 test_timestamp_regex() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for timestamp_regex."
   local expected_result="[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
 
   local result=`timestamp_regex`
@@ -57,7 +62,7 @@ test_timestamp_regex() {
 }
 
 test_default_output_dir() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for output_dir."
   local expected_result="./_vhsd_out"
 
   local result=`default_output_dir`
@@ -66,7 +71,7 @@ test_default_output_dir() {
 }
 
 test_default_output_file() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for output_file."
   local expected_result="`default_output_dir`/`time_now`.mp4"
 
   local result=`default_output_file`
@@ -75,7 +80,7 @@ test_default_output_file() {
 }
 
 test_default_batch_file_name() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default name of batch_file."
   local expected_result="vhsd_batch_file.txt"
 
   local result=`default_batch_file_name`
@@ -84,7 +89,7 @@ test_default_batch_file_name() {
 }
 
 test_default_concat_file_name() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default name of concat_file."
   local expected_result="vhsd_concat_file.txt"
 
   local result=`default_concat_file_name`
@@ -93,7 +98,7 @@ test_default_concat_file_name() {
 }
 
 test_default_log_file_name() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default name of log_file."
   local expected_result="./vhsd_log.txt"
 
   local result=`log_file_name`
@@ -102,7 +107,7 @@ test_default_log_file_name() {
 }
 
 test_default_input_video_size() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for input_video_size."
   local expected_result="640x480"
 
   local result=`default_input_video_size`
@@ -111,7 +116,7 @@ test_default_input_video_size() {
 }
 
 test_default_input_video_format() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for input_video_format."
   local expected_result="v4l2"
 
   local result=`default_input_video_format`
@@ -120,7 +125,7 @@ test_default_input_video_format() {
 }
 
 test_default_input_audio_format() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for input_audio_format."
   local expected_result="alsa"
 
   local result=`default_input_audio_format`
@@ -129,7 +134,8 @@ test_default_input_audio_format() {
 }
 
 test_default_dimensions() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default dimensions."
+  local message="It should return the default watch_mode_name value."
   local expected_result="720x540"
 
   local result=`default_dimensions`
@@ -138,7 +144,7 @@ test_default_dimensions() {
 }
 
 test_default_start_time() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for start_time."
   local expected_result="00:00:00.000"
 
   local result=`default_start_time`
@@ -147,7 +153,7 @@ test_default_start_time() {
 }
 
 test_default_stop_time() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for stop_time."
   local expected_result="06:00:00.000"
 
   local result=`default_stop_time`
@@ -156,7 +162,7 @@ test_default_stop_time() {
 }
 
 test_default_crf() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default crf."
   local expected_result="28"
 
   local result=`default_crf`
@@ -165,7 +171,7 @@ test_default_crf() {
 }
 
 test_default_preset() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default preset."
   local expected_result="slow"
 
   local result=`default_preset`
@@ -174,7 +180,7 @@ test_default_preset() {
 }
 
 test_default_crop() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default value for crop."
   local expected_result="in_w-2*20:in_h-2*20"
 
   local result=`default_crop`
@@ -183,7 +189,7 @@ test_default_crop() {
 }
 
 test_default_video_codec() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default video_codec."
   local expected_result="libx264"
 
   local result=`default_video_codec`
@@ -192,7 +198,7 @@ test_default_video_codec() {
 }
 
 test_default_tune() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default tune."
   local expected_result="film"
 
   local result=`default_tune`
@@ -201,7 +207,7 @@ test_default_tune() {
 }
 
 test_default_standard() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default standard."
   local expected_result="ntsc"
 
   local result=`default_standard`
@@ -210,7 +216,7 @@ test_default_standard() {
 }
 
 test_default_format() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default format."
   local expected_result="mpeg"
 
   local result=`default_format`
@@ -219,7 +225,7 @@ test_default_format() {
 }
 
 test_default_extension() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default extension."
   local expected_result="mp4"
 
   local result=`default_extension`
@@ -228,7 +234,7 @@ test_default_extension() {
 }
 
 test_default_max_threads() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default max_threads."
   local expected_result="512"
 
   local result=`default_max_threads`
@@ -237,7 +243,7 @@ test_default_max_threads() {
 }
 
 test_default_max_queue() {
-  local message="It should return the default watch_mode_name value"
+  local message="Result should contain the default max_queue_size."
   local expected_result="400"
 
   local result=`default_max_queue`

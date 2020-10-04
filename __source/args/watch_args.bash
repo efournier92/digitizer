@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
+# Name          : watch_args.bash
+# Description   : Reads command arguments for watch mode
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/input/selection/select_device.bash
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/input/selection/select_device.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 read_watch_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

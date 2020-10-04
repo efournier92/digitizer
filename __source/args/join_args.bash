@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #----------------
-# Name          : join_args
+# Name          : join_args.bash
 # Description   : Reads command arguments for join mode
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/constants/defaults.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 trim_leading_comma() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #----------------
-# Name          : read_batch_mode_arguments
+# Name          : read_batch_mode_arguments.bash
 # Description   : Reads command arguments for batch mode
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 read_batch_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

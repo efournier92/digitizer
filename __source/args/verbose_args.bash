@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #----------------
-# Name          : verbose_args
-# Description   : 
+# Name          : verbose_args.bash
+# Description   : Reads command arguments for verbose mode
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/messages/help.bash
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/messages/help.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 read_verbose_args() {
   while [ "$1" != "" ]; do

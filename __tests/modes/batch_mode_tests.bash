@@ -1,16 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Author        : E Fournier
-# Dependencies  : 
-# Arguments     : 
-# Example Usage : 
+# Name          : batch_mode_tests.bash
+# Description   : Unit test batch-mode funcionality
 #----------------
 
-source ./modes/batch_mode.bash
-source ./messages/errors.bash
+source ./__source/modes/batch_mode.bash
+source ./__source/messages/errors.bash
 
 test_batch_mode_with_no_args() {
   local message="It should "

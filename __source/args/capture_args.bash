@@ -1,16 +1,16 @@
 #!/bin/bash
 
 #----------------
-# Name          : read_capture_arguments
+# Name          : read_capture_arguments.bash
 # Description   : Interprets command arguments for capture mode
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/utilities/time.bash
-source $(dirname $0)/input/selection/select_device.bash
-source $(dirname $0)/messages/logs.bash
-source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/__source/constants/defaults.bash
+source $(dirname $0)/__source/utilities/time.bash
+source $(dirname $0)/__source/input/selection/select_device.bash
+source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/__source/messages/errors.bash
 
 read_capture_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

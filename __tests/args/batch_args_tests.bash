@@ -1,15 +1,15 @@
 #!/bin/bash
 
 #----------------
-# Name          : batch_args_tests
-# Description   : Unit test batch-mode funcionality
+# Name          : batch_args_tests.bash
+# Description   : Unit test batch-mode functionality
 #----------------
 
-source ./args/batch_args.bash
-source ./messages/help.bash
+source ./__source/args/batch_args.bash
+source ./__source/messages/help.bash
 
-test_reading_with_no_args() {
-  local message="It should throw a missing-required-arg error"
+test_reading_batch_args_with_no_args() {
+  local message="It should throw a missing-required-arg error."
   local expected_result=`error_missing_required_arg "input" "read_batch_args"`
   
   local result=`read_batch_args`
@@ -17,8 +17,8 @@ test_reading_with_no_args() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_reading_with_input_short_arg() {
-  local message="It should return the configured input"
+test_reading_batch_args_with_input_short_arg() {
+  local message="It should return the configured batch_file input."
   local batch_file="MyBatchFile.txt"
   local expected_result="$batch_file"
   
@@ -27,8 +27,8 @@ test_reading_with_input_short_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_reading_with_input_first_long_arg() {
-  local message="It should return the configured input"
+test_reading_batch_args_with_input_first_long_arg() {
+  local message="It should return the configured batch_file input."
   local batch_file="MyBatchFile.txt"
   local expected_result="$batch_file"
   
@@ -37,8 +37,8 @@ test_reading_with_input_first_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_reading_with_input_second_long_arg() {
-  local message="It should return the configured input"
+test_reading_batch_args_with_input_second_long_arg() {
+  local message="It should return the configured batch_file input."
   local batch_file="MyBatchFile.txt"
   local expected_result="$batch_file"
   
@@ -47,9 +47,8 @@ test_reading_with_input_second_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-
-suite_addTest test_reading_with_no_args
-suite_addTest test_reading_with_input_short_arg
-suite_addTest test_reading_with_input_first_long_arg
-suite_addTest test_reading_with_input_second_long_arg
+suite_addTest test_readingbatch_args_with_no_args
+suite_addTest test_readingbatch_args_with_input_short_arg
+suite_addTest test_readingbatch_args_with_input_first_long_arg
+suite_addTest test_readingbatch_args_with_input_second_long_arg
 

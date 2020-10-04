@@ -1,15 +1,11 @@
 #!/bin/bash
 
 #----------------
-# Name          : 
-# Description   : 
-# Author        : E Fournier
-# Dependencies  : 
-# Arguments     : 
-# Example Usage : 
+# Name          : verbose_args_tests.bash
+# Description   : Unit test reading arguments for verbose mode
 #----------------
 
-source ./args/verbose_args.bash
+source ./__source/args/verbose_args.bash
 
 test_read_verbose_args_with_no_args() {
   local message="It should "

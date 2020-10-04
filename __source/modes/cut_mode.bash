@@ -1,13 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : cut_mode
+# Name          : cut_mode.bash
 # Description   : Run cut process to output ffmpeg commands to a file for batch conversion
-# Arguments     : $input_file
 #----------------
 
-source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/__source/constants/defaults.bash
+source $(dirname $0)/__source/messages/logs.bash
 
 pad_value() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
