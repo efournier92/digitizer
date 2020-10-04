@@ -9,8 +9,8 @@ source ./args/batch_args.bash
 source ./messages/help.bash
 
 test_reading_with_no_args() {
-  local message="It should print the help menu"
-  local expected_result=`print_help_info`
+  local message="It should throw a missing-required-arg error"
+  local expected_result=`error_missing_required_arg "input" "read_batch_args"`
   
   local result=`read_batch_args`
   

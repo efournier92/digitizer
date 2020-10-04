@@ -9,6 +9,7 @@
 source $(dirname $0)/messages/help.bash
 source $(dirname $0)/messages/logs.bash
 source $(dirname $0)/messages/errors.bash
+source $(dirname $0)/utilities/modes.bash
 
 read_general_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
@@ -20,34 +21,20 @@ read_general_args() {
         ;;
 
       -h | --help )
-        print_help_info
-        exit
+        local should_show_help=true
         ;;
 
     esac
     shift
   done
  
-  [[ -z "$mode" ]] && error_missing_required_arg "mode" "${FUNCNAME[0]}"
-
-  [[   "$mode" != `capture_mode_name` \
-    && "$mode" != `cut_mode_name` \
-    && "$mode" != `cut_mode_name` \
-    && "$mode" != `batch_mode_name` \
-    && "$mode" != `join_mode_name` \
-  ]] && error_mode_not_found "$mode" "${FUNCNAME[0]}"
-
-  if [[ ! -z "$help" ]]; then
-    if [[ "$mode" == `capture_mode_name` ]]; then
-      show_help `capture_mode_name`
-    elif [[ "$mode" == `cut_mode_name` ]]; then
-      show_help `cut_mode_name`
-    elif [[ "$mode" == `batch_mode_name` ]]; then
-      show_help `batch_mode_name`
-    elif [[ "$mode" == `join_mode_name` ]]; then
-      show_help `join_mode_name`
-    fi
+  if [[ "$should_show_help" == true ]]; then
+    print_help_by_mode "$mode"
+    exit
   fi
+
+  [[ -z "$mode" ]] && error_missing_required_arg "mode" "${FUNCNAME[0]}"
+  [[ `is_mode_known "$mode"` == false ]] && error_mode_not_found "$mode" "${FUNCNAME[0]}"
 
   echo "$mode"
 }

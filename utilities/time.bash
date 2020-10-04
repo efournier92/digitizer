@@ -3,6 +3,6 @@ time_now() {
 }
 
 time_now_short() {
-  echo $(date '%H%M%S')
+  echo $(date '+%H%M%S')
 }
 

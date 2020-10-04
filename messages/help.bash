@@ -153,7 +153,7 @@ print_help_all() {
   help_watch
 }
 
-print_help_menu() {
+print_help_by_mode() {
   local mode="$1"
   
   if [[ "$mode" == `capture_mode_name` ]]; then
@@ -174,7 +174,7 @@ print_help_menu() {
 show_help() {
   local mode="$1"
   
-  echo `print_help_menu "$mode"`
+  echo `print_help_by_mode "$mode"`
 
   exit
 }

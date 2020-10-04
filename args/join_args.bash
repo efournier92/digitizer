@@ -10,7 +10,7 @@ source $(dirname $0)/constants/defaults.bash
 source $(dirname $0)/messages/logs.bash
 source $(dirname $0)/messages/errors.bash
 
-trim_leading_whitespace() {
+trim_leading_comma() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local files_to_join="$1"
 
@@ -41,11 +41,11 @@ read_join_args() {
     shift
   done
 
-  [[ -z "$files_to_join" ]] && error_missing_required_arg "files_to_join" "${FUNCNAME[0]}"
+  [[ -z "$files_to_join" ]] && error_missing_required_arg "input" "${FUNCNAME[0]}"
   [[ -z "$output_name" ]] && error_missing_required_arg "output_name" "${FUNCNAME[0]}"
-  [[ -z "$output_dir" ]] && local output_dir=`default_output_directory`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
 
-  files_to_join=`trim_leading_whitespace "$files_to_join"`
+  files_to_join=`trim_leading_comma "$files_to_join"`
 
   echo "$files_to_join" "$output_dir" "$output_name"
 }

@@ -99,7 +99,7 @@ read_capture_args() {
   [[ -z "$threads" ]] && local threads=`default_max_threads`
   [[ -z "$tune" ]] && local tune=`default_tune`
   [[ -z "$output_format" ]] && local output_format=`default_format`
-  [[ -z "$output_dir" ]] && local output_dir=`default_output_directory`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
   [[ -z "$output_name" ]] && local output_name=`time_now`
   
   local output_location="${output_dir}/${output_name}.mp4"

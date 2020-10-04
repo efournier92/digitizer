@@ -6,7 +6,7 @@
 # Arguments     : $batch_file
 #----------------
 
-source ./messages/errors.bash
+source $(dirname $0)/messages/errors.bash
 
 batch_mode() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

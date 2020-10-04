@@ -1,12 +1,25 @@
 #!/bin/bash
 
-source $(dirname $0)/utilities/time.bash
+source ./utilities/time.bash
 
-test_time_right_now_return_value() {
+test_time_now() {
   local message="It should return the current time formatted as an integer"
-  local result=`get_time_right_now`
   local expected_result=`date '+%y%m%d%H%M%S'`
+
+  local result=`time_now`
 
   assertEquals "${expected_result}" "${result}"
 }
+
+test_time_now_short() {
+  local message="It should return the current time formatted as an integer"
+  local expected_result=`date '+%H%M%S'`
+
+  local result=`time_now_short`
+
+  assertEquals "${expected_result}" "${result}"
+}
+
+suite_addTest test_time_now
+suite_addTest test_time_now_short
 

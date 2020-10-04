@@ -95,21 +95,21 @@ test_reading_codec_long_arg() {
 }
 
 test_reading_output_directory_short_arg() {
-  local message="It should set configured output_directory"
-  local output_directory="TestDirectory"
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` $output_directory/`time_now`.mp4"
+  local message="It should set configured output_dir"
+  local output_dir="TestDirectory"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` $output_dir/`time_now`.mp4"
   
-  local result=`read_capture_args -d "$output_directory"`
+  local result=`read_capture_args -d "$output_dir"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
 
 test_reading_output_directory_long_arg() {
-  local message="It should set configured output_directory"
-  local output_directory="TestDirectory"
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` $output_directory/`time_now`.mp4"
+  local message="It should set configured output_dir"
+  local output_dir="TestDirectory"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` $output_dir/`time_now`.mp4"
   
-  local result=`read_capture_args --output_directory "$output_directory"`
+  local result=`read_capture_args --output_dir "$output_dir"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -138,7 +138,7 @@ test_reading_stop_time_long_arg() {
 test_reading_output_name_short_arg() {
   local message="It should set configured output_name"
   local output_name="MyOutput"
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` `default_output_directory`/$output_name.mp4"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` `default_output_dir`/$output_name.mp4"
   
   local result=`read_capture_args -o "$output_name"`
   
@@ -148,7 +148,7 @@ test_reading_output_name_short_arg() {
 test_reading_output_name_long_arg() {
   local message="It should set configured output_name"
   local output_name="MyOutput"
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` `default_output_directory`/$output_name.mp4"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_input_video_format` `default_input_audio_format` `default_preset` `default_input_video_size` `default_standard` `default_stop_time` `default_max_threads` `default_tune` `default_format` `default_output_dir`/$output_name.mp4"
   
   local result=`read_capture_args --output_name "$output_name"`
   
@@ -240,7 +240,7 @@ test_reading_all_args() {
   local video_device="/dev/video0"
   local audio_device="hw:9,9"
   local codec="test_codec"
-  local output_directory="TestDir"
+  local output_dir="TestDir"
   local output_name="TestFile"
   local stop_time="99:99:99.999"
   local video_format="test_vid_format"
@@ -251,9 +251,9 @@ test_reading_all_args() {
   local standard="test_standard"
   local threads="999"
   local tune="test_tune"
-  local expected_result="$video_device $audio_device $codec $crf $video_format $audio_format $preset $size $standard $stop_time $threads $tune `default_format` $output_directory/$output_name.mp4"
+  local expected_result="$video_device $audio_device $codec $crf $video_format $audio_format $preset $size $standard $stop_time $threads $tune `default_format` $output_dir/$output_name.mp4"
   
-  local result=`read_capture_args -i "$video_device" -a "$audio_device" -c "$codec" -d "$output_directory" -t "$stop_time" -o "$output_name" --video_format "$video_format" --audio_format "$audio_format" --crf "$crf" --preset "$preset" --size "$size" --standard "$standard" --threads "$threads" --tune "$tune"`
+  local result=`read_capture_args -i "$video_device" -a "$audio_device" -c "$codec" -d "$output_dir" -t "$stop_time" -o "$output_name" --video_format "$video_format" --audio_format "$audio_format" --crf "$crf" --preset "$preset" --size "$size" --standard "$standard" --threads "$threads" --tune "$tune"`
   
   assertEquals "$message" "$expected_result" "$result"
 }

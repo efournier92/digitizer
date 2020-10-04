@@ -31,12 +31,12 @@ timestamp_regex() {
   echo "[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
 }
 
-default_output_directory() {
+default_output_dir() {
   echo "./_vhsd_out"
 }
 
 default_output_file() {
-  echo "`default_output_directory`/`time_now`.mp4"
+  echo "`default_output_dir`/`time_now`.mp4"
 }
 
 default_batch_file_name() {
@@ -75,7 +75,6 @@ default_stop_time() {
   echo "06:00:00.000"
 }
 
-# TODO: Remove
 default_crf() { 
   echo "28"
 }

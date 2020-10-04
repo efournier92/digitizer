@@ -27,14 +27,9 @@ read_cut_args() {
         local codec="$1"
         ;;
 
-      -d | --output_directory )
+      -d | --output_dir )
         shift
-        local output_directory="$1"
-        ;;
-
-      -o | --output_name )
-        shift
-        local output_name="$1"
+        local output_dir="$1"
         ;;
 
       --crf )
@@ -79,8 +74,8 @@ read_cut_args() {
   [[ -z "$crop" ]] && local crop=`default_crop`
   [[ -z "$queue_size" ]] && local queue_size=`default_max_queue`
   [[ -z "$crf" ]] && local crf=`default_crf`
-  [[ -z "$output_directory" ]] && local output_directory=`default_output_directory`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
 
-  echo "$input_file" "$start_time" "$stop_time" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_directory"
+  echo "$input_file" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_dir"
 }
 
