@@ -93,17 +93,26 @@ concatenate_files() {
   local output_name="$1"
 
   cat \
+    messages/logs.bash \
+    messages/errors.bash \
+    messages/help.bash \
     utilities/devices.bash \
     utilities/fs.bash \
     utilities/time.bash \
-    constants/video_defaults.bash \
-    ffmpeg/capture_video.bash \
-    ffmpeg/convert_capture.bash \
-    input/arguments/read_command_arguments.bash \
-    input/arguments/read_convert_mode_arguments.bash \
+    constants/defaults.bash \
     input/selection/select_device.bash \
-    cut/cut_segments.bash \
-    logging/print_video_details.bash \
+    args/batch_args.bash \
+    args/capture_args.bash \
+    args/cut_args.bash \
+    args/general_args.bash \
+    args/join_args.bash \
+    args/verbose_args.bash \
+    args/watch_mode.bash \
+    modes/batch_mode.bash \
+    modes/capture_mode.bash \
+    modes/cut_mode.bash \
+    modes/join_mode.bash \
+    modes/watch_mode.bash \
     main.bash \
       >> `get_concat_file_location "$output_name"`
 }

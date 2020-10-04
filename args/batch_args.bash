@@ -6,10 +6,11 @@
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/constants/defaults.bash
-source $(dirname $0)/messages/help.bash
+source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/messages/errors.bash
 
 read_batch_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   while [ "$1" != "" ]; do
 
     case $1 in
@@ -22,7 +23,7 @@ read_batch_args() {
     shift
   done
 
-  [[ -z "$input" ]] && show_help `batch_mode_name`
+  [[ -z "$input" ]] && error_missing_required_arg "input" "${FUNCNAME[0]}"
 
   echo "$input"
 }

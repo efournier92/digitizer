@@ -9,8 +9,11 @@
 source $(dirname $0)/constants/defaults.bash
 source $(dirname $0)/utilities/time.bash
 source $(dirname $0)/input/selection/select_device.bash
+source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/messages/errors.bash
 
 read_capture_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local i=0
   while [ "$1" != "" ]; do
     case $1 in

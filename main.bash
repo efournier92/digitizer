@@ -15,6 +15,7 @@ source $(dirname $0)/args/batch_args.bash
 source $(dirname $0)/args/capture_args.bash
 source $(dirname $0)/args/cut_args.bash
 source $(dirname $0)/args/join_args.bash
+source $(dirname $0)/args/watch_args.bash
 source $(dirname $0)/modes/batch_mode.bash
 source $(dirname $0)/modes/capture_mode.bash
 source $(dirname $0)/modes/cut_mode.bash
@@ -37,19 +38,27 @@ run_join_mode() {
   join_mode `read_join_args "$@"`
 }
 
-main() {
-  local mode=`read_general_args "$@"`
+run_watch_mode() {
+  watch_mode `read_watch_args "$@"`
+}
 
-  if [[ "$mode" == "capture" ]]; then
+main() {
+  local is_verbose=`read_verbose_args "$@"`
+  [[ "$is_verbose" == true ]] && VERBOSE=true
+
+  local mode=`read_general_args "$@"`
+  if [[ "$mode" == `capture_mode_name` ]]; then
     run_capture_mode "$@"
-  elif [[ "$mode" == "cut" ]]; then
+  elif [[ "$mode" == `cut_mode_name` ]]; then
     run_cut_mode "$@"
-  elif [[ "$mode" == "batch" ]]; then
+  elif [[ "$mode" == `batch_mode_name` ]]; then
     run_batch_mode "$@"
-  elif [[ "$mode" == "join" ]]; then
+  elif [[ "$mode" == `join_mode_name` ]]; then
     run_join_mode "$@"
+  elif [[ "$mode" == `watch_mode_name` ]]; then
+    run_watch_mode "$@"
   else
-    `print_help_info`
+    `print_help_menu`
   fi
 }
 

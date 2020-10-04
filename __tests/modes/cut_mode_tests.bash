@@ -1,7 +1,8 @@
 #! /bin/sh
 # file: examples/equality_test.sh
 
-source $(dirname $0)/cut/cut_segments.bash
+source $(dirname $0)/modes/cut_mode.bash
+source $(dirname $0)/messages/errors.bash
 
 test_correct_negatives_with_value_carrying() {
   local message="It should "
@@ -62,11 +63,30 @@ test_subtract_timestamps_with_double_value_carrying() {
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
+test_pad_value_with_missing_args() {
+  local message="It throw a missing-function-args error"
+  local expected_result=`error_missing_function_args "pad_value"`
+  VERBOSE=true 
+  local result=`pad_value "$value" "$digits"`
+  
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
 test_pad_value() {
   local message="It should return the expected value"
   local value="1"
   local digits="2"
   local expected_result="01"
+  
+  VERBOSE=true 
+  local result=`pad_value "$value" "$digits"`
+  
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_pad_value_with_missing_args() {
+  local message="It throw a missing-function-args error"
+  local expected_result=`error_missing_function_args "pad_value"`
   
   local result=`pad_value "$value" "$digits"`
   
@@ -79,4 +99,5 @@ suite_addTest test_subtract_timestamps_without_value_carrying
 suite_addTest test_subtract_timestamps_with_value_carrying
 suite_addTest test_subtract_timestamps_with_double_value_carrying
 suite_addTest test_pad_value
+suite_addTest test_pad_value_with_missing_args
 

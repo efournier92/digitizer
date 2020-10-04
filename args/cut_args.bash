@@ -9,8 +9,11 @@
 source $(dirname $0)/input/selection/select_device.bash
 source $(dirname $0)/constants/defaults.bash
 source $(dirname $0)/utilities/time.bash
+source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/messages/errors.bash
 
 read_cut_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local i=0
   while [ "$1" != "" ]; do
     case $1 in
@@ -68,7 +71,7 @@ read_cut_args() {
     shift
   done
 
-  [[ -z "$input_file" ]] && show_help `cut_mode_name`
+  [[ -z "$input_file" ]] && error_missing_required_arg "input_file" "${FUNCNAME[0]}"
   [[ -z "$codec" ]] && local codec=`default_video_codec`
   [[ -z "$dimensions" ]] && local dimensions=`default_dimensions`
   [[ -z "$tune" ]] && local tune=`default_tune`

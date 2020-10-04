@@ -10,17 +10,55 @@
 #----------------
 
 error_missing_function_args() {
-  local error_function="$1"
+  local function_name="$1"
+  local args="$2"
 
-  echo "ERROR: Arguments missing from called function $error_function"
+  echo "ERROR: Arguments missing from called function $function_name [$args]"
 
   exit
 }
 
-error_join_file_missing() {
-  local join_file="$1"
+error_missing_required_arg() {
+  local required_arg="$1"
+  local function_name="$2"
 
-  echo "ERROR: File to join does $join_file"
+  echo "ERROR: required argument [$required_arg] not found in function $function_name"
+
+  exit
+}
+
+error_file_not_found() {
+  local file=$1
+  local function_name="$2"
+
+  echo "ERROR: input file [$file] not found in function $function_name"
+
+  exit
+}
+
+error_dir_not_found() {
+  local dir=$1
+  local function_name="$2"
+
+  echo "ERROR: directory [$file] not found in function $function_name"
+
+  exit
+}
+
+error_device_not_found() {
+  local device="$1"
+  local function_name="$2"
+
+  echo "ERROR: Device [$device] was not found in function $function_name"
+
+  exit
+}
+
+error_mode_not_found() {
+  local mode="$1"
+  local function_name="$2"
+
+  echo "ERROR: Mode [$mode] was not found in function $function_name"
 
   exit
 }

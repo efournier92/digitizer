@@ -23,6 +23,10 @@ join_mode_name() {
   echo "join"
 }
 
+watch_mode_name() {
+  echo "watch"
+}
+
 timestamp_regex() {
   echo "[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
 }
@@ -41,6 +45,10 @@ default_batch_file_name() {
 
 default_concat_file_name() {
   echo "vhsd_concat_file.txt"
+}
+
+log_file_name() {
+  echo "./vhsd_log.txt"
 }
 
 default_input_video_size() {

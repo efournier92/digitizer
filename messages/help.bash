@@ -106,6 +106,18 @@ JOIN
 EOF
 }
 
+help_watch() {
+cat << EOF
+WATCH
+
+  -i, --input,         input video devide
+  --video_device
+
+  -a, --audio_device   input audio device
+
+EOF
+}
+
 print_help_capture() {
   help_header
   help_capture
@@ -126,6 +138,11 @@ print_help_join() {
   help_join
 }
 
+print_help_watch() {
+  help_header
+  help_watch
+}
+
 print_help_all() {
   help_header
   help_general
@@ -133,6 +150,7 @@ print_help_all() {
   help_cut
   help_batch
   help_join
+  help_watch
 }
 
 print_help_menu() {
@@ -146,6 +164,8 @@ print_help_menu() {
     print_help_batch
   elif [[ "$mode" == `join_mode_name` ]]; then
     print_help_join
+  elif [[ "$mode" == `watch_mode_name` ]]; then
+    print_help_watch
   else
     print_help_all
   fi

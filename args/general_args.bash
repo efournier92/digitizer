@@ -7,8 +7,11 @@
 #----------------
 
 source $(dirname $0)/messages/help.bash
+source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/messages/errors.bash
 
 read_general_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   while [ "$1" != "" ]; do
     case $1 in
       -m | --mode )
@@ -25,7 +28,14 @@ read_general_args() {
     shift
   done
  
-  [[ -z "$mode" ]] && show_help
+  [[ -z "$mode" ]] && error_missing_required_arg "mode" "${FUNCNAME[0]}"
+
+  [[   "$mode" != `capture_mode_name` \
+    && "$mode" != `cut_mode_name` \
+    && "$mode" != `cut_mode_name` \
+    && "$mode" != `batch_mode_name` \
+    && "$mode" != `join_mode_name` \
+  ]] && error_mode_not_found "$mode" "${FUNCNAME[0]}"
 
   if [[ ! -z "$help" ]]; then
     if [[ "$mode" == `capture_mode_name` ]]; then
