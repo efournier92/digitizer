@@ -5,7 +5,7 @@
 # Description   : Library of functions to return default values
 #----------------
 
-source $(dirname $0)/__source/utilities/time.bash
+source $(dirname $0)/utilities/time.bash
 
 capture_mode_name() {
   echo "capture"
@@ -25,30 +25,6 @@ join_mode_name() {
 
 watch_mode_name() {
   echo "watch"
-}
-
-timestamp_regex() {
-  echo "[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
-}
-
-default_output_dir() {
-  echo "./_vhsd_out"
-}
-
-default_output_file() {
-  echo "`default_output_dir`/`time_now`.mp4"
-}
-
-default_batch_file_name() {
-  echo "vhsd_batch_file.txt"
-}
-
-default_concat_file_name() {
-  echo "vhsd_concat_file.txt"
-}
-
-log_file_name() {
-  echo "./vhsd_log.txt"
 }
 
 default_input_video_size() {

@@ -13,3 +13,7 @@ time_now_short() {
   echo $(date '+%H%M%S')
 }
 
+timestamp_regex() {
+  echo "[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
+}
+

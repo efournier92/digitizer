@@ -7,17 +7,20 @@
 # Dependencies  : ffmpeg
 #----------------
 
-source $(dirname $0)/__source/args/general_args.bash
-source $(dirname $0)/__source/args/batch_args.bash
-source $(dirname $0)/__source/args/capture_args.bash
-source $(dirname $0)/__source/args/cut_args.bash
-source $(dirname $0)/__source/args/join_args.bash
-source $(dirname $0)/__source/args/watch_args.bash
-source $(dirname $0)/__source/modes/batch_mode.bash
-source $(dirname $0)/__source/modes/capture_mode.bash
-source $(dirname $0)/__source/modes/cut_mode.bash
-source $(dirname $0)/__source/modes/join_mode.bash
-source $(dirname $0)/__source/messages/help.bash
+source $(dirname $0)/args/mode_args.bash
+source $(dirname $0)/args/help_args.bash
+source $(dirname $0)/args/verbose_args.bash
+source $(dirname $0)/args/batch_args.bash
+source $(dirname $0)/args/capture_args.bash
+source $(dirname $0)/args/cut_args.bash
+source $(dirname $0)/args/join_args.bash
+source $(dirname $0)/args/watch_args.bash
+source $(dirname $0)/modes/batch_mode.bash
+source $(dirname $0)/modes/capture_mode.bash
+source $(dirname $0)/modes/cut_mode.bash
+source $(dirname $0)/modes/join_mode.bash
+source $(dirname $0)/messages/help.bash
+source $(dirname $0)/utilities/fs.bash
 
 run_capture_mode() {
   capture_mode `read_capture_args "$@"`
@@ -39,11 +42,18 @@ run_watch_mode() {
   watch_mode `read_watch_args "$@"`
 }
 
+create_config_dir() {
+  mkdir -p `config_dir`
+}
+
 main() {
   local is_verbose=`read_verbose_args "$@"`
   [[ "$is_verbose" == true ]] && VERBOSE=true
+  
+  create_config_dir
 
-  local mode=`read_general_args "$@"`
+  local mode=`read_mode_args "$@"`
+  read_help_args "$@"
   if [[ "$mode" == `capture_mode_name` ]]; then
     run_capture_mode "$@"
   elif [[ "$mode" == `cut_mode_name` ]]; then

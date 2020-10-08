@@ -5,8 +5,10 @@
 # Description   : Run cut process to output ffmpeg commands to a file for batch conversion
 #----------------
 
-source $(dirname $0)/__source/constants/defaults.bash
-source $(dirname $0)/__source/messages/logs.bash
+source $(dirname $0)/constants/defaults.bash
+source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/utilities/time.bash
+source $(dirname $0)/utilities/fs.bash
 
 pad_value() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
@@ -84,50 +86,46 @@ subtract_timestamps() {
   echo $(correct_negatives "$duration_hours" "$duration_minutes" "$duration_seconds" "$duration_ms")
 }
 
-get_ffmpeg_command() {
+get_ffmpeg_cut_command_with_encoding() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local input_file="$1"
-  local start_time="$2"
-  local duration="$3"
-  local codec="$4"
-  local dimensions="$5"
-  local tune="$6"
-  local preset="$7"
-  local crop="$8"
-  local queue_size="$9"
-  local crf="${10}"
-  local output_dir="${11}"
-  local output_file_name="${12}"
+  local duration="$2"
+  local codec="$3"
+  local dimensions="$4"
+  local tune="$5"
+  local preset="$6"
+  local crop="$7"
+  local queue_size="$8"
+  local crf="${9}"
+  local output_dir="${10}"
+  local output_file_name="${11}"
 
-  [[ -z "$input_file" || -z "$start_time" || -z "$duration" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" || -z "$output_file_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
-
-  [[ ! -f "input_file" ]] && error_file_not_found "$input_file" "${FUNCNAME[0]}"
+  [[ -z "$input_file" || -z "$duration" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" || -z "$output_file_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
 
   echo "ffmpeg -i $(pwd)/$input_file -ss $start_time -c:v $codec -crf $crf -tune $tune -preset $preset -vf yadif=0:0:0,crop=$crop,scale=$dimensions -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -max_muxing_queue_size $queue_size -t $duration -movflags faststart $output_dir/$output_file_name.mp4"
+}
+
+get_ffmpeg_cut_command_without_encoding() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local input_file="$1"
+  local duration="$2"
+  local output_dir="$3"
+  local output_file_name="$4"
+
+  [[ -z "$input_file" || -z "$duration" || -z "$output_dir" || -z "$output_file_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  echo "ffmpeg -i $(pwd)/$input_file -ss $start_time -c copy -t $duration $output_dir/$output_file_name.mp4"
 }
 
 save_ffmpeg_command() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local ffmpeg_command="$1"
-  local output_dir="$2"
 
-  [[ -z "$ffmpeg_command" || -z "$output_dir" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
   
-  local batch_file="$output_dir/`default_batch_file_name`"
-  mkdir -p "$output_dir"
-  touch "$batch_file"
+  local batch_file=`batch_file_location`
 
   echo "$ffmpeg_command" >> "$batch_file"
-}
-
-get_output_file() {
-  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  local output_dir="$1"
-  local output_name="$2"
-
-  [[ -z "$output_dir" || -z "$output_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
-
-  echo "$output_dir/$output_name.mp4"
 }
 
 get_duration() {
@@ -146,8 +144,6 @@ get_start_time() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local start_time=""
 
-  [[ -z "$start_time" ]] && error_missing_function_args "${FUNCNAME[0]}"
-
   until [[ "$start_time" =~ `timestamp_regex` ]]; do
     read -p "START [hh:mm:ss.mss] >> " start_time
   done
@@ -159,8 +155,6 @@ get_end_time() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local end_time=""
 
-  [[ -z "$end_time" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
-
   until [[ "$end_time" =~ `timestamp_regex` ]]; do
     read -p "END   [hh:mm:ss.mss] >> " end_time
   done
@@ -170,7 +164,9 @@ get_end_time() {
 
 get_segment_name() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+
   read -p "NAME >> " output_file_name
+
   echo "$output_file_name"
 }
 
@@ -180,44 +176,49 @@ open_ffplay() {
 
   [[ -z "$input_file" ]] && error_missing_function_args "${FUNCNAME[0]}"
 
+  local nohup_file=`nohup_file_location` 
+
   nohup ffplay \
     -vf "drawtext=text='%{pts\:hms}':fontsize=30:box=1:x=(w-tw)/2:y=h-(2*lh)" \
     -x 1000 -y 1000 \
-    "$input_file" &
+    "$input_file" > "$nohup_file" &
 }
 
 cut_mode() {
-  "[[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" $@"
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local input_file="$1"
-  local start_time="$2"
-  local stop_time="$3"
-  local codec="$4"
-  local dimensions="$5"
-  local tune="$6"
-  local preset="$7"
-  local crop="$8"
-  local queue_size="$9"
-  local crf="${10}"
-  local output_dir="${11}"
+  local codec="$2"
+  local dimensions="$3"
+  local tune="$4"
+  local preset="$5"
+  local crop="$6"
+  local queue_size="$7"
+  local crf="$8"
+  local no_encode="$9"
+  local output_dir="${10}"
   
-  [[ -z "$input_file" || -z "$start_time" || -z "$stop_time" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  [[ -z "$input_file" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
 
   [[ ! -f "$input_file" ]] && error_file_not_found "$input_file" "${FUNCNAME[0]}"
 
-  mkdir -p "$output_dir"
   open_ffplay "$input_file"
-  sleep 1
-
+  sleep 0.2
+  
+  local ffmpeg_command
   while true; do
     local start_time=`get_start_time`
     local end_time=`get_end_time`
     local duration=`get_duration "$start_time" "$end_time"`
 
     local name=`get_segment_name "$input_file"`
-
-    local ffmpeg_command=`get_ffmpeg_command "$input_file" "$start_time" "$duration" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_dir" "$name"`
+    
+    if [[ "$no_encode" == true ]]; then
+      ffmpeg_command="`get_ffmpeg_cut_command_without_encoding $input_file $duration $output_dir $name`"
+    else
+      ffmpeg_command="`get_ffmpeg_cut_command_with_encoding $input_file $duration $codec $dimensions $tune $preset $crop $queue_size $crf $output_dir $name`"
+    fi
   
-    save_ffmpeg_command "$ffmpeg_command" "$output_dir" 
+    save_ffmpeg_command "$ffmpeg_command"
   done
 }
 

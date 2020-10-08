@@ -5,7 +5,7 @@
 # Description   : Run batch process to convert raw captures from ffmpeg commands in $batch_file
 #----------------
 
-source $(dirname $0)/__source/messages/errors.bash
+source $(dirname $0)/messages/errors.bash
 
 batch_mode() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

@@ -6,9 +6,9 @@
 # Arguments     : $@
 #----------------
 
-source $(dirname $0)/__source/constants/defaults.bash
-source $(dirname $0)/__source/messages/logs.bash
-source $(dirname $0)/__source/messages/errors.bash
+source $(dirname $0)/constants/defaults.bash
+source $(dirname $0)/messages/logs.bash
+source $(dirname $0)/messages/errors.bash
 
 trim_leading_comma() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

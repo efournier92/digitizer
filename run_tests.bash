@@ -11,7 +11,7 @@
 suite()
 {
   #. ./__tests/args/batch_args_tests.bash
-  . ./__tests/args/capture_args_tests.bash
+  #. ./__tests/args/capture_args_tests.bash
   #. ./__tests/args/cut_args_tests.bash
   #. ./__tests/args/general_args_tests.bash
   #. ./__tests/args/join_args_tests.bash
@@ -25,7 +25,7 @@ suite()
   #. ./__tests/modes/batch_mode_tests.bash
   #. ./__tests/modes/capture_mode_tests.bash
   #. ./__tests/modes/cut_mode_tests.bash
-  #. ./__tests/modes/join_mode_tests.bash
+  . ./__tests/modes/join_mode_tests.bash
   #. ./__tests/modes/watch_mode_tests.bash
 }
 
