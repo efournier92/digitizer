@@ -27,7 +27,7 @@ get_video_device_selection() {
 
 get_audio_device_selection() {
   local audio_devices=`detect_audio_devices`
-  local header="\nAUDIO DEVICE\n"
+  local header="AUDIO DEVICE\n"
   echo `get_user_selection "$audio_devices" "$header"`
 }
 

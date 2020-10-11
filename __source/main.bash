@@ -41,7 +41,6 @@ run_join_mode() {
 }
 
 run_watch_mode() {
-  echo "WATCH ARGS: `read_watch_args $@`"
   watch_mode `read_watch_args "$@"`
 }
 

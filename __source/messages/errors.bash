@@ -9,7 +9,7 @@ error_missing_function_args() {
   local function_name="$1"
   local args="$2"
 
-  echo "ERROR: Arguments missing from called function $function_name [$args]"
+  echo "ERROR: Arguments missing from called function $@"
 
   exit
 }

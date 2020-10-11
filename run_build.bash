@@ -135,8 +135,8 @@ main() {
   delete_sources     "$output_name"
   add_shebang        "$output_name"
   create_binary      "$output_name"  
-  #cleanup_temp_files "$output_name"
-  echo "Compiled binary to `get_binary_file_location $output_name`"
+  cleanup_temp_files "$output_name"
+  printf "\nCompiled binary to `get_binary_file_location $output_name`\n"
 }
 
 main "$@"

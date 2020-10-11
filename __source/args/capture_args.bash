@@ -85,7 +85,7 @@ read_capture_args() {
     shift
   done
 
-  [[ -z "$video_device" ]] && local video_device=`get_user_device_selection `
+  [[ -z "$video_device" ]] && local video_device=`get_video_device_selection`
   [[ -z "$audio_device" ]] && local audio_device=`get_audio_device_selection`
   [[ -z "$codec" ]] && local codec=`default_video_codec`
   [[ -z "$crf" ]] && local crf=`default_crf`
