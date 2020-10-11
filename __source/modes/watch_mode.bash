@@ -15,7 +15,7 @@ get_ffplay_command() {
 
   [[ -z "$video_device" || -z "$audio_device" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
 
-  echo "ffplay -standard `default_standard` -i $video_device -i $audio_device"
+  echo "ffplay -standard `default_standard` -i $video_device"
 }
 
 run_ffplay_command() {
@@ -34,6 +34,6 @@ watch_mode() {
 
   [[ -z "$video_device" || -z "$audio_device" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
 
-  run_ffplay_command `get_ffplay_command "$video_device" "$audio_device"`
+  run_ffplay_command "`get_ffplay_command $video_device $audio_device`"
 }
 

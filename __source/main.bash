@@ -19,6 +19,7 @@ source $(dirname $0)/modes/batch_mode.bash
 source $(dirname $0)/modes/capture_mode.bash
 source $(dirname $0)/modes/cut_mode.bash
 source $(dirname $0)/modes/join_mode.bash
+source $(dirname $0)/modes/watch_mode.bash
 source $(dirname $0)/messages/help.bash
 source $(dirname $0)/utilities/fs.bash
 
@@ -40,6 +41,7 @@ run_join_mode() {
 }
 
 run_watch_mode() {
+  echo "WATCH ARGS: `read_watch_args $@`"
   watch_mode `read_watch_args "$@"`
 }
 

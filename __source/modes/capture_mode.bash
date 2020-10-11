@@ -17,12 +17,12 @@ get_capture_command() {
   local size="$8"
   local standard="$9"
   local stop_time="${10}"
-  local theads="${11}"
+  local threads="${11}"
   local tune="${12}"
   local output_format="${13}"
   local output_location="${14}"
 
-  [[ -z "$video_device" || -z "$audio_device" || -z "$codec" || -z "$crf" || -z "$video_format" || -z "$audio_format" || -z "$preset" || -z "$size" || -z "$standard" || -z "$stop_time" || -z "$theads" || -z "$tune" || -z "$output_format" || -z "$output_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  [[ -z "$video_device" || -z "$audio_device" || -z "$codec" || -z "$crf" || -z "$video_format" || -z "$audio_format" || -z "$preset" || -z "$size" || -z "$standard" || -z "$stop_time" || -z "$threads" || -z "$tune" || -z "$output_format" || -z "$output_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
   
   [[ ! -e "$video_device" ]] && error_device_not_found "$video_device" "${FUNCNAME[0]}"
 
@@ -43,7 +43,7 @@ capture_mode() {
   local ffmpeg_command=`get_capture_command "$@"`
 
   [[ -z "ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
-
+  echo "$ffmpeg_command" >&2
   run_capture_command "$ffmpeg_command"
 }
 
