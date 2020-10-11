@@ -10,6 +10,8 @@ source $(dirname $0)/messages/logs.bash
 source $(dirname $0)/messages/errors.bash
 
 read_verbose_args() {
+  echo "VERBARGS: $@" >&2
+  [[ "$is_verbose" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   while [ "$1" != "" ]; do
     case $1 in
       -v | --verbose )
@@ -21,7 +23,6 @@ read_verbose_args() {
   done
  
   [[ -z "$is_verbose" ]] && local is_verbose="false"
-  [[ "$is_verbose" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
 
   echo "$is_verbose"
 }

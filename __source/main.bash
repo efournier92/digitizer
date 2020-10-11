@@ -23,6 +23,7 @@ source $(dirname $0)/messages/help.bash
 source $(dirname $0)/utilities/fs.bash
 
 run_capture_mode() {
+  echo "ARGS: $@" >&2
   capture_mode `read_capture_args "$@"`
 }
 
@@ -65,7 +66,7 @@ main() {
   elif [[ "$mode" == `watch_mode_name` ]]; then
     run_watch_mode "$@"
   else
-    `print_help_menu`
+    `print_help_by_mode`
   fi
 }
 

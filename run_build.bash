@@ -112,10 +112,11 @@ concatenate_files() {
     __source/args/batch_args.bash \
     __source/args/capture_args.bash \
     __source/args/cut_args.bash \
-    __source/args/general_args.bash \
+    __source/args/help_args.bash \
     __source/args/join_args.bash \
+    __source/args/mode_args.bash \
     __source/args/verbose_args.bash \
-    __source/args/watch_mode.bash \
+    __source/args/watch_args.bash \
     __source/modes/batch_mode.bash \
     __source/modes/capture_mode.bash \
     __source/modes/cut_mode.bash \
@@ -134,7 +135,7 @@ main() {
   delete_sources     "$output_name"
   add_shebang        "$output_name"
   create_binary      "$output_name"  
-  cleanup_temp_files "$output_name"
+  #cleanup_temp_files "$output_name"
   echo "Compiled binary to `get_binary_file_location $output_name`"
 }
 

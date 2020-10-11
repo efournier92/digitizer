@@ -6,7 +6,8 @@
 #----------------
 
 detect_video_devices() {
-  echo `ls -d /dev/video*`
+  local devices="$(ls -d /dev/video*)"
+  echo "${devices/$'\n'/' '}"
 }
 
 detect_audio_devices() {
