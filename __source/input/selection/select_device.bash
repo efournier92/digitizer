@@ -17,6 +17,7 @@ get_user_selection() {
 } 
 
 get_video_device_selection() {
+  echo `get_user_selection `
   select selection in `${list_options}`; do
     echo "$selection"
   done

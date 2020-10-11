@@ -55,6 +55,10 @@ default_crf() {
   echo "28"
 }
 
+default_capture_preset() {
+  echo "ultrafast"
+}
+
 default_preset() {
   echo "slow"
 }
