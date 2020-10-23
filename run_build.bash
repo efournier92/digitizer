@@ -101,28 +101,31 @@ concatenate_files() {
   local output_name="$1"
 
   cat \
-    __source/messages/logs.bash \
-    __source/messages/errors.bash \
-    __source/messages/help.bash \
-    __source/utilities/devices.bash \
-    __source/utilities/fs.bash \
-    __source/utilities/time.bash \
-    __source/constants/defaults.bash \
-    __source/input/selection/select_device.bash \
-    __source/args/batch_args.bash \
-    __source/args/capture_args.bash \
-    __source/args/cut_args.bash \
-    __source/args/help_args.bash \
-    __source/args/join_args.bash \
-    __source/args/mode_args.bash \
-    __source/args/verbose_args.bash \
-    __source/args/watch_args.bash \
-    __source/modes/batch_mode.bash \
-    __source/modes/capture_mode.bash \
-    __source/modes/cut_mode.bash \
-    __source/modes/join_mode.bash \
-    __source/modes/watch_mode.bash \
-    __source/main.bash \
+    _src/messages/logs.bash \
+    _src/messages/errors.bash \
+    _src/messages/help.bash \
+    _src/utilities/devices.bash \
+    _src/utilities/fs.bash \
+    _src/utilities/time.bash \
+    _src/utilities/modes.bash \
+    _src/constants/defaults.bash \
+    _src/input/selection/select_device.bash \
+    _src/args/batch_args.bash \
+    _src/args/capture_args.bash \
+    _src/args/cut_args.bash \
+    _src/args/help_args.bash \
+    _src/args/join_args.bash \
+    _src/args/mode_args.bash \
+    _src/args/verbose_args.bash \
+    _src/args/watch_args.bash \
+    _src/args/audio_args.bash \
+    _src/modes/batch_mode.bash \
+    _src/modes/capture_mode.bash \
+    _src/modes/cut_mode.bash \
+    _src/modes/join_mode.bash \
+    _src/modes/watch_mode.bash \
+    _src/modes/audio_mode.bash \
+    _src/main.bash \
       >> `get_concat_file_location "$output_name"`
 }
 
