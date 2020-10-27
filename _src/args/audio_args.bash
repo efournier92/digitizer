@@ -80,7 +80,7 @@ read_audio_args() {
   [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
   [[ -z "$output_name" ]] && local output_name=`default_output_audio_capture_file_name`
   
-  local output_location="${output_dir}/${output_name}"
+  local output_location="${output_dir}/${output_name}.wav"
 
   echo "$audio_device" "$input_format" "$output_format" "$channels" "$sample_rate" "$max_threads" "$stop_time" "$output_location"
 }

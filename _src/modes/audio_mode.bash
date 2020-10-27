@@ -18,7 +18,7 @@ get_capture_command() {
 
   [[ -z "$audio_device" || -z "$input_format" || -z "$channels" || -z "$sample_rate" || -z "$threads" || -z "$stop_time" || -z "$output_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
   
-  echo "ffmpeg -f $input_format -channels $channels -sample_rate $sample_rate -thread_queue_size $threads -i hw:1,0 -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f $output_format pipe:play | ffplay -i pipe:play -nodisp"
+  echo "ffmpeg -f $input_format -channels $channels -sample_rate $sample_rate -thread_queue_size $threads -i $audio_device -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f $output_format pipe:play | ffplay -i pipe:play -nodisp"
 }
 
 run_capture_command() {
