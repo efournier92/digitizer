@@ -13,6 +13,7 @@ read_verbose_args() {
   [[ "$is_verbose" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   while [ "$1" != "" ]; do
     case $1 in
+
       -v | --verbose )
         local is_verbose="true"
         ;;

@@ -16,6 +16,7 @@ read_capture_args() {
   local i=0
   while [ "$1" != "" ]; do
     case $1 in
+
       -i | --input | --video_device )
         shift
         local video_device="$1"

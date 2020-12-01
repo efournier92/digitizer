@@ -5,7 +5,7 @@
 # Description   : Run capture process to collect input from a stream
 #----------------
 
-get_capture_command() {
+get_audio_capture_command() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local audio_device="$1"
   local input_format="$2"
@@ -32,7 +32,7 @@ run_capture_command() {
 
 audio_mode() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  local ffmpeg_command=`get_capture_command "$@"`
+  local ffmpeg_command=`get_audio_capture_command "$@"`
 
   [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
   echo "$ffmpeg_command" >&2
