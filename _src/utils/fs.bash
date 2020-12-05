@@ -5,7 +5,7 @@
 # Description   : Library for functions for file-system-related activities
 #----------------
 
-source ./utilities/time.bash
+source "./_src/utils/time.bash"
 
 default_output_dir() {
   echo "$(pwd)"

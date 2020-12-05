@@ -5,14 +5,22 @@
 # Description   : Library of functions to return default values
 #----------------
 
-source ./utilities/time.bash
+source "./_src/utils/time.bash"
 
-capture_mode_name() {
-  echo "capture"
+capture_video_mode_name() {
+  echo "capture_video"
 }
 
-cut_mode_name() {
-  echo "cut"
+capture_audio_mode_name() {
+  echo "capture_audio"
+}
+
+cut_video_mode_name() {
+  echo "cut_video"
+}
+
+cut_audio_mode_name() {
+  echo "cut_audio"
 }
 
 batch_mode_name() {

@@ -6,9 +6,9 @@
 # Arguments     : $@
 #----------------
 
-source ./messages/logs.bash
-source ./messages/errors.bash
-source ./utilities/modes.bash
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
+source "./_src/utils/modes.bash"
 
 read_mode_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

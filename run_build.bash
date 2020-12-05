@@ -104,15 +104,17 @@ concatenate_files() {
     _src/messages/logs.bash \
     _src/messages/errors.bash \
     _src/messages/help.bash \
-    _src/utilities/devices.bash \
-    _src/utilities/fs.bash \
-    _src/utilities/time.bash \
-    _src/utilities/modes.bash \
+    _src/utils/devices.bash \
+    _src/utils/fs.bash \
+    _src/utils/time.bash \
+    _src/utils/modes.bash \
     _src/constants/defaults.bash \
     _src/input/selection/select_device.bash \
     _src/args/batch_args.bash \
-    _src/args/capture_args.bash \
-    _src/args/cut_args.bash \
+    _src/args/capture_video_args.bash \
+    _src/args/capture_audio_args.bash \
+    _src/args/cut_video_args.bash \
+    _src/args/cut_audio_args.bash \
     _src/args/help_args.bash \
     _src/args/join_args.bash \
     _src/args/mode_args.bash \
@@ -120,8 +122,10 @@ concatenate_files() {
     _src/args/watch_args.bash \
     _src/args/audio_args.bash \
     _src/modes/batch_mode.bash \
-    _src/modes/capture_mode.bash \
-    _src/modes/cut_mode.bash \
+    _src/modes/capture_video_mode.bash \
+    _src/modes/capture_audio_mode.bash \
+    _src/modes/cut_video_mode.bash \
+    _src/modes/cut_audio_mode.bash \
     _src/modes/join_mode.bash \
     _src/modes/watch_mode.bash \
     _src/modes/audio_mode.bash \

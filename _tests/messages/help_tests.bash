@@ -67,10 +67,5 @@ test_print_help_by_mode_with_watch_mode() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_print_help_by_mode_with_no_mode
-suite_addTest test_print_help_by_mode_with_capture_mode
-suite_addTest test_print_help_by_mode_with_cut_mode
-suite_addTest test_print_help_by_mode_with_batch_mode
-suite_addTest test_print_help_by_mode_with_join_mode
-suite_addTest test_print_help_by_mode_with_watch_mode
+. ./bin/shunit2
 

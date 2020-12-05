@@ -5,8 +5,8 @@
 # Description   : Unit test modes utility functions
 #----------------
 
-source ./utilities/modes.bash
-source ./messages/errors.bash
+source "./_src/utils/modes.bash"
+source "./_src/messages/errors.bash"
 
 test_is_mode_known_with_no_args() {
   local message="It should throw a missing-function-args error."
@@ -77,12 +77,5 @@ test_is_mode_known_with_watch_mode() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_is_mode_known_with_no_args
-suite_addTest test_is_mode_known_with_unknown_mode
-suite_addTest test_is_mode_known_with_capture_mode
-suite_addTest test_is_mode_known_with_capture_mode
-suite_addTest test_is_mode_known_with_cut_mode
-suite_addTest test_is_mode_known_with_batch_mode
-suite_addTest test_is_mode_known_with_join_mode
-suite_addTest test_is_mode_known_with_watch_mode
+. ./bin/shunit2
 

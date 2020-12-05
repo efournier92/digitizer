@@ -5,9 +5,9 @@
 # Description   : Reads command arguments for watch mode
 #----------------
 
-source ./input/selection/select_device.bash
-source ./messages/logs.bash
-source ./messages/errors.bash
+source "./_src/input/device_select.bash"
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
 
 read_watch_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

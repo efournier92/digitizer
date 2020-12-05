@@ -5,8 +5,8 @@
 # Description   : Run watch process to view an input stream in an ffplay window
 #----------------
 
-source ./messages/logs.bash
-source ./messages/errors.bash
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
 
 get_ffplay_command() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

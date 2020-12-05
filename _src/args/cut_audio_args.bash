@@ -5,12 +5,12 @@
 # Description   : Interprets command arguments for cut mode
 #----------------
 
-source ./input/selection/select_device.bash
-source ./constants/defaults.bash
-source ./utilities/fs.bash
-source ./utilities/time.bash
-source ./messages/logs.bash
-source ./messages/errors.bash
+source "./_src/input/device_select.bash"
+source "./_src/utils/constants.bash"
+source "./_src/utils/fs.bash"
+source "./_src/utils/time.bash"
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
 
 read_cut_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

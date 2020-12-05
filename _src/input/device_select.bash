@@ -5,7 +5,7 @@
 # Description   : Library of functions to return default values
 #----------------
 
-source ./utilities/devices.bash
+source "./_src/utils/devices.bash"
 
 get_user_selection() {
   list_options="$1"

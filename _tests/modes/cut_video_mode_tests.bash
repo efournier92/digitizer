@@ -5,8 +5,8 @@
 # Description   : Unit test cut-mode funcionality
 #----------------
 
-source ./modes/cut_mode.bash
-source ./messages/errors.bash
+source "./_src/modes/cut_video_mode.bash"
+source "./_src/messages/errors.bash"
 
 test_correct_negatives_with_value_carrying() {
   local message="It should "
@@ -97,11 +97,5 @@ test_pad_value_with_missing_args() {
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-suite_addTest test_correct_negatives_with_value_carrying
-suite_addTest test_correct_negatives_without_value_carrying
-suite_addTest test_subtract_timestamps_without_value_carrying
-suite_addTest test_subtract_timestamps_with_value_carrying
-suite_addTest test_subtract_timestamps_with_double_value_carrying
-suite_addTest test_pad_value
-suite_addTest test_pad_value_with_missing_args
+. ./bin/shunit2
 

@@ -85,10 +85,5 @@ test_reading_watch_args_with_audio_device_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_reading_watch_args_with_no_args
-suite_addTest test_reading_watch_args_with_video_device_short_arg
-suite_addTest test_reading_watch_args_with_video_device_first_long_arg
-suite_addTest test_reading_watch_args_with_video_device_second_long_arg
-suite_addTest test_reading_watch_args_with_audio_device_short_arg
-suite_addTest test_reading_watch_args_with_audio_device_long_arg
+. ./bin/shunit2
 

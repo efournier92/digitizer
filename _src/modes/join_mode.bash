@@ -5,8 +5,8 @@
 # Description   : Run join process to combine multiple inputs into a single video
 #----------------
 
-source ./messages/errors.bash
-source ./messages/logs.bash
+source "./_src/messages/errors.bash"
+source "./_src/messages/logs.bash"
 
 create_concat_file() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

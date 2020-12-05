@@ -5,11 +5,11 @@
 # Description   : Unit test join-mode funcionality
 #----------------
 
-source ./modes/join_mode.bash
-source ./messages/help.bash
-source ./messages/errors.bash
-source ./constants/defaults.bash
-source ./__tests/__data/test_constants.bash
+source "./_src/modes/join_mode.bash"
+source "./_src/messages/help.bash"
+source "./_src/messages/errors.bash"
+source "./_src/utils/constants.bash"
+source "./_tests/_data/test_constants.bash"
 
 test_join_mode_with_no_arguments() {
   local message="It should throw a missing-function-args error."
@@ -93,12 +93,5 @@ test_get_ffmpeg_command_without_output_name_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_join_mode_with_no_arguments
-suite_addTest test_join_mode_without_output_dir
-suite_addTest test_join_mode_without_output_name
-suite_addTest test_join_mode_with_all_args
-suite_addTest test_get_ffmpeg_command_with_all_args
-suite_addTest test_get_ffmpeg_command_without_concat_file_location_arg
-suite_addTest test_get_ffmpeg_command_without_output_dir_arg
-suite_addTest test_get_ffmpeg_command_without_output_name_arg
+. ./bin/shunit2
 

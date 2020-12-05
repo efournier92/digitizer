@@ -5,8 +5,8 @@
 # Description   : Unit test capture-mode funcionality
 #----------------
 
-source ./modes/capture_mode.bash
-source ./messages/errors.bash
+source "./_src/modes/capture_mode.bash"
+source "./_src/messages/errors.bash"
 
 test_get_capture_command_with_no_aguments() {
   local message="It should "
@@ -26,5 +26,5 @@ test_get_capture_command_with_no_aguments() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_get_capture_command_with_no_aguments
+. ./bin/shunit2
 

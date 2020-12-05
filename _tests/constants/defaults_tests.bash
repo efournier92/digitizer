@@ -5,8 +5,8 @@
 # Description   : Unit tests for reading default constant values
 #----------------
 
-source ./constants/defaults.bash
-source ./utilities/fs.bash
+source "./_src/utils/constants.bash"
+source "./_src/utils/fs.bash"
 
 test_capture_mode_name() {
   local message="Result should contain the default name of capture_mode."
@@ -243,30 +243,5 @@ test_default_max_queue() {
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-suite_addTest test_capture_mode_name
-suite_addTest test_cut_mode_name
-suite_addTest test_batch_mode_name
-suite_addTest test_join_mode_name
-suite_addTest test_watch_mode_name
-suite_addTest test_timestamp_regex
-suite_addTest test_default_output_dir
-suite_addTest test_default_output_file
-suite_addTest test_default_batch_file_name
-suite_addTest test_default_concat_file_name
-suite_addTest test_default_input_video_size
-suite_addTest test_default_input_video_format
-suite_addTest test_default_input_audio_format
-suite_addTest test_default_dimensions
-suite_addTest test_default_start_time
-suite_addTest test_default_stop_time
-suite_addTest test_default_crf
-suite_addTest test_default_preset
-suite_addTest test_default_crop
-suite_addTest test_default_video_codec
-suite_addTest test_default_tune
-suite_addTest test_default_standard
-suite_addTest test_default_format
-suite_addTest test_default_extension
-suite_addTest test_default_max_threads
-suite_addTest test_default_max_queue
+. ./bin/shunit2
 

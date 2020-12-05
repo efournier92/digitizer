@@ -5,10 +5,10 @@
 # Description   : Unit test reading arguments for join mode
 #----------------
 
-source ./args/join_args.bash
-source ./messages/help.bash
-source ./constants/defaults.bash
-source ./messages/errors.bash
+source ./_src/args/join_args.bash
+source ./_src/messages/help.bash
+source ./_src/constants/defaults.bash
+source ./_src/messages/errors.bash
 
 test_reading_join_args_with_no_args() {
   local message="Result should contain all default arguments."
@@ -95,11 +95,5 @@ test_trim_leading_comma() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_reading_join_args_with_no_args
-suite_addTest test_reading_join_args_without_output_name_arg
-suite_addTest test_reading_join_args_with_one_input
-suite_addTest test_reading_join_args_with_two_inputs
-suite_addTest test_reading_join_args_with_three_inputs
-suite_addTest test_reading_join_args_with_output_dir
-suite_addTest test_trim_leading_comma
+. ./bin/shunit2
 

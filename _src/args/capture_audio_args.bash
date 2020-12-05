@@ -5,13 +5,13 @@
 # Description   : Interprets command arguments for capture mode
 #----------------
 
-source ./constants/defaults.bash
-source ./utilities/time.bash
-source ./input/selection/select_device.bash
-source ./messages/logs.bash
-source ./messages/errors.bash
+source "./_src/utils/constants.bash"
+source "./_src/utils/time.bash"
+source "./_src/input/selection/select_device.bash"
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
 
-read_audio_args() {
+read_capture_audio_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local i=0
   while [ "$1" != "" ]; do

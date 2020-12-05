@@ -5,7 +5,7 @@
 # Description   : Unit test device utilties
 #----------------
 
-source ./utilities/devices.bash
+source "./_src/_src/utils/devices.bash"
 
 test_detect_video_devices() {
   local message="It should use ls to find video devices."
@@ -37,7 +37,5 @@ test_detect_audio_devices_with_multiple_devices() {
   assertEquals "${expected_result}" "${result}"
 }
 
-suite_addTest test_detect_video_devices
-suite_addTest test_detect_audio_devices_with_single_device
-suite_addTest test_detect_audio_devices_with_multiple_devices
+. ./bin/shunit2
 

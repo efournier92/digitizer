@@ -5,9 +5,9 @@
 # Description   : Reads command arguments for batch mode
 #----------------
 
-source ./messages/logs.bash
-source ./messages/errors.bash
-source ./utilities/fs.bash
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
+source "./_src/utils/fs.bash"
 
 read_batch_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

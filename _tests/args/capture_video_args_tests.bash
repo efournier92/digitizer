@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #----------------
-# Name          : capture_args_tests.bash
-# Description   : Unit test capture-mode functionality
+# Name          : capture_video_args_tests.bash
+# Description   : Unit test capture-video-mode functionality
 #----------------
 
-source ./constants/defaults.bash
-source ./utilities/fs.bash
-source ./args/capture_args.bash
+source ./_src/utils/constants.bash
+source ./_src/utils/fs.bash
+source ./_src/args/capture_args.bash
 
 test_reading_capture_args_with_no_args() {
   local message="Result should contain all default arguments."
@@ -365,28 +365,6 @@ test_reading_capture_args_all_args() {
   
   assertEquals "$message" "$expected_result" "$result"
 }
- 
-suite_addTest test_reading_capture_args_with_no_args
-suite_addTest test_reading_capture_args_video_device_short_arg
-suite_addTest test_reading_capture_args_video_device_first_long_arg
-suite_addTest test_reading_capture_args_video_device_second_long_arg
-suite_addTest test_reading_capture_args_audio_device_short_arg
-suite_addTest test_reading_capture_args_audio_device_long_arg
-suite_addTest test_reading_capture_args_codec_short_arg
-suite_addTest test_reading_capture_args_codec_long_arg
-suite_addTest test_reading_capture_args_output_directory_short_arg
-suite_addTest test_reading_capture_args_output_directory_long_arg
-suite_addTest test_reading_capture_args_stop_time_short_arg
-suite_addTest test_reading_capture_args_stop_time_long_arg
-suite_addTest test_reading_capture_args_output_name_short_arg
-suite_addTest test_reading_capture_args_output_name_long_arg
-suite_addTest test_reading_capture_args_video_format_long_arg
-suite_addTest test_reading_capture_args_audio_device_short_arg
-suite_addTest test_reading_capture_args_crf_long_arg
-suite_addTest test_reading_capture_args_preset_long_arg
-suite_addTest test_reading_capture_args_size_long_arg
-suite_addTest test_reading_capture_args_standard_long_arg
-suite_addTest test_reading_capture_args_threads_long_arg
-suite_addTest test_reading_capture_args_tune_long_arg
-suite_addTest test_reading_capture_args_all_args
 
+. ./bin/shunit2
+ 

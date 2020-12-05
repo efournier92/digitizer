@@ -5,9 +5,9 @@
 # Description   : Reads command arguments for verbose mode
 #----------------
 
-source ./messages/help.bash
-source ./messages/logs.bash
-source ./messages/errors.bash
+source "./_src/messages/help.bash"
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
 
 read_verbose_args() {
   [[ "$is_verbose" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

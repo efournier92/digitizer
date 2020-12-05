@@ -5,7 +5,7 @@
 # Description   : Unit test reading arguments for verbose mode
 #----------------
 
-source ./args/verbose_args.bash
+source ./_src/args/verbose_args.bash
 
 test_read_verbose_args_with_no_args() {
   local message="It should "
@@ -34,7 +34,5 @@ test_read_verbose_args_with_verbose_long_arg() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_read_verbose_args_with_no_args
-suite_addTest test_read_verbose_args_with_verbose_short_arg
-suite_addTest test_read_verbose_args_with_verbose_long_arg
+. ./bin/shunit2
 

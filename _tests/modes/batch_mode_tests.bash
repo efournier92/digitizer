@@ -5,8 +5,8 @@
 # Description   : Unit test batch-mode funcionality
 #----------------
 
-source ./modes/batch_mode.bash
-source ./messages/errors.bash
+source "./_src/modes/batch_mode.bash"
+source "./_src/messages/errors.bash"
 
 test_batch_mode_with_no_args() {
   local message="It should "
@@ -17,5 +17,5 @@ test_batch_mode_with_no_args() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-#suite_addTest test_batch_mode_with_no_args
+. ./bin/shunit2
 

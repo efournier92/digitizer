@@ -5,9 +5,9 @@
 # Description   : Reads command arguments requesting help info
 #----------------
 
-source ./messages/logs.bash
-source ./messages/errors.bash
-source ./messages/help.bash
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
+source "./_src/messages/help.bash"
 
 read_help_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"

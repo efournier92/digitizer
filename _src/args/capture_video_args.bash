@@ -11,12 +11,11 @@ source "./_src/input/device_select.bash"
 source "./_src/messages/logs.bash"
 source "./_src/messages/errors.bash"
 
-read_capture_args() {
+read_capture_video_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local i=0
   while [ "$1" != "" ]; do
     case $1 in
-
       -i | --input | --video_device )
         shift
         local video_device="$1"

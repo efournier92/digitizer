@@ -5,8 +5,8 @@
 # Description   : Unit test watch-mode funcionality
 #----------------
 
-source ./modes/watch_mode.bash
-source ./constants/defaults.bash
+source "./_src/modes/watch_mode.bash"
+source "./_src/constants/defaults.bash"
 
 test_watch_mode_with_no_arguments() {
   local message="It should throw a missing-function-args error."
@@ -89,13 +89,5 @@ test_run_ffplay_command_with_argument() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-suite_addTest test_watch_mode_with_no_arguments
-suite_addTest test_watch_mode_without_audio_device_argument
-suite_addTest test_watch_mode_with_both_arguments
-suite_addTest test_get_ffplay_command_with_no_arguments
-suite_addTest test_get_ffplay_command_without_audio_device
-suite_addTest test_get_ffplay_command_with_both_arguments
-suite_addTest test_run_ffplay_command_without_arguments
-suite_addTest test_run_ffplay_command_with_argument
-suite_addTest test_run_ffplay_command_with_argument
+. ./bin/shunit2
 

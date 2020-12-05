@@ -7,31 +7,40 @@
 # Dependencies  : ffmpeg
 #----------------
 
-source ./args/mode_args.bash
-source ./args/help_args.bash
-source ./args/verbose_args.bash
-source ./args/batch_args.bash
-source ./args/capture_args.bash
-source ./args/cut_args.bash
-source ./args/join_args.bash
-source ./args/watch_args.bash
-source ./args/audio_args.bash
-source ./modes/batch_mode.bash
-source ./modes/capture_mode.bash
-source ./modes/cut_mode.bash
-source ./modes/join_mode.bash
-source ./modes/watch_mode.bash
-source ./modes/audio_mode.bash
-source ./messages/help.bash
-source ./utilities/fs.bash
+source "./_src/args/mode_args.bash"
+source "./_src/args/help_args.bash"
+source "./_src/args/verbose_args.bash"
+source "./_src/args/batch_args.bash"
+source "./_src/args/capture_args.bash"
+source "./_src/args/cut_video_args.bash"
+source "./_src/args/cut_audio_args.bash"
+source "./_src/args/join_args.bash"
+source "./_src/args/watch_args.bash"
+source "./_src/modes/capture_video_mode.bash"
+source "./_src/modes/capture_audio_mode.bash"
+source "./_src/modes/cut_video_mode.bash"
+source "./_src/modes/cut_audio_mode.bash"
+source "./_src/modes/batch_mode.bash"
+source "./_src/modes/join_mode.bash"
+source "./_src/modes/watch_mode.bash"
+source "./_src/modes/audio_mode.bash"
+source "./_src/messages/help.bash"
+source "./_src/utils/fs.bash"
 
-run_capture_mode() {
-  echo "ARGS: $@" >&2
-  capture_mode `read_capture_args "$@"`
+run_capture_video_mode() {
+  capture_video_mode `read_capture_video_args "$@"`
 }
 
-run_cut_mode() {
-  cut_mode `read_cut_args "$@"`
+run_capture_audio_mode() {
+  capture_audio_mode `read_capture_audio_args "$@"`
+}
+
+run_cut_video_mode() {
+  cut_video_mode `read_cut_args "$@"`
+}
+
+run_cut_audio_mode() {
+  cut_audio_mode `read_cut_args "$@"`
 }
 
 run_batch_mode() {
@@ -46,10 +55,6 @@ run_watch_mode() {
   watch_mode `read_watch_args "$@"`
 }
 
-run_audio_mode() {
-  audio_mode `read_audio_args "$@"`
-}
-
 create_config_dir() {
   mkdir -p `config_dir`
 }
@@ -62,10 +67,14 @@ main() {
 
   local mode=`read_mode_args "$@"`
   read_help_args "$@"
-  if [[ "$mode" == `capture_mode_name` ]]; then
-    run_capture_mode "$@"
-  elif [[ "$mode" == `cut_mode_name` ]]; then
-    run_cut_mode "$@"
+  if [[ "$mode" == `capture_video_mode_name` ]]; then
+    run_capture_video_mode "$@"
+  elif [[ "$mode" == `capture_audio_mode_name` ]]; then
+    run_capture_audio_mode "$@"
+  elif [[ "$mode" == `cut_video_mode_name` ]]; then
+    run_cut_video_mode "$@"
+  elif [[ "$mode" == `cut_audio_mode_name` ]]; then
+    run_cut_audio_mode "$@"
   elif [[ "$mode" == `batch_mode_name` ]]; then
     run_batch_mode "$@"
   elif [[ "$mode" == `join_mode_name` ]]; then
@@ -75,7 +84,7 @@ main() {
   elif [[ "$mode" == `audio_mode_name` ]]; then
     run_audio_mode "$@"
   else
-    `print_help_by_mode`
+    print_help_by_mode
   fi
 }
 

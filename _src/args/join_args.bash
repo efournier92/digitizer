@@ -6,9 +6,9 @@
 # Arguments     : $@
 #----------------
 
-source ./constants/defaults.bash
-source ./messages/logs.bash
-source ./messages/errors.bash
+source "./_src/utils/constants.bash"
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
 
 trim_leading_comma() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
