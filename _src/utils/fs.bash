@@ -24,7 +24,7 @@ default_output_file_location() {
 }
 
 config_dir() {
-  echo "$HOME/.vhsd"
+  echo "$HOME/.digitizer"
 }
 
 concat_file_name() {
@@ -36,7 +36,7 @@ concat_file_location() {
 }
 
 batch_file_name() {
-  echo "vhsd_batch.txt"
+  echo "digitizer_batch.txt"
 }
 
 batch_file_location() {

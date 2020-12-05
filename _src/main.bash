@@ -2,7 +2,7 @@
 
 #----------------
 # Name          : main.bash
-# Description   : Executes vhsd to perform vhs-digitization functions based on mode.
+# Description   : Executes digitizer to perform vhs-digitization functions based on mode.
 # Author        : E Fournier
 # Dependencies  : ffmpeg
 #----------------

@@ -2,7 +2,7 @@
 
 #----------------
 # Name          : run_build.bash
-# Description   : Runs the build process for vhsd, outputting a compiled binary to the build directory.
+# Description   : Runs the build process for digitizer, outputting a compiled binary to the build directory.
 # Author        : E Fournier
 # Dependencies  : shc
 # Example Usage : bash run_build.bash
@@ -22,7 +22,7 @@ get_output_dir() {
 get_file_name() {
   local time_now=`date +"%y%m%d_%H%M"`
 
-  echo "vhsd_${time_now}"
+  echo "digitizer_${time_now}"
 }
 
 get_concat_file_location() {

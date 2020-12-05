@@ -7,9 +7,9 @@
 
 help_header() {
 cat << EOF
-----
-VHSD | VHS Digitizer
-----
+_________
+DIGITIZER | Digitization Suite
+
 EOF
 }
 
@@ -24,7 +24,7 @@ GENERAL
 
   -v, --verbose        enable verbose debugging info
   
-  USAGE: vhsd -m capture -h -v
+  USAGE: digitizer -m capture -h -v
 
 EOF
 }
@@ -63,7 +63,7 @@ CAPTURE
 
   --tune               tuning for capture output [film,...]
 
-  USAGE: vhsd -m capture -i /dev/video0 -a hw:2,0 -d . -o captured.bash
+  USAGE: digitizer -m capture -i /dev/video0 -a hw:2,0 -d . -o captured.bash
 
 EOF
 }
@@ -91,7 +91,7 @@ CUT
 
   --tune               video tuning for the output file [film,...]
   
-  USAGE: vhsd -m cut -i file.mp4 -d . -o cut.mp4
+  USAGE: digitizer -m cut -i file.mp4 -d . -o cut.mp4
 
 EOF
 }
@@ -104,7 +104,7 @@ BATCH
   -i, --input,         
   --batch_file         batch text file created from cut mode
   
-  USAGE: vhsd -m batch -i ~/.vhsd/batch.txt
+  USAGE: digitizer -m batch -i ~/.digitizer/batch.txt
 
 EOF
 }
@@ -121,7 +121,7 @@ JOIN
 
   -o, --output_name    name for the joined file
 
-  USAGE: vhsd -m join -i file.mp4 -d . -o out_file.mp4
+  USAGE: digitizer -m join -i file.mp4 -d . -o out_file.mp4
 
 EOF
 }
@@ -134,7 +134,7 @@ WATCH
   -i, --input,         input video devide
   --video_device
 
-  USAGE: vhsd -m watch -i /dev/video0
+  USAGE: digitizer -m watch -i /dev/video0
 
 EOF
 }

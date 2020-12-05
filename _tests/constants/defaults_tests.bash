@@ -82,7 +82,7 @@ test_default_output_file() {
 
 test_default_batch_file_name() {
   local message="Result should contain the default name of batch_file."
-  local expected_result="vhsd_batch.txt"
+  local expected_result="digitizer_batch.txt"
 
   local result=`batch_file_name`
 
