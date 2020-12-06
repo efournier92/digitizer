@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : time.bash
+# Project       : digitizer
 # Description   : Utility functions for time
 #----------------
 

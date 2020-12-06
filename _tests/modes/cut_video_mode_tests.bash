@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : cut_mode_tests.bash
+# Project       : digitizer
 # Description   : Unit test cut-mode funcionality
 #----------------
 
@@ -9,7 +10,7 @@ source "./_src/modes/cut_video_mode.bash"
 source "./_src/messages/errors.bash"
 
 test_get_ffmpeg_cut_video_command() {
-  local message="It should "
+  local message="It should return an FFmpeg command with the configured values."
   local input_file="/home/me/test_video.mp4"
   local duration="99:99:99.999"
   local codec="mpeg"

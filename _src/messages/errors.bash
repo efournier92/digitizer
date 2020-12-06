@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : errors.bash
+# Project       : digitizer
 # Description   : Library of functions for throwing runtime errors
 #----------------
 

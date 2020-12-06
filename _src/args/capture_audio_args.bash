@@ -1,8 +1,9 @@
 #!/bin/bash
 
 #----------------
-# Name          : audio_args.bash
-# Description   : Interprets command arguments for capture mode
+# Name          : capture_audio_args.bash
+# Project       : digitizer
+# Description   : Interprets command arguments for capture-audio mode
 #----------------
 
 source "./_src/utils/constants.bash"

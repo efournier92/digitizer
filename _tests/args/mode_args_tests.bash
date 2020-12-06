@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : mode_args_tests.bash
+# Project       : digitizer
 # Description   : Unit test functionality for reading mode arguments
 #----------------
 

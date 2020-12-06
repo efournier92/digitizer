@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : defaults.bash
+# Project       : digitizer
 # Description   : Library of functions to return default values
 #----------------
 

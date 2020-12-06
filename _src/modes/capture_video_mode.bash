@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : capture_mode.bash
+# Project       : digitizer
 # Description   : Run capture process to collect input from a stream
 #----------------
 

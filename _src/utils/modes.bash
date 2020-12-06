@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : modes.bash
+# Project       : digitizer
 # Description   : Utility functions for mode detection
 #----------------
 

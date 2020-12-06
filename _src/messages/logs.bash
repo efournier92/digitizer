@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : logs.bash
+# Project       : digitizer
 # Description   : Library of functions for printing info logs in verbose mode
 #----------------
 

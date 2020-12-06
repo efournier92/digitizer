@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : watch_args_tests.bash
+# Project       : digitizer
 # Description   : Unit test reading arguments for watch mode
 #----------------
 

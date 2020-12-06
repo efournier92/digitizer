@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : capture_video_mode_tests.bash
+# Project       : digitizer
 # Description   : Unit test capture-video-mode funcionality
 #----------------
 

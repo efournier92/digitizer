@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : batch_args.bash
+# Project       : digitizer
 # Description   : Reads command arguments for batch mode
 #----------------
 

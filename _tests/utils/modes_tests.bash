@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : modes_tests.bash
+# Project       : digitizer
 # Description   : Unit test modes utility functions
 #----------------
 

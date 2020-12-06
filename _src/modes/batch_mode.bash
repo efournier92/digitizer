@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : batch_mode.bash
+# Project       : digitizer
 # Description   : Run batch process to convert raw captures from ffmpeg commands in $batch_file
 #----------------
 

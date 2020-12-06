@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : join_mode_tests.bash
+# Project       : digitizer
 # Description   : Unit test join-mode funcionality
 #----------------
 
@@ -18,7 +19,7 @@ test_join_mode_with_no_arguments() {
 }
 
 test_join_mode_without_output_dir() {
-  local message="It should "
+  local message="It should throw a missing-function-args error."
   local concat_file_location="`concat_file_dir`/concat_file.txt"
   local expected_result=`error_missing_function_args "join_mode" "$concat_file_location"`
   
@@ -28,7 +29,7 @@ test_join_mode_without_output_dir() {
 }
 
 test_join_mode_without_output_name() {
-  local message="It should "
+  local message="It should throw a missing-function-args error."
   local concat_file_location="`concat_file_dir`/concat_file.txt"
   local test_output_dir="TestDir"
   local expected_result=`error_missing_function_args "join_mode" "$concat_file_location" "$test_output_dir"`
@@ -40,7 +41,7 @@ test_join_mode_without_output_name() {
 
 
 test_get_ffmpeg_command_with_all_args() {
-  local message="It should "
+  local message="It should return an FFmpeg command with the configured values."
   local concat_file_location="`concat_file_dir`/concat_file.txt"
   local output_dir="./TestDir"
   local output_name="TestJoin"

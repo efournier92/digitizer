@@ -2,8 +2,8 @@
 
 #----------------
 # Name          : join_args.bash
+# Project       : digitizer
 # Description   : Reads command arguments for join mode
-# Arguments     : $@
 #----------------
 
 source "./_src/utils/constants.bash"

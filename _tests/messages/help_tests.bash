@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : help_tests.bash
+# Project       : digitizer
 # Description   : Unit test help funcionality
 #----------------
 

@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : timestamps.bash
+# Project       : digitizer
 # Description   : Utility functions for returning timestamps
 #----------------
 

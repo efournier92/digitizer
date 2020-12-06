@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : devices.bash
+# Project       : digitizer
 # Description   : Utility functions for detecting available audio and video devices
 #----------------
 

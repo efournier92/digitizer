@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : watch_mode.bash
+# Project       : digitizer
 # Description   : Run watch process to view an input stream in an ffplay window
 #----------------
 

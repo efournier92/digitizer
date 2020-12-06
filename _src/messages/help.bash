@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : help.bash
+# Project       : digitizer
 # Description   : Library of functions for printing help info
 #----------------
 

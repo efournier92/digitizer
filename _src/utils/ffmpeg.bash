@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : ffmpeg.bash
+# Project       : digitizer
 # Description   : Run cut process to output ffmpeg commands to a file for batch conversion
 #----------------
 

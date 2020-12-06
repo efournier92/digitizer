@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : devices_tests.bash
+# Project       : digitizer
 # Description   : Unit test device utilties
 #----------------
 

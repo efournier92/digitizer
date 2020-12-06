@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : watch_mode_tests.bash
+# Project       : digitizer
 # Description   : Unit test watch-mode funcionality
 #----------------
 

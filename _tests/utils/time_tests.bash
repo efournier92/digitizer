@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : time_tests.bash
+# Project       : digitizer
 # Description   : Unit test time utility functions
 #----------------
 

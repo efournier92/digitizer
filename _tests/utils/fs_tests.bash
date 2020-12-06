@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : fs_tests.bash
+# Project       : digitizer
 # Description   : Unit tests for reading default constant values
 #----------------
 

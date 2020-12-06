@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : batch_mode_tests.bash
+# Project       : digitizer
 # Description   : Unit test batch-mode funcionality
 #----------------
 

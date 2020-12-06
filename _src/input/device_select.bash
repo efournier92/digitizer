@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : select_device.bash
+# Project       : Digitizer
 # Description   : Library of functions to return default values
 #----------------
 

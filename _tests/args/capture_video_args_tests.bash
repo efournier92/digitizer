@@ -2,12 +2,13 @@
 
 #----------------
 # Name          : capture_video_args_tests.bash
+# Project       : digitizer
 # Description   : Unit test capture-video-mode functionality
 #----------------
 
-source ./_src/utils/constants.bash
-source ./_src/utils/fs.bash
-source ./_src/args/capture_video_args.bash
+source "./_src/utils/constants.bash"
+source "./_src/utils/fs.bash"
+source "./_src/args/capture_video_args.bash"
 
 test_capture_video_args_with_no_args() {
   local message="Result should contain all default arguments."

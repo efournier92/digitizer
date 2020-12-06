@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : fs.bash
+# Project       : digitizer
 # Description   : Library for functions for file-system-related activities
 #----------------
 

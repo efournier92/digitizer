@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #----------------
-# Name          : read_mode_arg.bash
-# Description   : Interprets general command arguments
-# Arguments     : $@
+# Name          : mode_arg.bash
+# Project       : digitizer
+# Description   : Interprets command arguments for setting runtime mode
 #----------------
 
 source "./_src/messages/logs.bash"

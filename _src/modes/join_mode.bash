@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : join_mode.bash
+# Project       : digitizer
 # Description   : Run join process to combine multiple inputs into a single video
 #----------------
 

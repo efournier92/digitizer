@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : mode_args_tests.bash
+# Project       : digitizer
 # Description   : Unit test functionality for reading help arguments
 #----------------
 
@@ -94,7 +95,6 @@ test_reading_with_help_short_arg_and_mode_is_not_found() {
   
   assertEquals "$message" "$expected_result" "$result"
 }
-
 
 . ./bin/shunit2
 

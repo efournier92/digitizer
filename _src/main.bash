@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : main.bash
+# Project       : digitizer
 # Description   : Executes digitizer to perform vhs-digitization functions based on mode.
 # Author        : E Fournier
 # Dependencies  : ffmpeg

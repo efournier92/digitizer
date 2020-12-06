@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #----------------
-# Name          : cut_options.bash
+# Name          : cut_mode_inputs.bash
+# Project       : Digitizer
 # Description   : Run cut process to output ffmpeg commands to a file for batch conversion
 #----------------
 

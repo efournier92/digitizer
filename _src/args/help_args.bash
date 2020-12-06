@@ -2,7 +2,8 @@
 
 #----------------
 # Name          : help_args.bash
-# Description   : Reads command arguments requesting help info
+# Project       : digitizer
+# Description   : Interprets command arguments for showing help info
 #----------------
 
 source "./_src/messages/logs.bash"

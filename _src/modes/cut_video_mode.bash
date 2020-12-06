@@ -2,11 +2,12 @@
 
 #----------------
 # Name          : cut_video_mode.bash
-# Description   : Run video-cut process to output ffmpeg commands to a file for batch conversion
+# Project       : digitizer
+# Description   : Runs cut-video process to output ffmpeg commands to a file for batch conversion
 #----------------
 
 source "./_src/messages/logs.bash"
-source "./_src/input/cut_options.bash"
+source "./_src/input/cut_mode_options.bash"
 source "./_src/utils/constants.bash"
 source "./_src/utils/fs.bash"
 source "./_src/utils/ffmpeg.bash"

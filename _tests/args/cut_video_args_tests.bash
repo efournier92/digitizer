@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : cut_video_args_tests.bash
+# Project       : digitizer
 # Description   : Unit test cut-mode functionality
 #----------------
 
@@ -11,7 +12,7 @@ source "./_src/utils/fs.bash"
 source "./_src/messages/errors.bash"
 
 test_reading_cut_video_args_with_no_args() {
-  local message="It should throw a missing-required-args error for input_file"
+  local message="It should throw a missing-required-args error with the name of the input file."
   local expected_result=`error_missing_required_arg "input_file" "read_cut_video_args"`
   
   local result=`read_cut_video_args`
@@ -20,7 +21,7 @@ test_reading_cut_video_args_with_no_args() {
 }
 
 test_reading_cut_video_args_with_input_short_arg() {
-  local message="Return should include the configured value for input_file"
+  local message="Return should include the configured value of the input file."
   local input_file="TestFile.mp4"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
   
@@ -30,7 +31,7 @@ test_reading_cut_video_args_with_input_short_arg() {
 }
 
 test_reading_cut_video_args_with_input_long_arg() {
-  local message="Return should include the configured value for input_file"
+  local message="Return should include the configured value for the input file."
   local input_file="TestFile"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
   
@@ -40,7 +41,7 @@ test_reading_cut_video_args_with_input_long_arg() {
 }
 
 test_reading_cut_video_args_with_codec_short_arg() {
-  local message="Return should include the configured value for codec"
+  local message="Return should include the configured value for the codec."
   local input_file="TestFile.mp4"
   local codec="test_codec"
   local expected_result="$input_file $codec `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
@@ -51,7 +52,7 @@ test_reading_cut_video_args_with_codec_short_arg() {
 }
 
 test_reading_cut_video_args_with_codec_long_arg() {
-  local message="Return should include the configured value for codec"
+  local message="Return should include the configured value for the codec."
   local input_file="TestFile.mp4"
   local codec="test_codec"
   local expected_result="$input_file $codec `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
@@ -62,7 +63,7 @@ test_reading_cut_video_args_with_codec_long_arg() {
 }
 
 test_reading_cut_video_args_with_output_dir_short_arg() {
-  local message="Return should include the configured value for output_dir"
+  local message="Return should include the configured value for the output dir."
   local input_file="TestFile.mp4"
   local output_dir="OutDir"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` $output_dir"
@@ -73,7 +74,7 @@ test_reading_cut_video_args_with_output_dir_short_arg() {
 }
 
 test_reading_cut_video_args_with_output_dir_long_arg() {
-  local message="Return should include the configured value for output_dir"
+  local message="Return should include the configured value for the output dir."
   local input_file="TestFile.mp4"
   local output_dir="OutDir"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` $output_dir"
@@ -84,7 +85,7 @@ test_reading_cut_video_args_with_output_dir_long_arg() {
 }
 
 test_reading_cut_video_args_with_crf_long_arg() {
-  local message="Return should include the configured value for crf"
+  local message="Return should include the configured value for the crf."
   local input_file="TestFile.mp4"
   local crf="test_crf"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` `default_max_queue` "$crf" `default_output_dir`"
@@ -95,7 +96,7 @@ test_reading_cut_video_args_with_crf_long_arg() {
 }
 
 test_reading_cut_video_args_with_crop_long_arg() {
-  local message="Return should include the configured value for crop"
+  local message="Return should include the configured value for the crop."
   local input_file="TestFile.mp4"
   local crop="test_crop"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` "$crop" `default_max_queue` `default_crf` `default_output_dir`"
@@ -106,7 +107,7 @@ test_reading_cut_video_args_with_crop_long_arg() {
 }
 
 test_reading_cut_video_args_with_dimensions_long_arg() {
-  local message="Return should include the configured value for dimensions"
+  local message="Return should include the configured value for the dimensions."
   local input_file="TestFile.mp4"
   local dimensions="test_dimensions"
   local expected_result="$input_file `default_video_codec` "$dimensions" `default_tune` `default_preset` `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
@@ -117,7 +118,7 @@ test_reading_cut_video_args_with_dimensions_long_arg() {
 }
 
 test_reading_cut_video_args_with_preset_long_arg() {
-  local message="Return should include the configured value for preset"
+  local message="Return should include the configured value for the preset."
   local input_file="TestFile.mp4"
   local preset="test_preset"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` "$preset" `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
@@ -128,7 +129,7 @@ test_reading_cut_video_args_with_preset_long_arg() {
 }
 
 test_reading_cut_video_args_with_queue_size_long_arg() {
-  local message="Return should include the configured value for max_queue"
+  local message="Return should include the configured value for the max queue."
   local input_file="TestFile.mp4"
   local max_queue="test_queue_size"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` `default_tune` `default_preset` `default_crop` "$max_queue" `default_crf` `default_output_dir`"
@@ -139,7 +140,7 @@ test_reading_cut_video_args_with_queue_size_long_arg() {
 }
 
 test_reading_cut_video_args_with_tune_long_arg() {
-  local message="Return should include the configured value for tune"
+  local message="Return should include the configured value for the tune."
   local input_file="TestFile.mp4"
   local tune="test_tune"
   local expected_result="$input_file `default_video_codec` `default_video_output_dimensions` "$tune" `default_preset` `default_crop` `default_max_queue` `default_crf` `default_output_dir`"
@@ -150,7 +151,7 @@ test_reading_cut_video_args_with_tune_long_arg() {
 }
 
 test_reading_cut_video_args_with_all_short_args() {
-  local message="Return should include all configured values"
+  local message="Return should include all configured values."
   local input_file="TestFile.mp4"
   local codec="test_codec"
   local output_dir="TestOutDir"
@@ -162,7 +163,7 @@ test_reading_cut_video_args_with_all_short_args() {
 }
 
 test_reading_cut_video_args_with_all_long_args() {
-  local message="Return should include all configured values"
+  local message="Return should include all configured values."
   local input_file="TestFile.mp4"
   local codec="test_codec"
   local dimensions="test_dimensions"

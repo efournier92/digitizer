@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : join_args_tests.bash
+# Project       : digitizer
 # Description   : Unit test reading arguments for join mode
 #----------------
 

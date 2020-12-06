@@ -2,7 +2,8 @@
 
 #----------------
 # Name          : verbose_args.bash
-# Description   : Reads command arguments for verbose mode
+# Project       : digitizer
+# Description   : Interpretss command arguments pertaining to verbosity
 #----------------
 
 source "./_src/messages/help.bash"

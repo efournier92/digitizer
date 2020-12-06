@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : capture_audio_mode_tests.bash
+# Project       : digitizer
 # Description   : Unit test capture-audio-mode funcionality
 #----------------
 

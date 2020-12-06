@@ -1,8 +1,9 @@
 #!/bin/bash
 
 #----------------
-# Name          : cut_arg.bash
-# Description   : Interprets command arguments for cut mode
+# Name          : cut_video_arg.bash
+# Project       : digitizer
+# Description   : Interprets command arguments for cut-video mode
 #----------------
 
 source "./_src/input/device_select.bash"

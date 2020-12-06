@@ -2,6 +2,7 @@
 
 #----------------
 # Name          : timestamps_tests.bash
+# Project       : digitizer
 # Description   : Unit test timestamps funcionality
 #----------------
 
@@ -9,7 +10,7 @@ source "./_src/utils/timestamps.bash"
 source "./_src/messages/errors.bash"
 
 test_correct_negatives_with_value_carrying() {
-  local message="It should "
+  local message="It should correct the negative input values and carry places."
   local hours="1"
   local minutes="0"
   local seconds="0"
@@ -22,7 +23,7 @@ test_correct_negatives_with_value_carrying() {
 }
 
 test_correct_negatives_without_value_carrying() {
-  local message="It should "
+  local message="It should correct the negative input values."
   local hours="2"
   local minutes="2"
   local seconds="2"
@@ -35,7 +36,7 @@ test_correct_negatives_without_value_carrying() {
 }
 
 test_subtract_timestamps_without_value_carrying() {
-  local message="It should return the expected value"
+  local message="It should subtract the 1st input timestamp from the 2nd."
   local start_time="11:11:11.111"
   local end_time="33:33:33.333"
   local expected_result="22:22:22.222"
@@ -46,7 +47,7 @@ test_subtract_timestamps_without_value_carrying() {
 }
 
 test_subtract_timestamps_with_value_carrying() {
-  local message="It should return the expected value"
+  local message="It should subtract the 1st input timestamp from the 2nd while carrying values appropriatly."
   local start_time="00:01:55.444"
   local end_time="00:09:03.333"
   local expected_result="00:07:07.889"
@@ -57,7 +58,7 @@ test_subtract_timestamps_with_value_carrying() {
 }
 
 test_subtract_timestamps_with_double_value_carrying() {
-  local message="It should return the expected value"
+  local message="It should subtract the 1st input timestamp from the 2nd while carrying values appropriatly."
   local start_time="00:50:55.888"
   local end_time="01:20:03.999"
   local expected_result="00:29:08.111"
@@ -68,7 +69,7 @@ test_subtract_timestamps_with_double_value_carrying() {
 }
 
 test_pad_value_with_missing_args() {
-  local message="It throw a missing-function-args error"
+  local message="It throw a missing-function-args error."
   local expected_result=`error_missing_function_args "pad_timestamp_value"`
 
   local result=`pad_timestamp_value "$value" "$digits"`
@@ -77,7 +78,7 @@ test_pad_value_with_missing_args() {
 }
 
 test_pad_value() {
-  local message="It should return the expected value"
+  local message="It pad the inputted value with 2 zeros."
   local value="1"
   local digits="2"
   local expected_result="01"
@@ -88,7 +89,7 @@ test_pad_value() {
 }
 
 test_pad_value_with_missing_args() {
-  local message="It throw a missing-function-args error"
+  local message="It throw a missing-function-args error."
   local expected_result=`error_missing_function_args "pad_timestamp_value"`
   
   local result=`pad_timestamp_value "$value" "$digits"`

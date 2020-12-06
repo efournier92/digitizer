@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #----------------
-# Name          : capture_args.bash
+# Name          : capture_video_args.bash
+# Project       : digitizer
 # Description   : Interprets command arguments for capture mode
 #----------------
 
