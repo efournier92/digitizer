@@ -43,8 +43,7 @@ cut_video_mode() {
   local crop="$6"
   local queue_size="$7"
   local crf="$8"
-  local no_encode="$9"
-  local output_dir="${10}"
+  local output_dir="$9"
   
   [[ -z "$input_file" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
 

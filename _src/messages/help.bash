@@ -83,8 +83,6 @@ CUT VIDEO
 
   -d, --output_dir     directory in which to save the cut file
 
-  -o, --output_name    name for the cut file
-  
   --crf                constant rate factor for encoding cut file
 
   --crop               crop to apply in cut file
@@ -97,7 +95,7 @@ CUT VIDEO
 
   --tune               video tuning for the output file [film,...]
   
-  USAGE: digitizer -m cut -i file.mp4 -d . -o cut.mp4
+  USAGE: digitizer -m cut_video -i file.mp4 -d (pwd)/_OUT
 
 EOF
 }
@@ -113,8 +111,6 @@ GENERAL
 
   -v, --verbose        enable verbose debugging info
   
-  USAGE: digitizer -m capture -h -v
-
 EOF
 }
 
