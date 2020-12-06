@@ -19,9 +19,9 @@ trim_leading_comma() {
 
 read_join_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  while [ "$1" != "" ]; do
-
+  while [[ "$1" != "" ]]; do
     case $1 in
+
       -i | --input )
         shift
         local files_to_join="$files_to_join,$1"

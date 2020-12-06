@@ -9,7 +9,7 @@
 help_header() {
 cat << EOF
 _________
-DIGITIZER | Digitization Suite
+DIGITIZER : Digitization Suite
 
 EOF
 }

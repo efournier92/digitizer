@@ -12,9 +12,9 @@ source "./_src/utils/fs.bash"
 
 read_batch_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  while [ "$1" != "" ]; do
-
+  while [[ "$1" != "" ]]; do
     case $1 in
+
       -i | --input | --batch_file )
         shift
         local input="$1"

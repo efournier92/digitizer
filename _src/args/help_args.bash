@@ -12,8 +12,9 @@ source "./_src/messages/help.bash"
 
 read_help_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  while [ "$1" != "" ]; do
+  while [[ "$1" != "" ]]; do
     case $1 in
+
       -h | --help )
         local should_show_help=true
         ;;

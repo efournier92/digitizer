@@ -101,35 +101,34 @@ concatenate_files() {
   local output_name="$1"
 
   cat \
-    _src/messages/logs.bash \
-    _src/messages/errors.bash \
-    _src/messages/help.bash \
-    _src/utils/devices.bash \
-    _src/utils/fs.bash \
-    _src/utils/time.bash \
-    _src/utils/modes.bash \
-    _src/constants/defaults.bash \
-    _src/input/selection/select_device.bash \
-    _src/args/batch_args.bash \
-    _src/args/capture_video_args.bash \
-    _src/args/capture_audio_args.bash \
-    _src/args/cut_video_args.bash \
-    _src/args/cut_audio_args.bash \
-    _src/args/help_args.bash \
-    _src/args/join_args.bash \
-    _src/args/mode_args.bash \
-    _src/args/verbose_args.bash \
-    _src/args/watch_args.bash \
-    _src/args/audio_args.bash \
-    _src/modes/batch_mode.bash \
-    _src/modes/capture_video_mode.bash \
-    _src/modes/capture_audio_mode.bash \
-    _src/modes/cut_video_mode.bash \
-    _src/modes/cut_audio_mode.bash \
-    _src/modes/join_mode.bash \
-    _src/modes/watch_mode.bash \
-    _src/modes/audio_mode.bash \
-    _src/main.bash \
+    "_src/messages/logs.bash" \
+    "_src/messages/errors.bash" \
+    "_src/messages/help.bash" \
+    "_src/utils/constants.bash" \
+    "_src/utils/devices.bash" \
+    "_src/utils/ffmpeg.bash" \
+    "_src/utils/fs.bash" \
+    "_src/utils/modes.bash" \
+    "_src/utils/time.bash" \
+    "_src/utils/timestamps.bash" \
+    "_src/input/cut_mode_inputs.bash" \
+    "_src/input/device_select.bash" \
+    "_src/args/batch_args.bash" \
+    "_src/args/capture_audio_args.bash" \
+    "_src/args/capture_video_args.bash" \
+    "_src/args/cut_video_args.bash" \
+    "_src/args/help_args.bash" \
+    "_src/args/join_args.bash" \
+    "_src/args/mode_args.bash" \
+    "_src/args/verbose_args.bash" \
+    "_src/args/watch_args.bash" \
+    "_src/modes/batch_mode.bash" \
+    "_src/modes/capture_audio_mode.bash" \
+    "_src/modes/capture_video_mode.bash" \
+    "_src/modes/cut_video_mode.bash" \
+    "_src/modes/join_mode.bash" \
+    "_src/modes/watch_mode.bash" \
+    "_src/main.bash" \
       >> `get_concat_file_location "$output_name"`
 }
 
@@ -143,6 +142,7 @@ main() {
   add_shebang        "$output_name"
   create_binary      "$output_name"  
   cleanup_temp_files "$output_name"
+
   printf "\nCompiled binary to `get_binary_file_location $output_name`\n"
 }
 

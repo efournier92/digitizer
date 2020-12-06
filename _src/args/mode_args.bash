@@ -12,8 +12,9 @@ source "./_src/utils/modes.bash"
 
 read_mode_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  while [ "$1" != "" ]; do
+  while [[ "$1" != "" ]]; do
     case $1 in
+
       -m | --mode )
         shift
         local mode="$1"

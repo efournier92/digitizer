@@ -15,9 +15,9 @@ source "./_src/messages/errors.bash"
 
 read_cut_video_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  local i=0
-  while [ "$1" != "" ]; do
+  while [[ "$1" != "" ]]; do
     case $1 in
+
       -i | --input_file )
         shift
         local input_file="$1"

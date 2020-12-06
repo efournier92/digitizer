@@ -14,8 +14,7 @@ source "./_src/messages/errors.bash"
 
 read_capture_audio_args() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
-  local i=0
-  while [ "$1" != "" ]; do
+  while [[ "$1" != "" ]]; do
     case $1 in
 
       -i | -a | --audio_device )
