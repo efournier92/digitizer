@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : run_build.bash
-# Description   : Runs the build process for digitizer, outputting a compiled binary to the build directory.
+# Name          : run_build
+# Project       : digitizer
+# Description   : Runs the build process for digitizer, outputting a compiled binary to the build directory
 # Author        : E Fournier
 # Dependencies  : shc
-# Example Usage : bash run_build.bash
+# Example Usage : bash run_build
 #----------------
 
 make_build_dir() {

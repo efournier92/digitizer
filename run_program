@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#----------------
+# Name          : run_program
+# Project       : digitizer
+# Description   : Executes the digitizer program suite
+# Author        : E Fournier
+# Example Usage : bash run_program
+#----------------
+
+bash ./_src/main.bash
+

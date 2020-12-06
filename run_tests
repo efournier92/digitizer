@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #----------------
-# Name          : run_tests.bash
+# Name          : run_tests
+# Project       : digitizer
 # Description   : Runs project test suite
 # Author        : E Fournier
 # Dependencies  : shunit2
-# Example Usage : bash run_tests.bash
+# Example Usage : bash run_tests
 #----------------
 
 print_header() {
