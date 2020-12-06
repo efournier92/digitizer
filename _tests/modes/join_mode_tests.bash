@@ -6,14 +6,11 @@
 #----------------
 
 source "./_src/modes/join_mode.bash"
-source "./_src/messages/help.bash"
-source "./_src/messages/errors.bash"
-source "./_src/utils/constants.bash"
 source "./_tests/_data/test_constants.bash"
 
 test_join_mode_with_no_arguments() {
   local message="It should throw a missing-function-args error."
-  local expected_result=`error_missing_function_args "join_mode" ""`
+  local expected_result=`error_missing_function_args "join_mode"`
   
   local result=`join_mode`
   
@@ -34,25 +31,13 @@ test_join_mode_without_output_name() {
   local message="It should "
   local concat_file_location="`concat_file_dir`/concat_file.txt"
   local test_output_dir="TestDir"
-  local expected_result=`error_missing_function_args "join_mode" "$concat_file_location"`
+  local expected_result=`error_missing_function_args "join_mode" "$concat_file_location" "$test_output_dir"`
   
   local result=`join_mode "$concat_file_location" "$test_output_dir"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_join_mode_with_all_args() {
-  local message="It should "
-  local concat_file_location="`concat_file_dir`/concat_file.txt"
-  local output_dir=`concat_file_dir`
-  local output_name=`default_concat_file_name`
-  eval() { echo "$1"; }
-  local expected_result="ffmpeg -f concat -safe 0 -i $concat_file_location -c copy $output_dir/$output_name.mp4"
-  
-  local result=`join_mode "$concat_file_location" "$output_dir" "$output_name"`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
 
 test_get_ffmpeg_command_with_all_args() {
   local message="It should "
@@ -61,35 +46,8 @@ test_get_ffmpeg_command_with_all_args() {
   local output_name="TestJoin"
   local expected_result="ffmpeg -f concat -safe 0 -i $concat_file_location -c copy $output_dir/$output_name.mp4"
   
-  local result=`get_ffmpeg_command "$concat_file_location" "$output_dir" "$output_name"`
+  local result=`get_ffmpeg_join_command "$concat_file_location" "$output_dir" "$output_name"`
   
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_get_ffmpeg_command_without_concat_file_location_arg() {
-  local message="It should "
-  local expected_result=`error_missing_function_args "get_ffmpeg_command"`
-  
-  local result=`get_ffmpeg_command "" "$output_dir" "$output_name"`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_get_ffmpeg_command_without_output_dir_arg() {
-  local message="It should "
-  local expected_result=`error_missing_function_args "get_ffmpeg_command"`
-  
-  local result=`get_ffmpeg_command "$concat_file_location" "" "$output_name"`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_get_ffmpeg_command_without_output_name_arg() {
-  local message="It should "
-  local expected_result=`error_missing_function_args "get_ffmpeg_command"`
-  
-  local result=`get_ffmpeg_command "$concat_file_location" "$output_dir" ""`
-
   assertEquals "$message" "$expected_result" "$result"
 }
 

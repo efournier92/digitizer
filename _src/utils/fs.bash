@@ -11,16 +11,20 @@ default_output_dir() {
   echo "$(pwd)"
 }
 
-default_output_file_name() {
+default_video_file_name() {
   echo "`time_now`.mp4"
 }
 
-default_output_audio_capture_file_name() {
+default_video_file_location() {
+  echo "`default_output_dir`/`default_video_file_name`"
+}
+
+default_audio_file_name() {
   echo "`time_now`.wav"
 }
 
-default_output_file_location() {
-  echo "`default_output_dir`/`default_output_file_name`"
+default_audio_file_location() {
+  echo "`default_output_dir`/`default_audio_file_name`"
 }
 
 config_dir() {
@@ -32,7 +36,7 @@ concat_file_name() {
 }
 
 concat_file_location() {
-  echo "`config_dir`/`concat_file_location`"
+  echo "`config_dir`/`concat_file_name`"
 }
 
 batch_file_name() {

@@ -5,7 +5,7 @@
 # Description   : Unit test reading arguments for watch mode
 #----------------
 
-source ./args/watch_args.bash
+source "./_src/args/watch_args.bash"
 
 test_reading_watch_args_with_no_args() {
   local message="It should the video and audio devices as inputed by the user."

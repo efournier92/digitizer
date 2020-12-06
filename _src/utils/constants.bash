@@ -35,32 +35,32 @@ watch_mode_name() {
   echo "watch"
 }
 
-audio_mode_name() {
-  echo "audio"
-}
-
-default_input_video_size() {
+default_video_input_dimensions() {
   echo "640x480"
 }
 
-default_input_video_format() {
+default_video_output_dimensions() {
+  echo "720x540"
+}
+
+default_video_input_format() {
   echo "v4l2"
 }
 
-default_input_audio_format() {
+default_audio_input_format() {
   echo "alsa"
-}
-
-default_dimensions() {
-  echo "720x540"
 }
 
 default_start_time() {
   echo "00:00:00.000"
 }
 
-default_stop_time() {
+default_video_stop_time() {
   echo "06:00:00.000"
+}
+
+default_audio_stop_time() {
+  echo "01:00:00.000"
 }
 
 default_crf() { 
@@ -95,10 +95,6 @@ default_format() {
   echo "mpeg"
 }
 
-default_extension() {
-  echo "mp4"
-}
-
 default_max_threads() {
   echo "512"
 }
@@ -111,15 +107,11 @@ default_number_of_audio_channels() {
   echo "2"
 }
 
-default_audio_input_format() {
-  echo "alsa"
-}
-
 default_audio_output_format() {
   echo "wav"
 }
 
-default_sample_rate() {
+default_audio_sample_rate() {
   echo "44100"
 }
 

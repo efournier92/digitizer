@@ -5,7 +5,7 @@
 # Description   : Unit test device utilties
 #----------------
 
-source "./_src/_src/utils/devices.bash"
+source "./_src/utils/devices.bash"
 
 test_detect_video_devices() {
   local message="It should use ls to find video devices."

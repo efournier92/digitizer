@@ -5,7 +5,7 @@
 # Description   : Unit test reading arguments for verbose mode
 #----------------
 
-source ./_src/args/verbose_args.bash
+source "./_src/args/verbose_args.bash"
 
 test_read_verbose_args_with_no_args() {
   local message="It should "

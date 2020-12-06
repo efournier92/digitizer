@@ -13,26 +13,23 @@ DIGITIZER | Digitization Suite
 EOF
 }
 
-help_general() {
+help_batch() {
 cat << EOF
-_______
-GENERAL
+_____
+BATCH
 
-  -h, --help [mode]    print help information [for mode]
-
-  -m, --mode           enable mode [capture|cut|batch|join]
-
-  -v, --verbose        enable verbose debugging info
+  -i, --input,         
+  --batch_file         batch text file created from cut mode
   
-  USAGE: digitizer -m capture -h -v
+  USAGE: digitizer -m batch -i ~/.digitizer/batch.txt
 
 EOF
 }
 
-help_capture() {
+help_capture_video() {
 cat << EOF
-_______
-CAPTURE
+_____________
+CAPTURE VIDEO
 
   -i, --input,         input video devide
   --video_device
@@ -68,10 +65,18 @@ CAPTURE
 EOF
 }
 
-help_cut() {
+help_capture_audio() {
 cat << EOF
-___
-CUT
+_____________
+CAPTURE AUDIO
+
+EOF
+}
+
+help_cut_video() {
+cat << EOF
+_________
+CUT VIDEO
 
   -i, --input_file     input video for cutting
 
@@ -96,15 +101,18 @@ CUT
 EOF
 }
 
-help_batch() {
+help_general() {
 cat << EOF
-_____
-BATCH
+_______
+GENERAL
 
-  -i, --input,         
-  --batch_file         batch text file created from cut mode
+  -h, --help [mode]    print help information [for mode]
+
+  -m, --mode           enable mode [capture|cut|batch|join]
+
+  -v, --verbose        enable verbose debugging info
   
-  USAGE: digitizer -m batch -i ~/.digitizer/batch.txt
+  USAGE: digitizer -m capture -h -v
 
 EOF
 }
@@ -139,14 +147,24 @@ WATCH
 EOF
 }
 
-print_help_capture() {
+print_help_capture_video() {
   help_header
-  help_capture
+  help_capture_video
 }
 
-print_help_cut() {
+print_help_capture_audio() {
   help_header
-  help_cut
+  help_capture_audio
+}
+
+print_help_cut_video() {
+  help_header
+  help_cut_video
+}
+
+print_help_general() {
+  help_header
+  help_general
 }
 
 print_help_batch() {
@@ -166,9 +184,10 @@ print_help_watch() {
 
 print_help_all() {
   help_header
+  help_capture_video
+  help_capture_audio
+  help_cut_video
   help_general
-  help_capture
-  help_cut
   help_batch
   help_join
   help_watch
@@ -177,12 +196,14 @@ print_help_all() {
 print_help_by_mode() {
   local mode="$1"
   
-  if [[ "$mode" == `capture_mode_name` ]]; then
-    print_help_capture
-  elif [[ "$mode" == `cut_mode_name` ]]; then
-    print_help_cut
-  elif [[ "$mode" == `batch_mode_name` ]]; then
+  if [[ "$mode" == `batch_mode_name` ]]; then
     print_help_batch
+  elif [[ "$mode" == `capture_video_mode_name` ]]; then
+    print_help_capture_video
+  elif [[ "$mode" == `capture_audio_mode_name` ]]; then
+    print_help_capture_audio
+  elif [[ "$mode" == `cut_video_mode_name` ]]; then
+    print_help_cut_video
   elif [[ "$mode" == `join_mode_name` ]]; then
     print_help_join
   elif [[ "$mode" == `watch_mode_name` ]]; then

@@ -5,6 +5,9 @@
 # Description   : Utility functions for returning timestamps
 #----------------
 
+source "./_src/messages/logs.bash"
+source "./_src/messages/errors.bash"
+
 get_duration_between_timestamps() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
   local start_time="$1"
@@ -74,10 +77,10 @@ correct_timestamp_negatives() {
     hours="0"
   fi
 
-  hours=`pad_value "$hours" 2`
-  minutes=`pad_value "$minutes" 2`
-  seconds=`pad_value "$seconds" 2`
-  ms=`pad_value "$ms" 3`
+  hours=`pad_timestamp_value "$hours" 2`
+  minutes=`pad_timestamp_value "$minutes" 2`
+  seconds=`pad_timestamp_value "$seconds" 2`
+  ms=`pad_timestamp_value "$ms" 3`
 
   echo "$hours:$minutes:$seconds.$ms"
 }

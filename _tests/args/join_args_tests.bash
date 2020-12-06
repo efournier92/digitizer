@@ -5,10 +5,11 @@
 # Description   : Unit test reading arguments for join mode
 #----------------
 
-source ./_src/args/join_args.bash
-source ./_src/messages/help.bash
-source ./_src/constants/defaults.bash
-source ./_src/messages/errors.bash
+source "./_src/args/join_args.bash"
+source "./_src/utils/constants.bash"
+source "./_src/utils/fs.bash"
+source "./_src/messages/help.bash"
+source "./_src/messages/errors.bash"
 
 test_reading_join_args_with_no_args() {
   local message="Result should contain all default arguments."

@@ -8,9 +8,9 @@
 source "./_src/modes/batch_mode.bash"
 source "./_src/messages/errors.bash"
 
-test_batch_mode_with_no_args() {
-  local message="It should "
-  local expected_result=`error_missing_function_args "batch_mode" ""`
+test_batch_mode_with_empty_args() {
+  local message="It should throw a missing-function-args error."
+  local expected_result=`error_missing_function_args "batch_mode"`
   
   local result=`batch_mode`
   

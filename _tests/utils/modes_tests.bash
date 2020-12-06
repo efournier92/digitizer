@@ -29,7 +29,7 @@ test_is_mode_known_with_unknown_mode() {
 
 test_is_mode_known_with_capture_mode() {
   local message="It should return true."
-  local mode="capture"
+  local mode="capture_video"
   local expected_result="true"
   
   local result=`is_mode_known "$mode"`
@@ -37,9 +37,9 @@ test_is_mode_known_with_capture_mode() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_is_mode_known_with_cut_mode() {
+test_is_mode_known_with_cut_video_mode() {
   local message="It should return true."
-  local mode="cut"
+  local mode="cut_video"
   local expected_result="true"
   
   local result=`is_mode_known "$mode"`

@@ -17,11 +17,9 @@ is_mode_known() {
     `capture_video_mode_name` \
     `capture_audio_mode_name` \
     `cut_video_mode_name` \
-    `cut_audio_mode_name` \
     `batch_mode_name` \
     `join_mode_name` \
     `watch_mode_name` \
-    `audio_mode_name`\
   )
 
   local is_known=false

@@ -1,48 +1,18 @@
 #!/bin/bash
 
 #----------------
-# Name          : general_args_tests.bash
-# Description   : Unit test functionality for reading general arguments
+# Name          : mode_args_tests.bash
+# Description   : Unit test functionality for reading help arguments
 #----------------
 
-source ./args/general_args.bash
-source ./messages/help.bash
+source "./_src/args/help_args.bash"
+source "./_src/messages/help.bash"
 
-test_reading_with_no_args() {
-  local message="It should throw a missing-required-arg error."
-  local expected_result=`error_missing_required_arg "mode" "read_general_args"`
+test_reading_help_with_no_args() {
+  local message="It should return nothing."
+  local expected_result=""
   
-  local result=`read_general_args`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_reading_and_mode_is_not_found() {
-  local message="It should throw a mode-not-found error."
-  local mode="test_fake"
-  local expected_result=`error_mode_not_found "$mode" "read_general_args"`
-  
-  local result=`read_general_args -m "$mode"`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_reading_with_mode_short_arg() {
-  local message="Result should include configured value for mode."
-  local mode="capture"
-  local expected_result="$mode"
-  
-  local result=`read_general_args -m "$mode"`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_reading_with_mode_long_arg() {
-  local message="Result should include configured value for mode."
-  local mode="capture"
-  local expected_result="$mode"
-  
-  local result=`read_general_args --mode "$mode"`
+  local result=`read_help_args`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -51,7 +21,7 @@ test_reading_with_help_short_arg_and_no_mode() {
   local message="It should print the full help menu."
   local expected_result=`print_help_by_mode`
   
-  local result=`read_general_args -h`
+  local result=`read_help_args -h`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -60,7 +30,7 @@ test_reading_with_help_long_arg_and_no_mode() {
   local message="It should print the full help menu."
   local expected_result=`print_help_by_mode`
   
-  local result=`read_general_args --help`
+  local result=`read_help_args --help`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -70,7 +40,7 @@ test_reading_with_help_short_arg_and_capture_mode() {
   local mode="capture"
   local expected_result=`print_help_by_mode "$mode"`
   
-  local result=`read_general_args -h -m "$mode"`
+  local result=`read_help_args -h -m "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -80,7 +50,7 @@ test_reading_with_help_short_arg_and_cut_mode() {
   local mode="cut"
   local expected_result=`print_help_by_mode "$mode"`
   
-  local result=`read_general_args -h -m "$mode"`
+  local result=`read_help_args -h -m "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -90,7 +60,7 @@ test_reading_with_help_short_arg_and_batch_mode() {
   local mode="batch"
   local expected_result=`print_help_by_mode "$mode"`
   
-  local result=`read_general_args -h -m "$mode"`
+  local result=`read_help_args -h -m "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -100,7 +70,7 @@ test_reading_with_help_short_arg_and_join_mode() {
   local mode="join"
   local expected_result=`print_help_by_mode "$mode"`
   
-  local result=`read_general_args -h -m "$mode"`
+  local result=`read_help_args -h -m "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -110,7 +80,7 @@ test_reading_with_help_short_arg_and_watch_mode() {
   local mode="watch"
   local expected_result=`print_help_by_mode "$mode"`
   
-  local result=`read_general_args -h -m "$mode"`
+  local result=`read_help_args -h -m "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
@@ -120,10 +90,11 @@ test_reading_with_help_short_arg_and_mode_is_not_found() {
   local mode="test_fake"
   local expected_result=`print_help_by_mode`
   
-  local result=`read_general_args -h -m "$mode"`
+  local result=`read_help_args -h -m "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
+
 
 . ./bin/shunit2
 

@@ -36,11 +36,11 @@ run_capture_audio_mode() {
 }
 
 run_cut_video_mode() {
-  cut_video_mode `read_cut_args "$@"`
+  cut_video_mode `read_video_cut_args "$@"`
 }
 
 run_cut_audio_mode() {
-  cut_audio_mode `read_cut_args "$@"`
+  cut_audio_mode `read_video_cut_args "$@"`
 }
 
 run_batch_mode() {

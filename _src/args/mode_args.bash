@@ -23,7 +23,7 @@ read_mode_args() {
     shift
   done
  
-  [[ -z "$mode" ]] && error_missing_required_arg "mode" "${FUNCNAME[0]}"
+  [[ -z "$mode" ]] && error_missing_required_arg "$mode" "${FUNCNAME[0]}"
   [[ `is_mode_known "$mode"` == false ]] && error_mode_not_found "$mode" "${FUNCNAME[0]}"
 
   echo "$mode"

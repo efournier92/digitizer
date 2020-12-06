@@ -8,93 +8,25 @@
 source "./_src/modes/cut_video_mode.bash"
 source "./_src/messages/errors.bash"
 
-test_correct_negatives_with_value_carrying() {
+test_get_ffmpeg_cut_video_command() {
   local message="It should "
-  local hours="1"
-  local minutes="0"
-  local seconds="0"
-  local ms="-111"
-  local expected_result="00:59:59.889"
+  local input_file="/home/me/test_video.mp4"
+  local duration="99:99:99.999"
+  local codec="mpeg"
+  local dimensions="999:999"
+  local tune="film"
+  local preset="veryslow"
+  local crop="99:99:99:99"
+  local queue_size="9"
+  local crf="99"
+  local output_dir="/home/me/out"
+  local output_file_name="out_video.mp4"
+
+  local expected_result="ffmpeg -i $(pwd)/$input_file -ss $start_time -c:v $codec -crf $crf -tune $tune -preset $preset -vf yadif=0:0:0,crop=$crop,scale=$dimensions -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -max_muxing_queue_size $queue_size -t $duration -movflags faststart $output_dir/$output_file_name.mp4"
   
-  local result=`correct_negatives "$hours" "$minutes" "$seconds" "$ms"`
+  local result=`get_ffmpeg_cut_video_command "$input_file" "$duration" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_dir" "$output_file_name"`
   
   assertEquals "$message" "$expected_result" "$result"
-}
-
-test_correct_negatives_without_value_carrying() {
-  local message="It should "
-  local hours="2"
-  local minutes="2"
-  local seconds="2"
-  local ms="222"
-  local expected_result="02:02:02.222"
-  
-  local result=`correct_negatives "$hours" "$minutes" "$seconds" "$ms"`
-  
-  assertEquals "$message" "$expected_result" "$result"
-}
-
-test_subtract_timestamps_without_value_carrying() {
-  local message="It should return the expected value"
-  local start_time="11:11:11.111"
-  local end_time="33:33:33.333"
-  local expected_result="22:22:22.222"
-  
-  local result=`subtract_timestamps "${start_time}" "${end_time}"`
-  
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_subtract_timestamps_with_value_carrying() {
-  local message="It should return the expected value"
-  local start_time="00:01:55.444"
-  local end_time="00:09:03.333"
-  local expected_result="00:07:07.889"
-  
-  local result=`subtract_timestamps "${start_time}" "${end_time}"`
-  
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_subtract_timestamps_with_double_value_carrying() {
-  local message="It should return the expected value"
-  local start_time="00:50:55.888"
-  local end_time="01:20:03.999"
-  local expected_result="00:29:08.111"
-  
-  local result=`subtract_timestamps "${start_time}" "${end_time}"`
-  
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_pad_value_with_missing_args() {
-  local message="It throw a missing-function-args error"
-  local expected_result=`error_missing_function_args "pad_value"`
-  VERBOSE=true 
-  local result=`pad_value "$value" "$digits"`
-  
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_pad_value() {
-  local message="It should return the expected value"
-  local value="1"
-  local digits="2"
-  local expected_result="01"
-  
-  VERBOSE=true 
-  local result=`pad_value "$value" "$digits"`
-  
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_pad_value_with_missing_args() {
-  local message="It throw a missing-function-args error"
-  local expected_result=`error_missing_function_args "pad_value"`
-  
-  local result=`pad_value "$value" "$digits"`
-  
-  assertEquals "${message}" "${expected_result}" "${result}"
 }
 
 . ./bin/shunit2

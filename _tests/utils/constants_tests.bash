@@ -8,20 +8,38 @@
 source "./_src/utils/constants.bash"
 source "./_src/utils/fs.bash"
 
-test_capture_mode_name() {
+test_capture_video_mode_name() {
   local message="Result should contain the default name of capture_mode."
-  local expected_result="capture"
+  local expected_result="capture_video"
 
-  local result=`capture_mode_name`
+  local result=`capture_video_mode_name`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-test_cut_mode_name() {
-  local message="Result should contain the default name of cut_mode."
-  local expected_result="cut"
+test_capture_audio_mode_name() {
+  local message="Result should contain the default name of capture_mode."
+  local expected_result="capture_audio"
 
-  local result=`cut_mode_name`
+  local result=`capture_audio_mode_name`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_cut_video_mode_name() {
+  local message="Result should contain the default name of cut_mode."
+  local expected_result="cut_video"
+
+  local result=`cut_video_mode_name`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_cut_audio_mode_name() {
+  local message="Result should contain the default name of cut_mode."
+  local expected_result="cut_audio"
+
+  local result=`cut_audio_mode_name`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
@@ -53,56 +71,39 @@ test_watch_mode_name() {
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-test_timestamp_regex() {
-  local message="Result should contain the default value for timestamp_regex."
-  local expected_result="[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
-
-  local result=`timestamp_regex`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_output_dir() {
-  local message="Result should contain the default value for output_dir."
-  local expected_result="$(pwd)"
-
-  local result=`default_output_dir`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_output_file() {
-  local message="Result should contain the default value for output_file."
-  local expected_result="`default_output_dir`/`time_now`.mp4"
-
-  local result=`default_output_file_location`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_batch_file_name() {
-  local message="Result should contain the default name of batch_file."
-  local expected_result="digitizer_batch.txt"
-
-  local result=`batch_file_name`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_concat_file_name() {
-  local message="Result should contain the default name of concat_file."
-  local expected_result="_temp_concat.txt"
-
-  local result=`concat_file_name`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_input_video_size() {
+test_default_video_input_dimensions() {
   local message="Result should contain the default value for input_video_size."
   local expected_result="640x480"
 
-  local result=`default_input_video_size`
+  local result=`default_video_input_dimensions`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_video_output_dimensions() {
+  local message="Result should contain the default dimensions."
+  local message="It should return the default watch_mode_name value."
+  local expected_result="720x540"
+
+  local result=`default_video_output_dimensions`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_video_input_format() {
+  local message="Result should contain the default value for input_video_size."
+  local expected_result="v4l2"
+
+  local result=`default_video_input_format`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_audio_input_format() {
+  local message="Result should contain the default value for input_video_size."
+  local expected_result="alsa"
+
+  local result=`default_audio_input_format`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
@@ -111,26 +112,7 @@ test_default_input_video_format() {
   local message="Result should contain the default value for input_video_format."
   local expected_result="v4l2"
 
-  local result=`default_input_video_format`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_input_audio_format() {
-  local message="Result should contain the default value for input_audio_format."
-  local expected_result="alsa"
-
-  local result=`default_input_audio_format`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
-test_default_dimensions() {
-  local message="Result should contain the default dimensions."
-  local message="It should return the default watch_mode_name value."
-  local expected_result="720x540"
-
-  local result=`default_dimensions`
+  local result=`default_video_input_format`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
@@ -144,11 +126,20 @@ test_default_start_time() {
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-test_default_stop_time() {
+test_default_video_stop_time() {
   local message="Result should contain the default value for stop_time."
   local expected_result="06:00:00.000"
 
-  local result=`default_stop_time`
+  local result=`default_video_stop_time`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_audio_stop_time() {
+  local message="Result should contain the default value for stop_time."
+  local expected_result="01:00:00.000"
+
+  local result=`default_audio_stop_time`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }
@@ -216,15 +207,6 @@ test_default_format() {
   assertEquals "${message}" "${expected_result}" "${result}"
 }
 
-test_default_extension() {
-  local message="Result should contain the default extension."
-  local expected_result="mp4"
-
-  local result=`default_extension`
-
-  assertEquals "${message}" "${expected_result}" "${result}"
-}
-
 test_default_max_threads() {
   local message="Result should contain the default max_threads."
   local expected_result="512"
@@ -239,6 +221,33 @@ test_default_max_queue() {
   local expected_result="400"
 
   local result=`default_max_queue`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_number_of_audio_channels() {
+  local message="Result should contain the default max_queue_size."
+  local expected_result="2"
+
+  local result=`default_number_of_audio_channels`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_audio_output_format() {
+  local message="Result should contain the default max_queue_size."
+  local expected_result="wav"
+
+  local result=`default_audio_output_format`
+
+  assertEquals "${message}" "${expected_result}" "${result}"
+}
+
+test_default_audio_sample_rate() {
+  local message="Result should contain the default max_queue_size."
+  local expected_result="44100"
+
+  local result=`default_audio_sample_rate`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }

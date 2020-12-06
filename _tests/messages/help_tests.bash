@@ -5,8 +5,8 @@
 # Description   : Unit test help funcionality
 #----------------
 
-source ./messages/help.bash
-source ./constants/defaults.bash
+source "./_src/messages/help.bash"
+source "./_src/utils/constants.bash"
 
 test_print_help_by_mode_with_no_mode() {
   local message="It should print the full help menu."
@@ -17,20 +17,30 @@ test_print_help_by_mode_with_no_mode() {
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_print_help_by_mode_with_capture_mode() {
-  local message="It should print the help menu for capture-mode."
-  local mode=`capture_mode_name`
-  local expected_result=`print_help_capture`
+test_print_help_by_mode_with_capture_video_mode() {
+  local message="It should print the help menu for capture-video-mode."
+  local mode=`capture_video_mode_name`
+  local expected_result=`print_help_capture_video`
   
   local result=`print_help_by_mode "$mode"`
   
   assertEquals "$message" "$expected_result" "$result"
 }
 
-test_print_help_by_mode_with_cut_mode() {
+test_print_help_by_mode_with_capture_audio_mode() {
+  local message="It should print the help menu for capture-audio-mode."
+  local mode=`capture_audio_mode_name`
+  local expected_result=`print_help_capture_audio`
+  
+  local result=`print_help_by_mode "$mode"`
+  
+  assertEquals "$message" "$expected_result" "$result"
+}
+
+test_print_help_by_mode_with_cut_video_mode() {
   local message="It should print the help menu for cut-mode."
-  local mode=`cut_mode_name`
-  local expected_result=`print_help_cut`
+  local mode=`cut_video_mode_name`
+  local expected_result=`print_help_cut_video`
   
   local result=`print_help_by_mode "$mode"`
   

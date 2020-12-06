@@ -89,12 +89,12 @@ read_capture_video_args() {
   [[ -z "$audio_device" ]] && local audio_device=`get_audio_device_selection`
   [[ -z "$codec" ]] && local codec=`default_video_codec`
   [[ -z "$crf" ]] && local crf=`default_crf`
-  [[ -z "$video_format" ]] && local video_format=`default_input_video_format`
-  [[ -z "$audio_format" ]] && local audio_format=`default_input_audio_format`
+  [[ -z "$video_format" ]] && local video_format=`default_video_input_format`
+  [[ -z "$audio_format" ]] && local audio_format=`default_audio_input_format`
   [[ -z "$preset" ]] && local preset=`default_capture_preset`
-  [[ -z "$size" ]] && local size=`default_input_video_size`
+  [[ -z "$size" ]] && local size=`default_video_input_dimensions`
   [[ -z "$standard" ]] && local standard=`default_standard`
-  [[ -z "$stop_time" ]] && local stop_time=`default_stop_time`
+  [[ -z "$stop_time" ]] && local stop_time=`default_video_stop_time`
   [[ -z "$threads" ]] && local threads=`default_max_threads`
   [[ -z "$tune" ]] && local tune=`default_tune`
   [[ -z "$output_format" ]] && local output_format=`default_format`
