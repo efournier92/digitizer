@@ -8,5 +8,9 @@
 # Example Usage : bash run_program
 #----------------
 
-bash ./_src/main.bash
+main() {
+  bash "./_src/main.bash" "$@"
+}
+
+main "$@"
 
