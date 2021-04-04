@@ -20,14 +20,15 @@ get_capture_video_command() {
   local stop_time="${10}"
   local threads="${11}"
   local tune="${12}"
-  local output_format="${13}"
-  local output_location="${14}"
+  local num_audio_channels="${13}"
+  local output_format="${14}"
+  local output_location="${15}"
 
   [[ -z "$video_device" || -z "$audio_device" || -z "$codec" || -z "$crf" || -z "$video_format" || -z "$audio_format" || -z "$preset" || -z "$size" || -z "$standard" || -z "$stop_time" || -z "$threads" || -z "$tune" || -z "$output_format" || -z "$output_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
   
   [[ ! -e "$video_device" ]] && error_device_not_found "$video_device" "${FUNCNAME[0]}"
 
-  echo "ffmpeg -standard $standard -f $video_format -video_size $size -thread_queue_size $threads -i $video_device -f $audio_format -thread_queue_size $threads -i $audio_device -c:v $codec -tune $tune -preset $preset -crf $crf -ac 1 -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f s32le pipe:play | ffplay -i pipe:play -nodisp"
+  echo "ffmpeg -standard $standard -f $video_format -video_size $size -thread_queue_size $threads -i $video_device -f $audio_format -thread_queue_size $threads -i $audio_device -c:v $codec -tune $tune -preset $preset -crf $crf -ac $num_audio_channels -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f s32le pipe:play | ffplay -i pipe:play -nodisp"
 }
 
 run_capture_command() {

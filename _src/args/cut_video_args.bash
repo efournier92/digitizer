@@ -63,6 +63,11 @@ read_cut_video_args() {
         local tune="$1"
         ;;
 
+      --channels )
+        shift
+        local num_audio_channels="$1"
+        ;;
+
     esac
     shift
   done
@@ -75,8 +80,9 @@ read_cut_video_args() {
   [[ -z "$crop" ]] && local crop=`default_crop`
   [[ -z "$queue_size" ]] && local queue_size=`default_max_queue`
   [[ -z "$crf" ]] && local crf=`default_crf`
+  [[ -z "$num_audio_channels" ]] && local num_audio_channels=`default_num_audio_channels`
   [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
 
-  echo "$input_file" "$codec" "$dimensions" "$tune" "$preset" "$crop" "$queue_size" "$crf" "$output_dir"
+  echo "$input_file" "$codec" "$dimensions" "$tune" "$num_audio_channels" "$preset" "$crop" "$queue_size" "$crf" "$output_dir"
 }
 

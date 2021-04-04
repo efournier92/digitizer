@@ -50,12 +50,6 @@ add_shebang() {
   sed -i '1s;^;#!/bin/bash\n\n;' `get_concat_file_location $output_name`
 }
 
-delete_empty_lines() {
-  local output_name="$1"
-
-  sed -i '/^$/d' `get_concat_file_location $output_name`
-}
-
 concatenate_files() {
   local output_name="$1"
 
@@ -89,6 +83,12 @@ concatenate_files() {
     "_src/modes/watch_mode.bash" \
     "_src/main.bash" \
       >> `get_concat_file_location "$output_name"`
+}
+
+delete_empty_lines() {
+  local output_name="$1"
+
+  sed -i '/^$/d' `get_concat_file_location $output_name`
 }
 
 main() {

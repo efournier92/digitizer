@@ -69,7 +69,7 @@ read_capture_audio_args() {
   [[ -z "$audio_device" ]] && local audio_device=`get_audio_device_selection`
   [[ -z "$input_format" ]] && local input_format=`default_audio_input_format`
   [[ -z "$output_format" ]] && local output_format=`default_audio_output_format`
-  [[ -z "$num_channels" ]] && local num_channels=`default_number_of_audio_channels`
+  [[ -z "$num_channels" ]] && local num_channels=`default_num_audio_channels`
   [[ -z "$sample_rate" ]] && local sample_rate=`default_audio_sample_rate`
   [[ -z "$max_threads" ]] && local max_threads=`default_max_threads`
   [[ -z "$stop_time" ]] && local stop_time=`default_audio_stop_time`

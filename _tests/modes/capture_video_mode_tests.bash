@@ -32,11 +32,12 @@ test_get_capture_video_command_with_all_aguments() {
   local stop_time="99:99:99.999"
   local threads="999"
   local tune="film"
+  local num_audio_channels="8"
   local output_format="mp4"
   local output_location="/home/me/test_video.mp4"
-  local expected_result="ffmpeg -standard $standard -f $video_format -video_size $size -thread_queue_size $threads -i $video_device -f $audio_format -thread_queue_size $threads -i $audio_device -c:v $codec -tune $tune -preset $preset -crf $crf -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f s32le pipe:play | ffplay -i pipe:play -nodisp"
+  local expected_result="ffmpeg -standard $standard -f $video_format -video_size $size -thread_queue_size $threads -i $video_device -f $audio_format -thread_queue_size $threads -i $audio_device -c:v $codec -tune $tune -preset $preset -crf $crf -ac "$num_audio_channels" -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f s32le pipe:play | ffplay -i pipe:play -nodisp"
   
-  local result=`get_capture_video_command "$video_device" "$audio_device" "$codec" "$crf" "$video_format" "$audio_format" "$preset" "$size" "$standard" "$stop_time" "$threads" "$tune" "$output_format" "$output_location"`
+  local result=`get_capture_video_command "$video_device" "$audio_device" "$codec" "$crf" "$video_format" "$audio_format" "$preset" "$size" "$standard" "$stop_time" "$threads" "$tune" "$num_audio_channels" "$output_format" "$output_location"`
   
   assertEquals "$message" "$expected_result" "$result"
 }

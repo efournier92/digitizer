@@ -82,6 +82,11 @@ read_capture_video_args() {
         local tune="$1"
         ;;
 
+      --channels )
+        shift
+        local num_audio_channels="$1"
+        ;;
+
     esac
     shift
   done
@@ -98,12 +103,13 @@ read_capture_video_args() {
   [[ -z "$stop_time" ]] && local stop_time=`default_video_stop_time`
   [[ -z "$threads" ]] && local threads=`default_max_threads`
   [[ -z "$tune" ]] && local tune=`default_tune`
+  [[ -z "$num_audio_channels" ]] && local num_audio_channels=`default_num_audio_channels`
   [[ -z "$output_format" ]] && local output_format=`default_format`
   [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
   [[ -z "$output_name" ]] && local output_name=`time_now`
   
   local output_location="${output_dir}/${output_name}.mp4"
 
-  echo "$video_device" "$audio_device" "$codec" "$crf" "$video_format" "$audio_format" "$preset" "$size" "$standard" "$stop_time" "$threads" "$tune" "$output_format" "$output_location"
+  echo "$video_device" "$audio_device" "$codec" "$crf" "$video_format" "$audio_format" "$preset" "$size" "$standard" "$stop_time" "$threads" "$tune" "$num_audio_channels" "$output_format" "$output_location"
 }
 

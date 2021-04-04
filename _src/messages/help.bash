@@ -27,41 +27,55 @@ BATCH
 EOF
 }
 
+help_general() {
+cat << EOF
+_______
+GENERAL
+
+  -h, --help [mode]    print help information [for mode]
+
+  -m, --mode           enable mode [capture|cut|batch|join]
+
+  -v, --verbose        enable verbose debugging info
+  
+EOF
+}
+
 help_capture_video() {
 cat << EOF
 _____________
 CAPTURE VIDEO
 
-  -i, --input,         input video devide
+  -i, --input,         input video device
   --video_device
 
   -a, --audio_device   input audio device
 
-  -c, --codec          output video codec
+  -c, --codec          output video codec [libx264]
 
-  -t, --stop_time      maximum capture duration
+  -t, --stop_time      maximum capture duration [06:00:00.000]
 
-  -d, --output_dir     directory in which to save the capture
+  -d, --output_dir     directory in which to save the capture [(pwd)]
 
-  -o, --output_name    name for the capture file
+  -o, --output_name    name for the capture file [(time_now).mp4]
 
-  --video_format       output video format []
+  --video_format       output video format [mpeg]
 
-  --audio_format       output audio format []
+  --audio_format       output audio format [wav]
 
-  --crf                output constant rate factor
+  --crf                output constant rate factor [28]
 
-  --preset             preset for capture process []
+  --preset             preset for capture process [ultrafast]
 
-  --size               input video size
+  --size               input video size [640x480]
 
-  --standard           input stream standard [ntsc,pal,...]
+  --standard           input stream standard [ntsc]
 
-  --threads            maximum threads for process
+  --threads            maximum threads for process [512]
 
-  --tune               tuning for capture output [film,...]
+  --tune               tuning for capture output [film]
 
-  USAGE: digitizer -m capture -i /dev/video0 -a hw:2,0 -d . -o captured.bash
+  USAGE: digitizer -m capture_video -i /dev/video0 -a hw:2,0 -d . -o capture.mp4
 
 EOF
 }
@@ -71,6 +85,26 @@ cat << EOF
 _____________
 CAPTURE AUDIO
 
+  -i, --input,         input audio device
+  --audio_device
+
+  -fi, --input_format  input audio format [alsa]
+
+  -fo, --output_format output audio format [wav]
+
+  -t, --stop_time      maximum capture duration [01:00:00.000]
+
+  -c, --num_channels   number of audio channels [1]
+
+  -d, --output_dir     output directory [(pwd)]
+
+  -o, --output_name    output file name [(time_now).wav]
+
+  --sample_rate        output sample rate [44100]
+
+  --max_threads        maximum threads to use during processing [512]
+
+  USAGE: digitizer -m capture_audio -i hw:2,0 -d . -o capture.wav
 EOF
 }
 
@@ -100,27 +134,12 @@ CUT VIDEO
 EOF
 }
 
-help_general() {
-cat << EOF
-_______
-GENERAL
-
-  -h, --help [mode]    print help information [for mode]
-
-  -m, --mode           enable mode [capture|cut|batch|join]
-
-  -v, --verbose        enable verbose debugging info
-  
-EOF
-}
-
 help_join() {
 cat << EOF
 ____
 JOIN
 
   -i, --input,         batch text file created in cut mode
-
 
   -d, --output_dir     directory in which to save the joined file
 
@@ -181,10 +200,10 @@ print_help_watch() {
 
 print_help_all() {
   help_header
+  help_general
   help_capture_video
   help_capture_audio
   help_cut_video
-  help_general
   help_batch
   help_join
   help_watch

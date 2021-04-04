@@ -228,9 +228,9 @@ test_default_max_queue() {
 
 test_default_number_of_audio_channels() {
   local message="It should return the default number of audio channels."
-  local expected_result="2"
+  local expected_result="1"
 
-  local result=`default_number_of_audio_channels`
+  local result=`default_num_audio_channels`
 
   assertEquals "${message}" "${expected_result}" "${result}"
 }

@@ -18,7 +18,7 @@ test_capture_video_args_with_no_args() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args`
   
@@ -32,7 +32,7 @@ test_capture_video_args_video_device_short_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "" ; }
   get_audio_device_selection() { echo "test_audio_device" ; }
-  local expected_result="$test_video_device `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="$test_video_device `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args -i "$test_video_device"`
   
@@ -46,7 +46,7 @@ test_capture_video_args_video_device_first_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "" ; }
   get_audio_device_selection() { echo "test_audio_device" ; }
-  local expected_result="$test_video_device `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="$test_video_device `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
 
   local result=`read_capture_video_args --input "$test_video_device"`
   
@@ -60,7 +60,7 @@ test_capture_video_args_video_device_second_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="$test_video_device `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="$test_video_device `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --video_device "$test_video_device"`
   
@@ -75,7 +75,7 @@ test_capture_video_args_audio_device_short_arg() {
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "" ; }
   local audio_device="hw:9,9"
-  local expected_result="$test_video_device $test_audio_device `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="$test_video_device $test_audio_device `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args -a "$test_audio_device"`
   
@@ -90,7 +90,7 @@ test_capture_video_args_audio_device_long_arg() {
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "" ; }
   local audio_device="hw:9,9"
-  local expected_result="$test_video_device $test_audio_device `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="$test_video_device $test_audio_device `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --audio_device "$test_audio_device"`
   
@@ -106,7 +106,7 @@ test_capture_video_args_codec_short_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` $codec `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` $codec `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args -c "$codec"`
   
@@ -121,7 +121,7 @@ test_capture_video_args_codec_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` $codec `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` $codec `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --codec "$codec"`
   
@@ -136,7 +136,7 @@ test_capture_video_args_output_directory_short_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` $output_dir/`time_now`.mp4"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` $output_dir/`time_now`.mp4"
   
   local result=`read_capture_video_args -d "$output_dir"`
   
@@ -151,7 +151,7 @@ test_capture_video_args_output_directory_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` $output_dir/`time_now`.mp4"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` $output_dir/`time_now`.mp4"
   
   local result=`read_capture_video_args --output_dir "$output_dir"`
   
@@ -166,7 +166,7 @@ test_capture_video_args_stop_time_short_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` $stop_time `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` $stop_time `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args -t "$stop_time"`
   
@@ -181,7 +181,7 @@ test_capture_video_args_stop_time_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` $stop_time `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` $stop_time `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --stop_time "$stop_time"`
   
@@ -196,7 +196,7 @@ test_capture_video_args_output_name_short_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_output_dir`/$output_name.mp4"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_output_dir`/$output_name.mp4"
   
   local result=`read_capture_video_args -o "$output_name"`
   
@@ -211,7 +211,7 @@ test_capture_video_args_output_name_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_output_dir`/$output_name.mp4"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_output_dir`/$output_name.mp4"
   
   local result=`read_capture_video_args --output_name "$output_name"`
   
@@ -226,7 +226,7 @@ test_capture_video_args_video_format_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` $video_format `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` $video_format `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --video_format "$video_format"`
   
@@ -241,7 +241,7 @@ test_capture_video_args_audio_format_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` $audio_format `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` $audio_format `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --audio_format "$audio_format"`
   
@@ -256,7 +256,7 @@ test_capture_video_args_crf_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` $crf `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` $crf `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --crf "$crf"`
   
@@ -271,7 +271,7 @@ test_capture_video_args_preset_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` $preset `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` $preset `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --preset "$preset"`
   
@@ -286,7 +286,7 @@ test_capture_video_args_size_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` "$size" `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` "$size" `default_standard` `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --size "$size"`
   
@@ -301,7 +301,7 @@ test_capture_video_args_standard_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` $standard `default_video_stop_time` `default_max_threads` `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` $standard `default_video_stop_time` `default_max_threads` `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --standard "$standard"`
   
@@ -316,7 +316,7 @@ test_capture_args_threads_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` $threads `default_tune` `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` $threads `default_tune` `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --threads "$threads"`
   
@@ -331,7 +331,7 @@ test_capture_video_args_tune_long_arg() {
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` $tune `default_format` `default_video_file_location`"
+  local expected_result="`get_video_device_selection` `get_audio_device_selection` `default_video_codec` `default_crf` `default_video_input_format` `default_audio_input_format` `default_capture_preset` `default_video_input_dimensions` `default_standard` `default_video_stop_time` `default_max_threads` $tune `default_num_audio_channels` `default_format` `default_video_file_location`"
   
   local result=`read_capture_video_args --tune "$tune"`
   
@@ -354,14 +354,15 @@ test_capture_video_args_all_args() {
   local standard="test_standard"
   local threads="999"
   local tune="test_tune"
+  local num_audio_channels="8"
   local test_video_device="/dev/video9"
   local test_audio_device="hw:9,9"
   time_now() { echo "200909185525" ; }
   get_video_device_selection() { echo "$test_video_device" ; }
   get_audio_device_selection() { echo "$test_audio_device" ; }
-  local expected_result="$test_video_device $test_audio_device $codec $crf $video_format $audio_format $preset $size $standard $stop_time $threads $tune `default_format` $output_dir/$output_name.mp4"
+  local expected_result="$test_video_device $test_audio_device $codec $crf $video_format $audio_format $preset $size $standard $stop_time $threads $tune $num_audio_channels `default_format` $output_dir/$output_name.mp4"
   
-  local result=`read_capture_video_args -i "$test_video_device" -a "$test_audio_device" -c "$codec" -d "$output_dir" -t "$stop_time" -o "$output_name" --video_format "$video_format" --audio_format "$audio_format" --crf "$crf" --preset "$preset" --size "$size" --standard "$standard" --threads "$threads" --tune "$tune"`
+  local result=`read_capture_video_args -i "$test_video_device" -a "$test_audio_device" -c "$codec" -d "$output_dir" -t "$stop_time" -o "$output_name" --video_format "$video_format" --audio_format "$audio_format" --crf "$crf" --preset "$preset" --size "$size" --standard "$standard" --threads "$threads" --tune "$tune" --channels "$num_audio_channels"`
   
   assertEquals "$message" "$expected_result" "$result"
 }

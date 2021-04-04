@@ -88,6 +88,10 @@ default_tune() {
   echo "film"
 }
 
+default_num_audio_channels() {
+  echo "1"
+}
+
 default_standard() {
   echo "ntsc"
 }
@@ -102,10 +106,6 @@ default_max_threads() {
 
 default_max_queue() {
   echo "400"
-}
-
-default_number_of_audio_channels() {
-  echo "2"
 }
 
 default_audio_output_format() {
