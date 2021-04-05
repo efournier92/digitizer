@@ -40,11 +40,12 @@ cut_video_mode() {
   local codec="$2"
   local dimensions="$3"
   local tune="$4"
-  local preset="$5"
-  local crop="$6"
-  local queue_size="$7"
-  local crf="$8"
-  local output_dir="$9"
+  local num_audio_channels="$5"
+  local preset="$6"
+  local crop="$7"
+  local queue_size="$8"
+  local crf="$9"
+  local output_dir="${10}"
   
   [[ -z "$input_file" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
 
@@ -53,7 +54,6 @@ cut_video_mode() {
   open_ffplay "$input_file"
   sleep 0.2
   
-  local ffmpeg_command
   while true; do
     local start_time=`get_start_time`
     local end_time=`get_end_time`
@@ -61,7 +61,7 @@ cut_video_mode() {
 
     local name=`get_segment_name "$input_file"`
     
-    ffmpeg_command="`get_ffmpeg_cut_video_command $input_file $duration $codec $dimensions $tune $preset $crop $queue_size $crf $output_dir $name`"
+    local ffmpeg_command="`get_ffmpeg_cut_video_command $input_file $duration $codec $dimensions $tune $num_audio_channels $preset $crop $queue_size $crf $output_dir $name`"
   
     get_save_ffmpeg_command "$ffmpeg_command"
   done

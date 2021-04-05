@@ -31,8 +31,8 @@ get_end_time() {
 get_segment_name() {
   [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
 
-  read -p "NAME >> " output_file_name
+  read -p "NAME >> " output_segment_name
 
-  echo "$output_file_name"
+  echo "$output_segment_name"
 }
 
