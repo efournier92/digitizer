@@ -1,0 +1,1406 @@
+#!/bin/bash
+
+
+
+
+log_arguments() {
+  echo "FUNCTION: $@" >&2
+}
+
+
+
+error_missing_function_args() {
+  echo "ERROR: Arguments missing from called function [$@]"
+
+  exit
+}
+
+error_missing_required_arg() {
+  echo "ERROR: required argument not found [$@]"
+
+  exit
+}
+
+error_file_not_found() {
+  echo "ERROR: input file not found [$@]"
+
+  exit
+}
+
+error_dir_not_found() {
+  echo "ERROR: directory not found [$@]"
+
+  exit
+}
+
+error_device_not_found() {
+  echo "ERROR: Device not found in function [$@]"
+
+  exit
+}
+
+error_mode_not_found() {
+  echo "ERROR: Mode not found [$@]"
+
+  exit
+}
+
+
+
+help_header() {
+cat << EOF
+_________
+DIGITIZER : Digitization Suite
+
+EOF
+}
+
+help_batch() {
+cat << EOF
+_____
+BATCH
+
+  -i, --input,         
+  --batch_file         batch text file created from cut mode
+  
+  USAGE: digitizer -m batch -i ~/.digitizer/batch.txt
+
+EOF
+}
+
+help_general() {
+cat << EOF
+_______
+GENERAL
+
+  -h, --help [mode]    print help information [for mode]
+
+  -m, --mode           enable mode [capture|cut|batch|join]
+
+  -v, --verbose        enable verbose debugging info
+  
+EOF
+}
+
+help_capture_video() {
+cat << EOF
+_____________
+CAPTURE VIDEO
+
+  -i, --input,         input video device
+  --video_device
+
+  -a, --audio_device   input audio device
+
+  -c, --codec          output video codec [libx264]
+
+  -t, --stop_time      maximum capture duration [06:00:00.000]
+
+  -d, --output_dir     directory in which to save the capture [(pwd)]
+
+  -o, --output_name    name for the capture file [(time_now).mp4]
+
+  --video_format       output video format [mpeg]
+
+  --audio_format       output audio format [wav]
+
+  --crf                output constant rate factor [28]
+
+  --preset             preset for capture process [ultrafast]
+
+  --size               input video size [640x480]
+
+  --standard           input stream standard [ntsc]
+
+  --threads            maximum threads for process [512]
+
+  --tune               tuning for capture output [film]
+
+  USAGE: digitizer -m capture_video -i /dev/video0 -a hw:2,0 -d . -o capture.mp4
+
+EOF
+}
+
+help_capture_audio() {
+cat << EOF
+_____________
+CAPTURE AUDIO
+
+  -i, --input,         input audio device
+  --audio_device
+
+  -fi, --input_format  input audio format [alsa]
+
+  -fo, --output_format output audio format [wav]
+
+  -t, --stop_time      maximum capture duration [01:00:00.000]
+
+  -c, --num_channels   number of audio channels [1]
+
+  -d, --output_dir     output directory [(pwd)]
+
+  -o, --output_name    output file name [(time_now).wav]
+
+  --sample_rate        output sample rate [44100]
+
+  --max_threads        maximum threads to use during processing [512]
+
+  USAGE: digitizer -m capture_audio -i hw:2,0 -d . -o capture.wav
+EOF
+}
+
+help_cut_video() {
+cat << EOF
+_________
+CUT VIDEO
+
+  -i, --input_file     input video for cutting
+
+  -d, --output_dir     directory in which to save the cut file
+
+  --crf                constant rate factor for encoding cut file
+
+  --crop               crop to apply in cut file
+
+  --dimensions         dimensions of the output cut file
+
+  --preset             preset for the encoding process
+
+  --queue_size         max queue size for encoding process
+
+  --tune               video tuning for the output file [film,...]
+  
+  USAGE: digitizer -m cut_video -i file.mp4 -d (pwd)/_OUT
+
+EOF
+}
+
+help_join() {
+cat << EOF
+____
+JOIN
+
+  -i, --input,         batch text file created in cut mode
+
+  -d, --output_dir     directory in which to save the joined file
+
+  -o, --output_name    name for the joined file
+
+  USAGE: digitizer -m join -i file.mp4 -d . -o out_file.mp4
+
+EOF
+}
+
+help_watch() {
+cat << EOF
+_____
+WATCH
+
+  -i, --input,         input video devide
+  --video_device
+
+  USAGE: digitizer -m watch -i /dev/video0
+
+EOF
+}
+
+print_help_capture_video() {
+  help_header
+  help_capture_video
+}
+
+print_help_capture_audio() {
+  help_header
+  help_capture_audio
+}
+
+print_help_cut_video() {
+  help_header
+  help_cut_video
+}
+
+print_help_general() {
+  help_header
+  help_general
+}
+
+print_help_batch() {
+  help_header
+  help_batch
+}
+
+print_help_join() {
+  help_header
+  help_join
+}
+
+print_help_watch() {
+  help_header
+  help_watch
+}
+
+print_help_all() {
+  help_header
+  help_general
+  help_capture_video
+  help_capture_audio
+  help_cut_video
+  help_batch
+  help_join
+  help_watch
+}
+
+print_help_by_mode() {
+  local mode="$1"
+  
+  if [[ "$mode" == `batch_mode_name` ]]; then
+    print_help_batch
+  elif [[ "$mode" == `capture_video_mode_name` ]]; then
+    print_help_capture_video
+  elif [[ "$mode" == `capture_audio_mode_name` ]]; then
+    print_help_capture_audio
+  elif [[ "$mode" == `cut_video_mode_name` ]]; then
+    print_help_cut_video
+  elif [[ "$mode" == `join_mode_name` ]]; then
+    print_help_join
+  elif [[ "$mode" == `watch_mode_name` ]]; then
+    print_help_watch
+  else
+    print_help_all
+  fi
+}
+
+show_help() {
+  local mode="$1"
+  
+  echo `print_help_by_mode "$mode"`
+
+  exit
+}
+
+
+
+
+capture_video_mode_name() {
+  echo "capture_video"
+}
+
+capture_audio_mode_name() {
+  echo "capture_audio"
+}
+
+cut_video_mode_name() {
+  echo "cut_video"
+}
+
+cut_audio_mode_name() {
+  echo "cut_audio"
+}
+
+batch_mode_name() {
+  echo "batch"
+}
+
+join_mode_name() {
+  echo "join"
+}
+
+watch_mode_name() {
+  echo "watch"
+}
+
+default_video_input_dimensions() {
+  echo "640x480"
+}
+
+default_video_output_dimensions() {
+  echo "720x540"
+}
+
+default_video_input_format() {
+  echo "v4l2"
+}
+
+default_audio_input_format() {
+  echo "alsa"
+}
+
+default_start_time() {
+  echo "00:00:00.000"
+}
+
+default_video_stop_time() {
+  echo "06:00:00.000"
+}
+
+default_audio_stop_time() {
+  echo "01:00:00.000"
+}
+
+default_crf() { 
+  echo "28"
+}
+
+default_capture_preset() {
+  echo "ultrafast"
+}
+
+default_preset() {
+  echo "slow"
+}
+
+default_crop() {
+  echo "in_w-2*20:in_h-2*20"
+}
+
+default_video_codec() {
+  echo "libx264"
+}
+
+default_tune() {
+  echo "film"
+}
+
+default_num_audio_channels() {
+  echo "1"
+}
+
+default_standard() {
+  echo "ntsc"
+}
+
+default_format() {
+  echo "mpeg"
+}
+
+default_max_threads() {
+  echo "512"
+}
+
+default_max_queue() {
+  echo "400"
+}
+
+default_audio_output_format() {
+  echo "wav"
+}
+
+default_audio_sample_rate() {
+  echo "44100"
+}
+
+
+
+detect_video_devices() {
+  local devices="$(ls -d /dev/video*)"
+  echo "${devices/$'\n'/' '}"
+}
+
+detect_audio_devices() {
+  devices_path="/dev/snd/"
+  available_device_builder="$(echo `ls -d ${devices_path}pcmC*D*c`)"
+  available_device_builder="${available_device_builder//pcmC/hw:}"
+  available_device_builder="${available_device_builder//c/}"
+  available_device_builder="${available_device_builder//D/,}"
+  available_audio_devices="${available_device_builder//${devices_path}/}"
+
+  echo "${available_audio_devices}"
+}
+
+
+
+get_save_ffmpeg_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command="$1"
+
+  [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  
+  local batch_file=`batch_file_location`
+
+  echo "$ffmpeg_command" >> "$batch_file"
+}
+
+open_ffplay() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local input_file="$1"
+
+  [[ -z "$input_file" ]] && error_missing_function_args "${FUNCNAME[0]}"
+
+  local nohup_file=`nohup_file_location` 
+
+  nohup ffplay \
+    -vf "drawtext=text='%{pts\:hms}':fontsize=30:box=1:x=(w-tw)/2:y=h-(2*lh)" \
+    -x 1000 -y 1000 \
+    "$input_file" > "$nohup_file" &
+}
+
+
+
+
+default_output_dir() {
+  echo "$(pwd)"
+}
+
+default_video_file_name() {
+  echo "`time_now`.mp4"
+}
+
+default_video_file_location() {
+  echo "`default_output_dir`/`default_video_file_name`"
+}
+
+default_audio_file_name() {
+  echo "`time_now`.wav"
+}
+
+default_audio_file_location() {
+  echo "`default_output_dir`/`default_audio_file_name`"
+}
+
+config_dir() {
+  echo "$HOME/.digitizer"
+}
+
+concat_file_name() {
+  echo "_temp_concat.txt"
+}
+
+concat_file_location() {
+  echo "`config_dir`/`concat_file_name`"
+}
+
+batch_file_name() {
+  echo "digitizer_batch.txt"
+}
+
+batch_file_location() {
+  echo "`config_dir`/`batch_file_name`"
+}
+
+nohup_file_name() {
+  echo "_nohup.out"
+}
+
+nohup_file_location() {
+  echo "`config_dir`/`nohup_file_name`"
+}
+
+
+
+
+is_mode_known() {
+  local selected_mode="$1"
+
+  [[ -z "$selected_mode" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  local known_modes=(\
+    `capture_video_mode_name` \
+    `capture_audio_mode_name` \
+    `cut_video_mode_name` \
+    `batch_mode_name` \
+    `join_mode_name` \
+    `watch_mode_name` \
+  )
+
+  local is_known=false
+  for mode in "${known_modes[@]}"; do
+    [[ "$selected_mode" == "$mode" ]] && is_known=true
+  done
+  
+  echo "$is_known"
+}
+
+
+
+timestamp_regex() {
+  echo "[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}"
+}
+
+time_now() {
+  echo $(date '+%y%m%d%H%M%S')
+}
+
+
+
+
+get_duration_between_timestamps() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local start_time="$1"
+  local end_time="$2"
+
+  [[ -z "$start_time" || -z "$end_time" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  local duration=`subtract_timestamps "$start_time" "$end_time"`
+
+  echo "$duration"
+} 
+
+subtract_timestamps() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local time_start="$1"
+  local time_end="$2"
+
+  [[ -z "$time_start" || -z "$time_end" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  
+  IFS=':.'
+  read -a start_elements <<< "$time_start"
+  local start_hours=$((10#${start_elements[0]}))
+  local start_minutes=$((10#${start_elements[1]}))
+  local start_seconds=$((10#${start_elements[2]}))
+  local start_ms=$((10#${start_elements[3]}))
+
+  read -a end_elements <<< "$time_end"
+  local end_hours=$((10#${end_elements[0]}))
+  local end_minutes=$((10#${end_elements[1]}))  
+  local end_seconds=$((10#${end_elements[2]}))  
+  local end_ms=$((10#${end_elements[3]}))  
+
+  local duration_hours="$((end_hours - start_hours))"
+  local duration_minutes="$((end_minutes - start_minutes))"
+  local duration_seconds="$((end_seconds - start_seconds))"
+  local duration_ms="$((end_ms - start_ms))"
+
+  IFS=' '
+  echo $(correct_timestamp_negatives "$duration_hours" "$duration_minutes" "$duration_seconds" "$duration_ms")
+}
+
+correct_timestamp_negatives() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local hours="$1"
+  local minutes="$2"
+  local seconds="$3"
+  local ms="$4"
+
+  [[ -z "$hours" || -z "$hours" || -z "$minutes"  || -z "$seconds" || -z "$ms" ]] && error_missing_function_args "correct_timestamp_negatives"
+  
+  if [[ "$ms" -le -1 ]]; then
+    seconds="$((seconds - 1))"
+    ms="$((1000 + ms))"
+  fi
+
+  if [[ "$seconds" -le -1 ]]; then
+    minutes="$((minutes - 1))"
+    seconds="$((seconds + 60))"
+  fi
+
+  if [[ "$minutes" -le -1 ]]; then
+    hours="$((hours - 1))"
+    minutes="$((minutes + 60))"
+  fi
+
+  if [[ "$hours" -le -1 ]]; then
+    hours="0"
+  fi
+
+  hours=`pad_timestamp_value "$hours" 2`
+  minutes=`pad_timestamp_value "$minutes" 2`
+  seconds=`pad_timestamp_value "$seconds" 2`
+  ms=`pad_timestamp_value "$ms" 3`
+
+  echo "$hours:$minutes:$seconds.$ms"
+}
+
+pad_timestamp_value() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local value="${1}"
+  local digits="${2}"
+
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  [[ -z "$value" || -z "$digits" ]] && error_missing_function_args "pad_timestamp_value"
+  
+  printf "%0${digits}d\n" $((10#${value}))
+}
+
+
+
+
+get_start_time() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local start_time=""
+
+  until [[ "$start_time" =~ `timestamp_regex` ]]; do
+    read -p "START [hh:mm:ss.mss] >> " start_time
+  done
+
+  echo "$start_time"
+}
+
+get_end_time() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local end_time=""
+
+  until [[ "$end_time" =~ `timestamp_regex` ]]; do
+    read -p "END   [hh:mm:ss.mss] >> " end_time
+  done
+  
+  echo "$end_time"
+}
+
+get_segment_name() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+
+  read -p "NAME >> " output_segment_name
+
+  echo "$output_segment_name"
+}
+
+
+
+
+get_user_selection() {
+  list_options="$1"
+  prompt_header="$2"
+ 
+  printf "$prompt_header" >&2
+  select selection in $list_options; do
+    echo "$selection"
+    printf "\n" >&2
+    break
+  done
+} 
+
+get_video_device_selection() {
+  local video_devices=`detect_video_devices`
+  local header="\nVIDEO DEVICE\n"
+  echo `get_user_selection "$video_devices" "$header"`
+}
+
+get_audio_device_selection() {
+  local audio_devices=`detect_audio_devices`
+  local header="AUDIO DEVICE\n"
+  echo `get_user_selection "$audio_devices" "$header"`
+}
+
+
+
+
+read_batch_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -i | --input | --batch_file )
+        shift
+        local input="$1"
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$input" ]] && local input=`batch_file_location`
+
+  echo "$input"
+}
+
+
+
+
+read_capture_audio_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -i | -a | --audio_device )
+        shift
+        local audio_device="$1"
+        ;;
+
+      -fi | --input_format )
+        shift
+        local input_format="$1"
+        ;;
+
+      -fo | --output_format )
+        shift
+        local output_format="$1"
+        ;;
+
+      -t | --stop_time )
+        shift
+        local stop_time="$1"
+        ;;
+
+      -c | --num_channels )
+        shift
+        local num_channels="$1"
+        ;;
+
+      -d | --output_dir )
+        shift
+        local output_dir="$1"
+        ;;
+
+      -o | --output_name )
+        shift
+        local output_name="$1"
+        ;;
+
+      --sample_rate )
+        shift
+        local sample_rate="$1"
+        ;;
+
+      --max_threads )
+        shift
+        local max_threads="$1"
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$audio_device" ]] && local audio_device=`get_audio_device_selection`
+  [[ -z "$input_format" ]] && local input_format=`default_audio_input_format`
+  [[ -z "$output_format" ]] && local output_format=`default_audio_output_format`
+  [[ -z "$num_channels" ]] && local num_channels=`default_num_audio_channels`
+  [[ -z "$sample_rate" ]] && local sample_rate=`default_audio_sample_rate`
+  [[ -z "$max_threads" ]] && local max_threads=`default_max_threads`
+  [[ -z "$stop_time" ]] && local stop_time=`default_audio_stop_time`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
+  [[ -z "$output_name" ]] && local output_name=`default_audio_file_name`
+  
+  local output_location="${output_dir}/${output_name}"
+
+  echo "$audio_device" "$input_format" "$output_format" "$num_channels" "$sample_rate" "$max_threads" "$stop_time" "$output_location"
+}
+
+
+
+
+read_capture_video_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -i | --input | --video_device )
+        shift
+        local video_device="$1"
+        ;;
+
+      -a | --audio_device )
+        shift
+        local audio_device="$1"
+        ;;
+
+      -c | --codec )
+        shift
+        local codec="$1"
+        ;;
+
+      -t | --stop_time )
+        shift
+        local stop_time="$1"
+        ;;
+
+      -d | --output_dir )
+        shift
+        local output_dir="$1"
+        ;;
+
+      -o | --output_name )
+        shift
+        local output_name="$1"
+        ;;
+
+      --video_format )
+        shift
+        local video_format="$1"
+        ;;
+
+      --crf )
+        shift
+        local crf="$1"
+        ;;
+
+      --preset )
+        shift
+        local preset="$1"
+        ;;
+
+      --size )
+        shift
+        local size="$1"
+        ;;
+
+      --standard )
+        shift
+        local standard="$1"
+        ;;
+
+      --threads )
+        shift
+        local threads="$1"
+        ;;
+
+      --tune )
+        shift
+        local tune="$1"
+        ;;
+
+      --channels )
+        shift
+        local num_audio_channels="$1"
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$video_device" ]] && local video_device=`get_video_device_selection`
+  [[ -z "$audio_device" ]] && local audio_device=`get_audio_device_selection`
+  [[ -z "$codec" ]] && local codec=`default_video_codec`
+  [[ -z "$crf" ]] && local crf=`default_crf`
+  [[ -z "$video_format" ]] && local video_format=`default_video_input_format`
+  [[ -z "$audio_format" ]] && local audio_format=`default_audio_input_format`
+  [[ -z "$preset" ]] && local preset=`default_capture_preset`
+  [[ -z "$size" ]] && local size=`default_video_input_dimensions`
+  [[ -z "$standard" ]] && local standard=`default_standard`
+  [[ -z "$stop_time" ]] && local stop_time=`default_video_stop_time`
+  [[ -z "$threads" ]] && local threads=`default_max_threads`
+  [[ -z "$tune" ]] && local tune=`default_tune`
+  [[ -z "$num_audio_channels" ]] && local num_audio_channels=`default_num_audio_channels`
+  [[ -z "$output_format" ]] && local output_format=`default_format`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
+  [[ -z "$output_name" ]] && local output_name=`time_now`
+  
+  local output_location="${output_dir}/${output_name}.mp4"
+
+  echo "$video_device" "$audio_device" "$codec" "$crf" "$video_format" "$audio_format" "$preset" "$size" "$standard" "$stop_time" "$threads" "$tune" "$num_audio_channels" "$output_format" "$output_location"
+}
+
+
+
+
+read_cut_video_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -i | --input_file )
+        shift
+        local input_file="$1"
+        ;;
+
+      -c | --codec )
+        shift
+        local codec="$1"
+        ;;
+
+      -d | --output_dir )
+        shift
+        local output_dir="$1"
+        ;;
+
+      --crf )
+        shift
+        local crf="$1"
+        ;;
+
+      --crop )
+        shift
+        local crop="$1"
+        ;;
+
+      --dimensions )
+        shift
+        local demensions="$1"
+        ;;
+
+      --preset )
+        shift
+        local preset="$1"
+        ;;
+
+      --queue_size )
+        shift
+        local queue_size="$1"
+        ;;
+
+      --tune )
+        shift
+        local tune="$1"
+        ;;
+
+      --channels )
+        shift
+        local num_audio_channels="$1"
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$input_file" ]] && error_missing_required_arg "input_file" "${FUNCNAME[0]}"
+  [[ -z "$codec" ]] && local codec=`default_video_codec`
+  [[ -z "$dimensions" ]] && local dimensions=`default_video_output_dimensions`
+  [[ -z "$tune" ]] && local tune=`default_tune`
+  [[ -z "$preset" ]] && local preset=`default_preset`
+  [[ -z "$crop" ]] && local crop=`default_crop`
+  [[ -z "$queue_size" ]] && local queue_size=`default_max_queue`
+  [[ -z "$crf" ]] && local crf=`default_crf`
+  [[ -z "$num_audio_channels" ]] && local num_audio_channels=`default_num_audio_channels`
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
+
+  echo "$input_file" "$codec" "$dimensions" "$tune" "$num_audio_channels" "$preset" "$crop" "$queue_size" "$crf" "$output_dir"
+}
+
+
+
+
+read_help_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -h | --help )
+        local should_show_help=true
+        ;;
+
+    esac
+    shift
+  done
+ 
+  if [[ "$should_show_help" == true ]]; then
+    print_help_by_mode "$mode"
+    exit
+  fi
+}
+
+
+
+
+trim_leading_comma() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local files_to_join="$1"
+
+  echo ${files_to_join#*,}
+}
+
+read_join_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -i | --input )
+        shift
+        local files_to_join="$files_to_join,$1"
+        ;;
+
+      -d | --output_dir )
+        shift
+        local output_dir="$1"
+        ;;
+
+      -o | --output_name )
+        shift
+        local output_name="$1"
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$files_to_join" ]] && error_missing_required_arg "input" "${FUNCNAME[0]}"
+  [[ -z "$output_name" ]] && error_missing_required_arg "output_name" "${FUNCNAME[0]}"
+  [[ -z "$output_dir" ]] && local output_dir=`default_output_dir`
+
+  files_to_join=`trim_leading_comma "$files_to_join"`
+
+  echo "$files_to_join" "$output_dir" "$output_name"
+}
+
+
+
+
+read_mode_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -m | --mode )
+        shift
+        local mode="$1"
+        ;;
+
+    esac
+    shift
+  done
+ 
+  [[ -z "$mode" ]] && error_missing_required_arg "$mode" "${FUNCNAME[0]}"
+  [[ `is_mode_known "$mode"` == false ]] && error_mode_not_found "$mode" "${FUNCNAME[0]}"
+
+  echo "$mode"
+}
+
+
+
+
+read_verbose_args() {
+  [[ "$is_verbose" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -v | --verbose )
+        local is_verbose="true"
+        ;;
+
+    esac
+    shift
+  done
+ 
+  [[ -z "$is_verbose" ]] && local is_verbose="false"
+
+  echo "$is_verbose"
+}
+
+
+
+
+read_watch_args() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  while [[ "$1" != "" ]]; do
+    case $1 in
+
+      -i | --input | --video_device )
+        shift
+        local video_device="$1"
+        ;;
+
+    esac
+    shift
+  done
+
+  [[ -z "$video_device" ]] && local video_device=`get_video_device_selection`
+  
+  echo "$video_device"
+}
+
+
+
+
+get_output_dir() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command="$1"
+
+  local output_location=`echo $ffmpeg_command | awk '{print $NF}'`
+
+  echo ${output_location%/*}
+}
+
+create_output_dir() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command="$1"
+
+  local output_dir=`get_output_dir "$ffmpeg_command"`
+  
+  mkdir "$output_dir"
+}
+
+batch_mode() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local batch_file="$1"
+
+  [[ -z "$batch_file" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  [[ ! -f "$batch_file" ]] && error_file_not_found "$batch_file" `batch_mode_name`
+
+  while IFS= read -r command; do
+    create_output_dir "$command"
+
+    eval "$command < /dev/null"
+  done < "$batch_file"
+}
+
+
+
+get_capture_audio_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local audio_device="$1"
+  local input_format="$2"
+  local output_format="$3"
+  local channels="$4"
+  local sample_rate="$5"
+  local threads="$6"
+  local stop_time="$7"
+  local output_location="$8"
+
+  [[ -z "$audio_device" || -z "$input_format" || -z "$channels" || -z "$sample_rate" || -z "$threads" || -z "$stop_time" || -z "$output_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  
+  echo "ffmpeg -f $input_format -channels $channels -sample_rate $sample_rate -thread_queue_size $threads -i $audio_device -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f $output_format pipe:play | ffplay -i pipe:play -nodisp"
+}
+
+run_capture_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command="$1"
+
+  [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  eval "$ffmpeg_command"
+}
+
+capture_audio_mode() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command=`get_capture_audio_command "$@"`
+
+  [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  echo "$ffmpeg_command" >&2
+  run_capture_command "$ffmpeg_command"
+}
+
+
+
+get_capture_video_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local video_device="$1"
+  local audio_device="$2"
+  local codec="$3"
+  local crf="$4"
+  local video_format="$5"
+  local audio_format="$6"
+  local preset="$7"
+  local size="$8"
+  local standard="$9"
+  local stop_time="${10}"
+  local threads="${11}"
+  local tune="${12}"
+  local num_audio_channels="${13}"
+  local output_format="${14}"
+  local output_location="${15}"
+
+  [[ -z "$video_device" || -z "$audio_device" || -z "$codec" || -z "$crf" || -z "$video_format" || -z "$audio_format" || -z "$preset" || -z "$size" || -z "$standard" || -z "$stop_time" || -z "$threads" || -z "$tune" || -z "$output_format" || -z "$output_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  
+  [[ ! -e "$video_device" ]] && error_device_not_found "$video_device" "${FUNCNAME[0]}"
+
+  echo "ffmpeg -standard $standard -f $video_format -video_size $size -thread_queue_size $threads -i $video_device -f $audio_format -thread_queue_size $threads -i $audio_device -c:v $codec -tune $tune -preset $preset -crf $crf -ac $num_audio_channels -t $stop_time -f $output_format - | ffmpeg -i - -c copy $output_location -c copy -f s32le pipe:play | ffplay -i pipe:play -nodisp"
+}
+
+run_capture_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command="$1"
+
+  [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  eval "$ffmpeg_command"
+}
+
+capture_video_mode() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command=`get_capture_video_command "$@"`
+
+  [[ -z "ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  echo "$ffmpeg_command" >&2
+  run_capture_command "$ffmpeg_command"
+}
+
+
+
+
+get_ffmpeg_cut_video_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local input_file="$1"
+  local duration="$2"
+  local codec="$3"
+  local dimensions="$4"
+  local tune="$5"
+  local num_audio_channels="$6"
+  local preset="$7"
+  local crop="$8"
+  local queue_size="$9"
+  local crf="${10}"
+  local output_dir="${11}"
+  local output_file_name="${12}"
+
+  [[ -z "$input_file" || -z "$duration" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" || -z "$output_file_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  echo "ffmpeg -i $(pwd)/$input_file -ss $start_time -c:v $codec -crf $crf -tune $tune -preset $preset -vf yadif=0:0:0,crop=$crop,scale=$dimensions -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac $num_audio_channels -b:a 128k -max_muxing_queue_size $queue_size -t $duration -movflags faststart $output_dir/$output_file_name.mp4"
+}
+
+cut_video_mode() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local input_file="$1"
+  local codec="$2"
+  local dimensions="$3"
+  local tune="$4"
+  local num_audio_channels="$5"
+  local preset="$6"
+  local crop="$7"
+  local queue_size="$8"
+  local crf="$9"
+  local output_dir="${10}"
+  
+  [[ -z "$input_file" || -z "$codec" || -z "$dimensions" || -z "$tune" || -z "$preset" || -z "$crop" || -z "$queue_size" || -z "$crf" || -z "$output_dir" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  [[ ! -f "$input_file" ]] && error_file_not_found "$input_file" "${FUNCNAME[0]}"
+
+  open_ffplay "$input_file"
+  sleep 0.2
+  
+  while true; do
+    local start_time=`get_start_time`
+    local end_time=`get_end_time`
+    local duration=`get_duration_between_timestamps "$start_time" "$end_time"`
+
+    local name=`get_segment_name "$input_file"`
+    
+    local ffmpeg_command="`get_ffmpeg_cut_video_command $input_file $duration $codec $dimensions $tune $num_audio_channels $preset $crop $queue_size $crf $output_dir $name`"
+  
+    get_save_ffmpeg_command "$ffmpeg_command"
+  done
+}
+
+
+
+
+create_concat_file() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local files_to_join="$1"
+  local output_dir="$2"
+  local concat_file_location="$3"
+
+  [[ "$files_to_join" == "" || -z "$output_dir" || -z "$concat_file_location" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+  
+  touch "$concat_file_location"
+
+  > "$concat_file_location"
+
+  IFS=','
+  read -ra files <<< "$files_to_join"
+  for file in "${files[@]}"; do
+    [[ ! -f "$file" ]] && error_file_not_found "$file" "${FUNCNAME[0]}"
+    echo "file '$(pwd)/$file'" >> $concat_file_location
+  done
+}
+
+get_ffmpeg_join_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local concat_file_location="$1"
+  local output_dir="$2"
+  local output_name="$3"
+
+  [[ -z "$concat_file_location" || -z "$output_dir" || -z "$output_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  echo "ffmpeg -f concat -safe 0 -i $concat_file_location -c copy $output_dir/$output_name.mp4"
+}
+
+run_ffmpeg_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffmpeg_command="$1"
+  
+  [[ -z "$ffmpeg_command" ]] && error_missing_function_args "${FUNCNAME[0]}"
+
+  eval "$ffmpeg_command"
+}
+
+join_mode() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local files_to_join="$1"
+  local output_dir="$2"
+  local output_name="$3"
+  
+  [[ "$files_to_join" == "" || -z "$output_dir" || -z "$output_name" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  local concat_file_location="$output_dir/`default_concat_file_name`"
+
+  create_concat_file "$files_to_join" "$output_dir" "$concat_file_location"
+  local ffmpeg_command=`get_ffmpeg_join_command "$concat_file_location" "$output_dir" "$output_name"`
+  run_ffmpeg_command "$ffmpeg_command"
+}
+
+
+
+
+get_ffplay_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local video_device="$1"
+  local audio_device="$2"
+
+  [[ -z "$video_device" || -z "$audio_device" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  echo "ffplay -standard `default_standard` -i $video_device"
+}
+
+run_ffplay_command() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local ffplay_command="$1"
+
+  [[ -z "$ffplay_command" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  eval "$ffplay_command"
+}
+
+watch_mode() {
+  [[ "$VERBOSE" = true ]] && log_arguments "${FUNCNAME[0]}" "$@"
+  local video_device="$1"
+  local audio_device="$2"
+
+  [[ -z "$video_device" || -z "$audio_device" ]] && error_missing_function_args "${FUNCNAME[0]}" "$@"
+
+  run_ffplay_command "`get_ffplay_command $video_device $audio_device`"
+}
+
+
+
+
+run_capture_video_mode() {
+  capture_video_mode `read_capture_video_args "$@"`
+}
+
+run_capture_audio_mode() {
+  capture_audio_mode `read_capture_audio_args "$@"`
+}
+
+run_cut_video_mode() {
+  cut_video_mode `read_cut_video_args "$@"`
+}
+
+run_cut_audio_mode() {
+  cut_audio_mode `read_video_cut_args "$@"`
+}
+
+run_batch_mode() {
+  batch_mode `read_batch_args "$@"`
+}
+
+run_join_mode() {
+  join_mode `read_join_args "$@"`
+}
+
+run_watch_mode() {
+  watch_mode `read_watch_args "$@"`
+}
+
+create_config_dir() {
+  mkdir -p `config_dir`
+}
+
+main() {
+  local is_verbose=`read_verbose_args "$@"`
+  [[ "$is_verbose" == true ]] && VERBOSE=true
+  
+  create_config_dir
+
+  local mode=`read_mode_args "$@"`
+  read_help_args "$@"
+  if [[ "$mode" == `capture_video_mode_name` ]]; then
+    run_capture_video_mode "$@"
+  elif [[ "$mode" == `capture_audio_mode_name` ]]; then
+    run_capture_audio_mode "$@"
+  elif [[ "$mode" == `cut_video_mode_name` ]]; then
+    run_cut_video_mode "$@"
+  elif [[ "$mode" == `cut_audio_mode_name` ]]; then
+    run_cut_audio_mode "$@"
+  elif [[ "$mode" == `batch_mode_name` ]]; then
+    run_batch_mode "$@"
+  elif [[ "$mode" == `join_mode_name` ]]; then
+    run_join_mode "$@"
+  elif [[ "$mode" == `watch_mode_name` ]]; then
+    run_watch_mode "$@"
+  elif [[ "$mode" == `audio_mode_name` ]]; then
+    run_audio_mode "$@"
+  else
+    print_help_by_mode
+  fi
+}
+
+main "$@"
+
