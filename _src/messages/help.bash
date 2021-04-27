@@ -105,6 +105,7 @@ CAPTURE AUDIO
   --max_threads        maximum threads to use during processing [512]
 
   USAGE: digitizer -m capture_audio -i hw:2,0 -d . -o capture.wav
+
 EOF
 }
 
